@@ -1,31 +1,10 @@
 library(infosiga)
 library(tidyverse)
+library(janitor)
 
-# sinistros = load_infosiga("sinistros")
-# vitimas = load_infosiga("vitimas")
+sinistros = load_infosiga("sinistros")
+vitimas = load_infosiga("vitimas")
 veiculos = load_infosiga("veiculos")
-
-# glimpse(sinistros)
-
-# sinistros |> 
-#     #filter(tipo_registro == "Sinistro fatal") |> 
-#     select(starts_with("gravidade")) |> 
-#     colSums()
-
-# sinistros |> 
-#     filter(tipo_registro == "Sinistro fatal") |> 
-#     select(starts_with("gravidade")) |> 
-#     pull(gravidade_nao_disponivel) |> 
-#     unique()
-
-# sinistros_fatais = sinistros |> 
-#     filter(tipo_registro == "Sinistro fatal")
-
-# vitimas |> 
-#     left_join(sinistros_fatais, by = "id_sinistro") |> 
-#     filter(!is.na(hora_sinistro)) |> 
-#     View()
-
 
 ## Custos
 
@@ -61,16 +40,16 @@ df_custos_institucionais = tibble(
     custos = c(453.35, 338.33, 653.06)
 )
 
-fator_ipca_201512_202503 = 1.628 # Calculadora IBGE
+fator_ipca_201412_202503 = 1.628 # Calculadora IBGE
 
 df_custos_pessoas$custos_atuais = 
-    df_custos_pessoas$custos * fator_ipca_201512_202503
+    df_custos_pessoas$custos * fator_ipca_201412_202503
 
 df_custos_veiculos$custos_atuais = 
-    df_custos_veiculos$custos * fator_ipca_201512_202503
+    df_custos_veiculos$custos * fator_ipca_201412_202503
 
 df_custos_institucionais$custos_atuais = 
-    df_custos_institucionais$custos * fator_ipca_201512_202503
+    df_custos_institucionais$custos * fator_ipca_201412_202503
 
 ### Urbano
 
@@ -82,9 +61,79 @@ df_custos_urbanos = tibble(
     custos_atuais = custos * fator_ipca_200304_202503
 )
 
+## Lista de municipios
+
+df_municipios = read_csv2(
+    "data/divisoes_regionais_esp.csv",
+    locale = locale(encoding = "latin1")
+) |>
+    clean_names() |>
+    mutate(cod_ibge = as.character(cod_ibge)) |>
+    select(cod_ibge, municipio) |> 
+    arrange(cod_ibge)
+
+
 ## Sinistros
 
 ### Rodovias
+
+df_custos_pessoas_wide = df_custos_pessoas |> 
+    select(-custos) |> 
+    filter(tipo_vitimas != "Ileso") |> 
+    pivot_wider(
+        names_from = tipo_vitimas, 
+        values_from = custos_atuais, 
+        names_prefix = "custos_"
+    ) |> 
+    clean_names()
+
+custos_sinistros_pessoas = sinistros |> 
+    filter(
+        data_sinistro > as.Date("2024-04-30"),
+        tipo_via == "Rodovias",
+        tipo_registro != "Notificação"
+    ) |> 
+    select(
+        cod_ibge, tipo_registro, gravidade_leve,
+        gravidade_grave, gravidade_fatal
+    ) |> 
+    left_join(
+        df_custos_pessoas_wide,
+        by = c("tipo_registro" = "tipo_sinistro")
+    ) |> 
+    mutate(
+        custos_pessoas = 
+            gravidade_leve * custos_leve + 
+                gravidade_grave * custos_grave + gravidade_fatal * custos_fatal
+    ) |> 
+    group_by(cod_ibge) |> 
+    summarise(custos_pessoas = sum(custos_pessoas))
+   
+
+df_custos_veiculos_wide = df_custos_veiculos |> 
+    select(-custos) |> 
+    pivot_wider(
+        names_from = tipo_veiculos, 
+        values_from = custos_atuais, 
+        names_prefix = "custos_"
+    ) |> 
+    clean_names()
+
+
+sinistros |> 
+    filter(
+        data_sinistro > as.Date("2024-04-30"),
+        tipo_via == "Rodovias",
+        tipo_registro != "Notificação"
+    ) |> 
+    select(
+        cod_ibge, tipo_registro, starts_with("tp_veiculo"),
+        -tp_veiculo_nao_disponivel
+    ) |> 
+    left_join(
+        df_custos_pessoas_wide,
+        by = c("tipo_registro" = "tipo_sinistro")
+    )
 
 ### Urbano
 
