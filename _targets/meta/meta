@@ -1,0 +1,13 @@
+name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
+create_custos_inst|function|3645244a2f909589
+create_custos_veiculos|function|b6a04dbfef2c9f5e
+create_custos_urbanos|function|4277daa01f67fa88
+.Random.seed|object|fd0d48d261aafec8
+create_custos_pessoas|function|a73ccd824349e81c
+fator_ipca_200304_202503|stem|5aa97c492136e64b|e491b6880161286a|2c530c1562a7fbd1|-992374674||t20207.856478309s|s55b|55|rds|local|vector|||0.623||
+tp_sinistros|stem|eeaa5a7b92f4332a|5ac4835cec3194a0|2c530c1562a7fbd1|-84627567||t20207.8564786563s|s95b|95|rds|local|vector|||0||
+fator_ipca_201412_202503|stem|5fd8ef116d3c1a3a|c2c63fa66ab47815|2c530c1562a7fbd1|1762064624||t20207.8564788877s|s55b|55|rds|local|vector|||0||
+df_custos_urbanos|stem|baa9a3acebee4ba1|175f90d80ebf1afe|952a926e220a6146|1957110159||t20207.8564790035s|s253b|253|rds|local|vector|||0.002||
+df_custos_veiculos|stem|27e987fa1bdfdbd5|458a44da32e36e05|d2da9291549219bd|554400607||t20207.856479235s|s545b|545|rds|local|vector|||0.007||
+df_custos_inst|stem|969ddca3c465b1e1|0b2c1b7c4c98170c|5399b632dd1e25ca|1124727624||t20207.8564793507s|s250b|250|rds|local|vector|||0.001||
+df_custos_pessoas|stem|bee7ae0e341cd1ee|b01cb6b47bc4c318|e55494dc614f4025|-856934101||t20207.8564794664s|s436b|436|rds|local|vector|||0.001||
