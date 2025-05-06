@@ -107,14 +107,15 @@ join_custos_rodovias = function(
 }
 
 join_all_custos <- function(
-    df_municipios, custos_rodovias, custos_urbanos
+    df_municipios, custos_rodovias, custos_urbanos, custos_vias_na
 ) {
     df_municipios |> 
         left_join(custos_rodovias |> select(-municipio), by = "cod_ibge") |> 
-        left_join(custos_urbanos, by = "cod_ibge") |> 
+        left_join(custos_urbanos, by = "cod_ibge") |>
+        left_join(custos_vias_na, by = "cod_ibge") |> 
         mutate(
             across(starts_with("custos"), ~if_else(is.na(.x), 0, .x)),
-            custos_totais = custos_rodovias + custos_urbanos
+            custos_totais = custos_rodovias + custos_urbanos + custos_na
         )
 }
 
@@ -129,3 +130,47 @@ join_tipo_registro_rodovias_custos = function(
                 custos_pessoas + custos_veiculos + custos_inst
         )
 }
+
+calc_custos_na <- function(
+    df_sinistros, 
+    df_custos_tipo_registro, 
+    tipo = c("Rodovias", "Vias urbanas")
+) {
+    df = df_sinistros |> 
+        count(tipo_registro) |> 
+        left_join(
+            df_custos_tipo_registro |> select(1, last_col()),
+            by = "tipo_registro"
+        ) |> 
+        mutate(tipo_via = tipo)
+
+    colnames(df) = c("tipo_registro", "sinistros", "custos", "tipo")
+    return(df)
+}
+
+extract_sinistros_tipo_via_na <- function(df_sinistros, date) {
+    df_sinistros |> 
+        filter(
+            data_sinistro > as.Date(date),
+            is.na(tipo_via),
+            tipo_registro != "Notificação"
+        )
+}
+
+calc_custos_sinistros_na <- function(
+    df_sinistros_na, custos_urbano, custos_rodovias
+) {
+    df_custos = custos_rodovias |> 
+        bind_rows(custos_urbano) |> 
+        mutate(custo_medio = custos / sinistros) |> 
+        group_by(tipo_registro) |> 
+        summarise(custo_medio = mean(custo_medio))
+
+    df_sinistros_na |> 
+        left_join(df_custos, by = "tipo_registro") |> 
+        group_by(cod_ibge) |> 
+        summarise(custos_na = sum(custo_medio))
+}
+
+
+

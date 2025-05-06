@@ -85,14 +85,6 @@ list(
         )
     ),
     tar_target(
-        df_custos_municipio,
-        join_all_custos(
-            df_municipios,
-            df_custos_rodovias,
-            df_custos_vias_municipais
-        )
-    ),
-    tar_target(
         df_custos_tipo_registro_pessoas,
         calc_custos_pessoas(
             df_sinistros_rodovias, 
@@ -130,6 +122,43 @@ list(
             df_custos_tipo_registro_pessoas,
             df_custos_tipo_registro_veiculos,
             df_custos_tipo_registro_inst
+        )
+    ),
+    tar_target(
+        df_custos_na_rodovias, 
+        calc_custos_na(
+            df_sinistros_rodovias, 
+            df_custos_tipo_registro_rodovias, 
+            "Rodovias"
+        )
+    ),
+    tar_target(
+        df_custos_na_urbano,
+        calc_custos_na(
+            df_sinistros_municipios,
+            df_custos_tipo_registro_urbano,
+            "Vias urbanas"
+        )
+    ),
+    tar_target(
+        df_sinistros_na,
+        extract_sinistros_tipo_via_na(df_sinistros, date_start)
+    ),
+    tar_target(
+        df_custos_vias_na,
+        calc_custos_sinistros_na(
+            df_sinistros_na,
+            df_custos_na_urbano,
+            df_custos_na_rodovias
+        )
+    ),
+    tar_target(
+        df_custos_municipio,
+        join_all_custos(
+            df_municipios,
+            df_custos_rodovias,
+            df_custos_vias_municipais,
+            df_custos_vias_na
         )
     )
 )
