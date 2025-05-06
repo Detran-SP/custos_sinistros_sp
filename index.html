@@ -25,6 +25,7 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -89,7 +90,7 @@ div.csl-indent {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Estimativa do custo dos sinistros de trânsito no estado de São Paulo - Metodologia de cálculo</h1>
-<p class="subtitle lead">Nota Técnica 02 - V01</p>
+<p class="subtitle lead">Nota Técnica 02 - V1</p>
 </div>
 
 
@@ -118,6 +119,11 @@ div.csl-indent {
 </header>
 
 
+<style>
+.csl-entry a {
+  word-break: break-all;
+}
+</style>
 <section id="introdução" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="introdução"><span class="header-section-number">1</span> Introdução</h2>
 <p>Os sinistros de trânsito representam um grave problema de saúde pública e segurança viária no Brasil, com impactos sociais e econômicos expressivos. Além da perda de vidas e da sobrecarga ao sistema de saúde, esses eventos impõem elevados custos à economia, afetando a produtividade e o bem-estar das famílias. A quantificação desses custos é essencial para embasar políticas públicas eficazes e priorizar investimentos em prevenção e segurança viária.</p>
@@ -126,6 +132,10 @@ div.csl-indent {
 </section>
 <section id="revisão-bibliográfica" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="revisão-bibliográfica"><span class="header-section-number">2</span> Revisão bibliográfica</h2>
+<p>A análise dos custos decorrentes dos sinistros de trânsito no Brasil tem sido objeto de esforços contínuos por parte do IPEA, com marcos metodológicos importantes ao longo dos últimos 20 anos. O primeiro estudo de referência buscou dimensionar pela primeira vez os impactos econômicos diretos e indiretos associados aos sinistros em aglomerações urbanas brasileiras <span class="citation" data-cites="ipeaImpactosSociaisEconomicos2003">(<a href="#ref-ipeaImpactosSociaisEconomicos2003" role="doc-biblioref">IPEA e ANTP 2003</a>)</span>. Utilizando dados agregados de mortalidade, internações e danos materiais, o estudo propôs uma estrutura inicial de custos baseada nos seguintes componentes: Custos Diretos (custos médico-hospitalares; resgate de vítimas; danos a veículos, a equipamentos urbanos, à sinalização e à propriedade de terceiros; remoção de veículos; atendimento policial; processos judiciais; custos previdenciários; e perda de produção) e Custos Indiretos (perda de produção (potencial) e ao congestionamento decorrente dos acidentes de trânsito). Embora limitado pela escassez de dados desagregados e por fortes pressupostos para estimativas de mortalidade e lesões não fatais, esse trabalho foi pioneiro ao introduzir a abordagem de custo social total como referência para políticas públicas.</p>
+<p>O segundo estudo, <em>Impactos Sociais e Econômicos Dos Acidentes de Trânsito Nas Rodovias Brasileiras</em> <span class="citation" data-cites="ipeaImpactosSociaisEconomicos2006">(<a href="#ref-ipeaImpactosSociaisEconomicos2006" role="doc-biblioref">IPEA, DENATRAN, e ANTP 2006</a>)</span>, focou exclusivamente nas rodovias (federais + estaduais/municipais) e representou um salto em termos de refinamento metodológico. Utilizando registros da Polícia Rodoviária Federal (PRF) e do registro das polícias estaduais de 7 estados, a pesquisa introduziu diferenciações entre tipos de vítimas (ilesas, feridas e fatais) e tipos de veículos, permitindo uma estimativa mais realista da severidade e dos custos médios por ocorrência. Um dos avanços foi a decomposição dos custos em componentes de custos relacionados às pessoas, aos veículos e às vias. Esse trabalho também aplicou uma estrutura de custos ajustada à realidade da malha viária federal, incorporando variáveis como tempo de atendimento e tipo de sinistro.</p>
+<p>Em 2015, o IPEA publicou um novo trabalho com o objetivo de atualizar os parâmetros de custo e expandir a análise para além das rodovias federais, alcançando um custo para todos os sinistros no Brasil <span class="citation" data-cites="ipeaEstimativaDosCustos2015a">(<a href="#ref-ipeaEstimativaDosCustos2015a" role="doc-biblioref">IPEA 2015</a>)</span>. A principal contribuição metodológica foi a diferenciação territorial dos custos, segmentando-os entre rodovias federais, estaduais/municipais e aglomerados urbanos. As rodovias federais, por apresentarem maior gravidade nos sinistros, possuem custos médios por ocorrência mais elevados, enquanto nas áreas urbanas, embora a letalidade seja menor, o volume de sinistros é muito superior, resultando em elevado custo agregado. Já em rodovias estaduais e municipais, a ausência de dados sistematizados exigiu o uso de proxies e coeficientes baseados na distribuição dos óbitos, aumentando o grau de incerteza nessas estimativas.</p>
+<p>Por fim, em 2020 o IPEA retoma a discussão de forma resumida, trazendo os resultados e metodologias apresentadas anteriormente nos outros trabalhos <span class="citation" data-cites="ipeaCUSTOSDOSACIDENTES2020">(<a href="#ref-ipeaCUSTOSDOSACIDENTES2020" role="doc-biblioref">IPEA 2020</a>)</span>. Um aspecto transversal entre os estudos é a tentativa de capturar tanto os custos diretos — como atendimento médico, remoção, perícias e danos materiais — quanto os custos indiretos e intangíveis, como perda de produtividade e sofrimento das vítimas e familiares. Embora cada estudo tenha adotado variações no escopo e na profundidade das estimativas, todos reforçam o elevado impacto econômico dos sinistros de trânsito, que, segundo as estimativas mais recentes, ultrapassam os 50 bilhões de reais anuais (valor de dez/2014).</p>
 </section>
 <section id="metodologia" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="metodologia"><span class="header-section-number">3</span> Metodologia</h2>
@@ -150,8 +160,19 @@ div.csl-indent {
 </section>
 <section id="referências-bibliográficas" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="referências-bibliográficas">Referências bibliográficas</h2>
-<div id="refs" role="list">
-
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-ipeaEstimativaDosCustos2015a" class="csl-entry" role="listitem">
+IPEA. 2015. <span>“Estimativa Dos <span>Custos</span> Dos <span>Acidentes</span> de <span>Trânsito</span> No <span>Brasil</span> Com <span>Base</span> Na <span>Atualização Simplificada</span> Das <span>Pesquisas Anteriores</span> Do <span>Ipea</span> - <span>Relatório</span> de <span>Pesquisa</span>”</span>. Brasília: Instituto de Pesquisa Econômica Aplicada. <a href="https://repositorio.ipea.gov.br/bitstream/11058/7456/1/RP_Estimativa_2015.pdf">https://repositorio.ipea.gov.br/bitstream/11058/7456/1/RP_Estimativa_2015.pdf</a>.
+</div>
+<div id="ref-ipeaCUSTOSDOSACIDENTES2020" class="csl-entry" role="listitem">
+———. 2020. <span>“<span>CUSTOS DOS ACIDENTES DE TRÂNSITO NO BRASIL</span>: <span>ESTIMATIVA SIMPLIFICADA COM BASE NA ATUALIZAÇÃO DAS PESQUISAS DO IPEA SOBRE CUSTOS DE ACIDENTES NOS AGLOMERADOS URBANOS E RODOVIAS</span> - <span>TEXTO PARA DISCUSSÃO</span>”</span>. Brasília: Instituto de Pesquisa Econômica Aplicada. <a href="https://www.ipea.gov.br/atlasviolencia/arquivos/artigos/7018-td2565.pdf">https://www.ipea.gov.br/atlasviolencia/arquivos/artigos/7018-td2565.pdf</a>.
+</div>
+<div id="ref-ipeaImpactosSociaisEconomicos2003" class="csl-entry" role="listitem">
+IPEA, e ANTP. 2003. <span>“Impactos Sociais e Econômicos Dos Acidentes de Trânsito Nas Aglomerações Urbanas Brasileiras - <span>Relatório Executivo</span>”</span>. Brasília: Instituto de Pesquisa Econômica Aplicada. <a href="https://www.almg.gov.br/export/sites/default/acompanhe/eventos/hotsites/2012/ciclo_transito/docs/relatorio_acidentes_ipea.pdf">https://www.almg.gov.br/export/sites/default/acompanhe/eventos/hotsites/2012/ciclo_transito/docs/relatorio_acidentes_ipea.pdf</a>.
+</div>
+<div id="ref-ipeaImpactosSociaisEconomicos2006" class="csl-entry" role="listitem">
+IPEA, DENATRAN, e ANTP. 2006. <span>“Impactos Sociais e Econômicos Dos Acidentes de Trânsito Nas Rodovias Brasileiras – <span>Relatório Final</span>”</span>. Brasília: Instituto de Pesquisa Econômica Aplicada. <a href="https://repositorio.ipea.gov.br/bitstream/11058/16059/1/impactos_sociais_e_economicos_dos_acidentes_de_transito_relatorio_final.pdf">https://repositorio.ipea.gov.br/bitstream/11058/16059/1/impactos_sociais_e_economicos_dos_acidentes_de_transito_relatorio_final.pdf</a>.
+</div>
 </div>
 </section>
 <section id="apêndice---custos-por-município" class="level2 unnumbered">

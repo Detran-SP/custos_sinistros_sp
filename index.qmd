@@ -23,6 +23,12 @@ number-sections: true
 bibliography: refs.bib
 ---
 
+<style>
+.csl-entry a {
+  word-break: break-all;
+}
+</style>
+
 ```{r}
 #| label: setup
 #| include: false
@@ -40,6 +46,14 @@ Desde 2003, o Instituto de Pesquisa Econômica Aplicada (IPEA) tem desenvolvido 
 Neste contexto, essa nota técnica apresenta um método de cálculo da estimativa dos custos de sinistros de trânsito no Estado de São Paulo, buscando sintetizar e adaptar as abordagens descritas pelo IPEA. Em adição, o trabalho oferece uma base metodológica atualizada e padronizada para apoiar gestores públicos e pesquisadores na formulação de ações baseadas em evidências.
 
 ## Revisão bibliográfica
+
+A análise dos custos decorrentes dos sinistros de trânsito no Brasil tem sido objeto de esforços contínuos por parte do IPEA, com marcos metodológicos importantes ao longo dos últimos 20 anos. O primeiro estudo de referência buscou dimensionar pela primeira vez os impactos econômicos diretos e indiretos associados aos sinistros em aglomerações urbanas brasileiras [@ipeaImpactosSociaisEconomicos2003]. Utilizando dados agregados de mortalidade, internações e danos materiais, o estudo propôs uma estrutura inicial de custos baseada nos seguintes componentes: Custos Diretos (custos médico-hospitalares; resgate de vítimas; danos a veículos, a equipamentos urbanos, à sinalização e à propriedade de terceiros; remoção de veículos; atendimento policial; processos judiciais; custos previdenciários; e perda de produção) e Custos Indiretos (perda de produção (potencial) e ao congestionamento decorrente dos acidentes de trânsito). Embora limitado pela escassez de dados desagregados e por fortes pressupostos para estimativas de mortalidade e lesões não fatais, esse trabalho foi pioneiro ao introduzir a abordagem de custo social total como referência para políticas públicas.
+
+O segundo estudo, *Impactos Sociais e Econômicos Dos Acidentes de Trânsito Nas Rodovias Brasileiras* [@ipeaImpactosSociaisEconomicos2006], focou exclusivamente nas rodovias (federais + estaduais/municipais) e representou um salto em termos de refinamento metodológico. Utilizando registros da Polícia Rodoviária Federal (PRF) e do registro das polícias estaduais de 7 estados, a pesquisa introduziu diferenciações entre tipos de vítimas (ilesas, feridas e fatais) e tipos de veículos, permitindo uma estimativa mais realista da severidade e dos custos médios por ocorrência. Um dos avanços foi a decomposição dos custos em componentes de custos relacionados às pessoas, aos veículos e às vias. Esse trabalho também aplicou uma estrutura de custos ajustada à realidade da malha viária federal, incorporando variáveis como tempo de atendimento e tipo de sinistro.
+
+Em 2015, o IPEA publicou um novo trabalho com o objetivo de atualizar os parâmetros de custo e expandir a análise para além das rodovias federais, alcançando um custo para todos os sinistros no Brasil [@ipeaEstimativaDosCustos2015a]. A principal contribuição metodológica foi a diferenciação territorial dos custos, segmentando-os entre rodovias federais, estaduais/municipais e aglomerados urbanos. As rodovias federais, por apresentarem maior gravidade nos sinistros, possuem custos médios por ocorrência mais elevados, enquanto nas áreas urbanas, embora a letalidade seja menor, o volume de sinistros é muito superior, resultando em elevado custo agregado. Já em rodovias estaduais e municipais, a ausência de dados sistematizados exigiu o uso de proxies e coeficientes baseados na distribuição dos óbitos, aumentando o grau de incerteza nessas estimativas.
+
+Por fim, em 2020 o IPEA retoma a discussão de forma resumida, trazendo os resultados e metodologias apresentadas anteriormente nos outros trabalhos [@ipeaCUSTOSDOSACIDENTES2020]. Um aspecto transversal entre os estudos é a tentativa de capturar tanto os custos diretos — como atendimento médico, remoção, perícias e danos materiais — quanto os custos indiretos e intangíveis, como perda de produtividade e sofrimento das vítimas e familiares. Embora cada estudo tenha adotado variações no escopo e na profundidade das estimativas, todos reforçam o elevado impacto econômico dos sinistros de trânsito, que, segundo as estimativas mais recentes, ultrapassam os 50 bilhões de reais anuais (valor de dez/2014).
 
 ## Metodologia
 
