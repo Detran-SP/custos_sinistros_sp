@@ -18,8 +18,8 @@ list(
         tp_sinistros,
         c("Sem vítimas", "Sinistro não fatal", "Sinistro fatal")
     ),
-    tar_target(fator_ipca_201412_202503, 1.7986),
-    tar_target(fator_ipca_200304_202503, 2.3786),
+    tar_target(fator_ipca_201412_202503, 7245.38 / 4028.44),
+    tar_target(fator_ipca_200304_202503, 7245.38 / 2144.49),
     tar_target(
         df_custos_pessoas,
         create_custos_pessoas(tp_sinistros, fator_ipca_201412_202503)
@@ -61,7 +61,11 @@ list(
     ),
     tar_target(
         df_custos_rodovias_veiculos,
-        calc_custos_veiculos(df_sinistros_rodovias, df_custos_veiculos, cod_ibge)
+        calc_custos_veiculos(
+            df_sinistros_rodovias, 
+            df_custos_veiculos, 
+            cod_ibge
+        )
     ),
     tar_target(
         df_custos_rodovias_inst,
