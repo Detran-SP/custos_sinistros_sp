@@ -1,0 +1,60 @@
+---
+title: "Custo dos sinistros de trânsito no estado de São Paulo - Metodologia de cálculo"
+subtitle: "Nota Técnica 02 - V01"
+date: last-modified
+author:
+  - name: Divisão de Estudos para Segurança no Trânsito
+    email: estudos.transito@detran.sp.gov.br
+format: 
+  html:
+    lang: pt-BR
+    toc: true
+    toc-depth: 4
+    fig-align: center
+    cap-location: top
+    fig-height: 4
+    fig-width: 6
+    fig-dpi: 300
+execute: 
+  warning: false
+  message: false
+  echo: false
+number-sections: true
+bibliography: refs.bib
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+library(targets)
+
+```
+
+## Introdução
+
+@ipeaCUSTOSDOSACIDENTES2020
+
+## Revisão bibliográfica
+
+## Metodologia
+
+### Rodovias
+
+### Vias urbanas
+
+## Resultados
+
+### Sinistros
+
+### Custos
+
+## Conclusão
+
+## Referências bibliográficas {.unnumbered}
+
+::: {#refs}
+:::
+
+## Apêndice - Custos por município {.unnumbered}
+
