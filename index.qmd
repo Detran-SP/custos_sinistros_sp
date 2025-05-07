@@ -34,6 +34,8 @@ bibliography: refs.bib
 #| include: false
 
 library(targets)
+library(gt)
+library(tidyverse)
 
 ```
 
@@ -43,13 +45,13 @@ Os sinistros de trânsito representam um grave problema de saúde pública e seg
 
 Desde 2003, o Instituto de Pesquisa Econômica Aplicada (IPEA) tem desenvolvido metodologias para estimar os custos associados aos sinistros de trânsito no país. Os estudos incorporam diferentes níveis de gravidade, categorias de vítimas, tipos de vias (rodovias federais, estaduais/municipais e aglomerados urbanos) e métodos de valoração baseados em contas nacionais.
 
-Neste contexto, essa nota técnica apresenta um método de cálculo da estimativa dos custos de sinistros de trânsito no Estado de São Paulo, buscando sintetizar e adaptar as abordagens descritas pelo IPEA. Em adição, o trabalho oferece uma base metodológica atualizada e padronizada para apoiar gestores públicos e pesquisadores na formulação de ações baseadas em evidências.
+Neste contexto, essa nota técnica apresenta um método de cálculo da estimativa dos custos de sinistros de trânsito no Estado de São Paulo, buscando sintetizar e adaptar as abordagens descritas pelo IPEA. Considerou-se os dados de sinistros dos últimos 12 meses disponíveis no Infosiga.SP (2024-04-01 a 2025-03-31) para calcular o custo deste período no estado e em cada município.
 
 ## Revisão bibliográfica
 
 A análise dos custos decorrentes dos sinistros de trânsito no Brasil tem sido objeto de esforços contínuos por parte do IPEA, com marcos metodológicos importantes ao longo dos últimos 20 anos. O primeiro estudo de referência buscou dimensionar pela primeira vez os impactos econômicos diretos e indiretos associados aos sinistros em aglomerações urbanas brasileiras [@ipeaImpactosSociaisEconomicos2003]. Utilizando dados agregados de mortalidade, internações e danos materiais, o estudo propôs uma estrutura inicial de custos baseada nos seguintes componentes: Custos Diretos (custos médico-hospitalares; resgate de vítimas; danos a veículos, a equipamentos urbanos, à sinalização e à propriedade de terceiros; remoção de veículos; atendimento policial; processos judiciais; custos previdenciários; e perda de produção) e Custos Indiretos (perda de produção (potencial) e ao congestionamento decorrente dos acidentes de trânsito). Embora limitado pela escassez de dados desagregados e por fortes pressupostos para estimativas de mortalidade e lesões não fatais, esse trabalho foi pioneiro ao introduzir a abordagem de custo social total como referência para políticas públicas.
 
-O segundo estudo, *Impactos Sociais e Econômicos Dos Acidentes de Trânsito Nas Rodovias Brasileiras* [@ipeaImpactosSociaisEconomicos2006], focou exclusivamente nas rodovias (federais + estaduais/municipais) e representou um salto em termos de refinamento metodológico. Utilizando registros da Polícia Rodoviária Federal (PRF) e do registro das polícias estaduais de 7 estados, a pesquisa introduziu diferenciações entre tipos de vítimas (ilesas, feridas e fatais) e tipos de veículos, permitindo uma estimativa mais realista da severidade e dos custos médios por ocorrência. Um dos avanços foi a decomposição dos custos em componentes de custos relacionados às pessoas, aos veículos e às vias. Esse trabalho também aplicou uma estrutura de custos ajustada à realidade da malha viária federal, incorporando variáveis como tempo de atendimento e tipo de sinistro.
+O segundo estudo, *Impactos Sociais e Econômicos Dos Acidentes de Trânsito Nas Rodovias Brasileiras* [@ipeaImpactosSociaisEconomicos2006], focou exclusivamente nas rodovias (federais + estaduais/municipais) e representou um salto em termos de refinamento metodológico. Utilizando registros da Polícia Rodoviária Federal (PRF) e do registro das polícias estaduais de 7 estados, a pesquisa introduziu diferenciações entre tipos de vítimas (ilesas, feridas e fatais) e tipos de veículos, permitindo uma estimativa mais realista da severidade e dos custos médios por ocorrência. Um dos avanços foi a decomposição dos custos em componentes de custos relacionados às pessoas, aos veículos e aos custos institucionais / danos patrimoniais. Esse trabalho também aplicou uma estrutura de custos ajustada à realidade da malha viária federal, incorporando variáveis como tempo de atendimento e tipo de sinistro.
 
 Em 2015, o IPEA publicou um novo trabalho com o objetivo de atualizar os parâmetros de custo e expandir a análise para além das rodovias federais, alcançando um custo para todos os sinistros no Brasil [@ipeaEstimativaDosCustos2015a]. A principal contribuição metodológica foi a diferenciação territorial dos custos, segmentando-os entre rodovias federais, estaduais/municipais e aglomerados urbanos. As rodovias federais, por apresentarem maior gravidade nos sinistros, possuem custos médios por ocorrência mais elevados, enquanto nas áreas urbanas, embora a letalidade seja menor, o volume de sinistros é muito superior, resultando em elevado custo agregado. Já em rodovias estaduais e municipais, a ausência de dados sistematizados exigiu o uso de proxies e coeficientes baseados na distribuição dos óbitos, aumentando o grau de incerteza nessas estimativas.
 
@@ -57,22 +59,237 @@ Por fim, em 2020 o IPEA retoma a discussão de forma resumida, trazendo os resul
 
 ## Metodologia
 
+Todo o processo apresentado nessa nota técnica foi desenvolvido com base na linguagem de programação R [@rcoreteam2021]. O código-fonte pode ser acessado no [repositório](https://github.com/pabsantos/custos_sinistros_sp).
+
+O cálculo dos custos foi elaborado com base nos dados abertos de sinistros disponibilizados no Infosiga [@detran-spInfosigaSPDadosAbertos2025], considerando os últimos 12 meses disponíveis a partir da data de elaboração deste trabalho (2024-04-01 a 2025-03-31). Para a análise, foram considerados os registros classificados como "Sinistro fatal" e "Sinistro não fatal".
+
+Os dados foram filtrados pela datas e separados pelo tipo de via. Neste processo, todos as entradas no atributo `tipo_via` que estavam como "RODOVIAS", "RURAL", "RURAL (COM CARACTERÍSTICA DE URBANA)" foram classificadas como rodovias. As vias classificadas como "URBANA" e "VIAS MUNICIPAIS" foram classificadas como vias municipais. Ainda, a base do infosiga possui alguns registros em que não há o tipo de via registrado.
+
+Para o cálculo dos custos, decidiu-se separar o método de acordo com a @eq-custo-total, somando os custos relacionados aos sinistros em rodovias ($C_r$), sinistros em vias municipais ($C_u$) e sinistros sem o registro do local e tipo de via ($C_{NA}$)
+$$
+C = C_r + C_u + C_{NA}
+$$ {#eq-custo-total}
+
+::: {.callout-note}
+O @ipeaCUSTOSDOSACIDENTES2020 estabelece um método de cálculo apenas para as rodovias federais e estima os custos em rodovias estaduais/municipais. Neste trabalho, utilizou-se o método das rodovias federais para todos tipos de rodovias em São Paulo.
+:::
+
+As seções a seguir apresentam os custos dos sinistros para cada tipo de via. Os valores apresentados dos componentes de custos foram atualizados, considerando a inflação até o mês de março/2025. O cálculo da inflação foi realizado com base no Índice Nacional de Preços ao Consumidor Amplo (IPCA). A @eq-ipca apresenta o processo de atualização para o custo $c$ no período $j$, que se baseia na razão dos valores de IPCA para o período $j$ e um período anterior ao período base $k$ ($k-1$) do custo que se quer atualizar ($c_k$), considerando que $j$ é mais recente que $k$ e que esses períodos são valores mensais. O IPCA no $k-1$ é necessário pois seu valor é sempre para o último dia do mês. Assim, para atualização dos custos é necessário pegar o IPCA do último dia do mês anterior ao mês que se quer atualizar.
+
+$$
+c_{j} = \frac{\text{IPCA}_j}{\text{IPCA}_{k-1}} \times c_{k}, \quad \forall j > k
+$$ {#eq-ipca}
+
 ### Rodovias
 
-### Vias urbanas
+De acordo com @ipeaEstimativaDosCustos2015a, os custos de sinistros em rodovias federais podem ser calculados com base na @eq-custo-rodovias, decompondo em custos relacionados às pessoas ($C_r$), custos relacionados aos veículos ($C_v$) e custos institucionais e danos patrimoniais ($C_i$).
+
+$$
+C_r = C_p + C_v + C_i
+$$ {#eq-custo-rodovias}
+
+A @tbl-custos-pessoas apresenta os componentes de custos associados às pessoas, com valores atualizados para março/2025. Os valores até a @tbl-custos-inst foram baseados em @ipeaEstimativaDosCustos2015a, que apresentava valores de dezembro/2014. Assim, aplicou-se a @eq-ipca, baseando-se no valor do IPCA de março/2025 (7.245,38) e o valor do IPCA de novembro/2014 (4.028,44), resultando em uma taxa de correção de 1,7986 [@ibgeIPCAIndiceNacional2025].
+
+Os custos apresentados na @tbl-custos-pessoas englobam os gastos pré-hospitalares, hospitalares, pós-hospitalares, perda de produção e remoção [@ipeaEstimativaDosCustos2015a]. Os custos variam de acordo com o tipo de sinistro e com a gravidade da vítima.
+
+```{r}
+#| label: tbl-custos-pessoas
+#| tbl-cap: Componentes de custos associados às pessoas (valores de março/2025)
+
+tar_load(df_custos_pessoas)
+
+df_custos_pessoas |>
+    select(-custos) |> 
+    pivot_wider(names_from = tp_sinistros, values_from = custos_atual) |> 
+    gt() |> 
+    cols_label(
+        tipo_vitimas = "Gravidade da vítima"
+    ) |> 
+    fmt_number(
+        columns = -tipo_vitimas,
+        pattern = "R$ {x}",
+        sep_mark = ".",
+        dec_mark = ","
+    ) |> 
+    tab_spanner(
+        columns = -tipo_vitimas,
+        label = "Tipo de sinistro"
+    )
+```
+
+A @eq-componente-pessoa apresenta o método de cálculo para os custos associados às pessoas para cada sinistro. O custo para um sinistro do tipo $t$ (Sem vítimas, Sinistro não fatal ou Sinistro fatal) é o somatório da quantidade de vítimas $q$ da gravidade $g$ multiplicado pelo custo $c$ associado à gravidade $g$ (Ileso, leve, grave ou fatal).
+
+$$
+C_{pt} = \sum_{g} q_{gt} \times c_{gt}
+$$ {#eq-componente-pessoa}
+
+::: {.callout-note}
+1. Até o momento de publicação desse trabalho, os sinistros fatais no Infosiga não possuem a informação de gravidade das outras vítimas não fatais que estavam envolvidas (aparecem como "gravidade não disponível").
+
+2. Nos sinistros não fatais há registros de vítimas com a gravidade não disponível
+
+3. O Infosiga não possui o registro de sinistros sem vítimas, assim, só foi possível calcular os custos para os sinistros fatais e não fatais.
+:::
+
+A @tbl-custos-veiculos apresenta os componentes de custos associados aos veículos, considerando os valores de março/2025. Os custos são classificados por tipo de veículo e por tipo de sinistro. Esses custos incluem os gastos de remoção/pátio, danos materiais e perda de carga.
+
+```{r}
+#| label: tbl-custos-veiculos
+#| tbl-cap: Componentes de custos associados aos veículos (valores de março/2025)
+
+tar_load(df_custos_veiculos)
+
+df_custos_veiculos |>
+    select(-custos) |> 
+    pivot_wider(names_from = tp_sinistros, values_from = custos_atual) |> 
+    gt() |> 
+    cols_label(
+        tipo_veiculos = "Tipo de veículo"
+    ) |> 
+    fmt_number(
+        columns = -tipo_veiculos,
+        pattern = "R$ {x}",
+        sep_mark = ".",
+        dec_mark = ","
+    ) |> 
+    tab_spanner(
+        columns = -tipo_veiculos,
+        label = "Tipo de sinistro"
+    )
+```
+
+A @eq-componente-veic descreve o método de cálculo para os custos associados aos veículos para cada sinistro. O custo para um sinistro do tipo $t$ (Sem vítimas, Sinistro não fatal ou Sinistro fatal) é o somatório da quantidade de veículos envolvidos $q$ do tipo $\nu$ multiplicado pelo custo $c$ associado ao tipo $\nu$ (automóvel, motocicleta, bicicleta, caminhão, ônibus ou outros).
+
+$$
+C_{vt} = \sum_\nu q_{\nu t} \times c_{\nu t}
+$$ {#eq-componente-veic}
+
+::: {.callout-note}
+O @ipeaEstimativaDosCustos2015a também traz custos relacionados aos veículos do tipo "utilitário". Como o Infosiga não possui essa classificação em seus registros, esse tipo foi desconsiderado.
+:::
+
+A @tbl-custos-inst contêm os custos institucionais e danos patrimoniais considerando valores de março/2025, que também incluem os gastos com atendimentos. Como ele não depende do tipo e da quantidade de vítimas / veículos, o seu cálculo é apenas uma soma do valor de acordo com o tipo de sinistro.
+
+```{r}
+#| label: tbl-custos-inst
+#| tbl-cap: Componentes de custos institucionais e danos patrimoniais (valores de março/2025)
+
+tar_load(df_custos_inst)
+
+df_custos_inst|>
+    select(-custos) |> 
+    gt() |> 
+    cols_label(
+        tipo_sinistro = "Tipo de sinistro",
+        custos_atual = "Custos"
+    ) |> 
+    fmt_number(
+        columns = -tipo_sinistro,
+        pattern = "R$ {x}",
+        sep_mark = ".",
+        dec_mark = ","
+    )
+```
+
+
+### Vias municipais
+
+Na @tbl-custos-urbanos estão apresentados os custos médios dos sinistros ocorridos em aglomerações urbanas com os valores de março/2025, extraídos de @ipeaImpactosSociaisEconomicos2003. O método apresentado pelos autores não inclui um detalhamento sobre o custo de cada componente, como foi elaborado para as rodovias.
+
+Para a atualização dos valores, baseou-se novamente na @eq-ipca, considerando agora uma atualização dos valores de abril/2003 (IPCA = 2.144,49) [@ibgeIPCAIndiceNacional2025], o que resultou em uma taxa de correção de 3,379.
+
+```{r}
+#| label: tbl-custos-urbanos
+#| tbl-cap: Custos médios de sinistros em vias municipais (valores de março/2025)
+
+tar_load(df_custos_urbanos)
+
+df_custos_urbanos |>
+    select(-custos) |> 
+    gt() |> 
+    cols_label(
+        tipo_sinistro = "Tipo de sinistro",
+        custos_atual = "Custos"
+    ) |> 
+    fmt_number(
+        columns = -tipo_sinistro,
+        pattern = "R$ {x}",
+        sep_mark = ".",
+        dec_mark = ","
+    )
+```
+
+### Locais não identificados
+
+Para os sinistros com locais não identificados, o custo para os sinistros foi calculado com base na média entre os custos médios em rodovias para cada tipo de sinistro ($C_{rt}$) e os custos para as vias urbanas para cada tipo de sinistro ($C_{ut}$), conforme apresentado anteriormente na @tbl-custos-urbanos. Esse processo está exemplificado na @eq-custos-na.
+
+$$
+C_{NA t} = \frac{C_{rt} + C_{ut}}{2}
+$$ {#eq-custos-na}
+
+A @tbl-custos-na apresenta os custos médios para cada tipo de sinistro em locais não identificados, com valores de março/2025.
+
+```{r}
+#| label: tbl-custos-na
+#| tbl-cap: Custos médios de sinistros em locais não identificados (valores de março/2025)
+
+tar_load(df_custos_na_rodovias)
+tar_load(df_custos_na_urbano)
+
+df_custos_na_rodovias |> 
+    bind_rows(df_custos_na_urbano) |> 
+    mutate(custo_medio = custos / sinistros) |> 
+    group_by(tipo_registro) |> 
+    summarise(custo_medio = mean(custo_medio)) |> 
+    gt() |> 
+    cols_label(
+        tipo_registro = "Tipo de sinistro", 
+        custo_medio = "Custo médio"
+    ) |> 
+    fmt_number(
+        columns = -tipo_registro,
+        pattern = "R$ {x}",
+        sep_mark = ".",
+        dec_mark = ","
+    )
+
+
+```
 
 ## Resultados
 
+- trazer a soma total de cara
+
 ### Sinistros
+
+- gráfico tipo de via x tipo de sinistro (facet)
+
+- grafico quantidade de veículos envolvidos por tipo de sinistro + tipo de via (facet com 4 classes)
+
+- gráfico quantidade de vítimas x tipo de via + tipo de sinistro (facet com 4 classes)
 
 ### Custos
 
+- tabela custo pessoas
+
+- tabela custo veic
+
+- tabela custo inst
+
+- tabela custo urbano
+
+- tabela custo na
+
+- cada tabela deve ter a quantidade do input, o tipo de sinistro, valor total, valor médio (?)
+
 ## Conclusão
+
+- Limitações
+
+- Comparar com o PIB SP
+
+- Comparar com os 50 bi de 2014
 
 ## Referências bibliográficas {.unnumbered}
 
-::: {#refs}
-:::
-
-## Apêndice - Custos por município {.unnumbered}
 

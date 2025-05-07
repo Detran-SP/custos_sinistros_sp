@@ -56,6 +56,35 @@ div.csl-indent {
 <link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="index_files/libs/bootstrap/bootstrap-60af812eb7add78407e4d9c0661a8803.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -72,7 +101,8 @@ div.csl-indent {
   <li><a href="#metodologia" id="toc-metodologia" class="nav-link" data-scroll-target="#metodologia"><span class="header-section-number">3</span> Metodologia</a>
   <ul>
   <li><a href="#rodovias" id="toc-rodovias" class="nav-link" data-scroll-target="#rodovias"><span class="header-section-number">3.1</span> Rodovias</a></li>
-  <li><a href="#vias-urbanas" id="toc-vias-urbanas" class="nav-link" data-scroll-target="#vias-urbanas"><span class="header-section-number">3.2</span> Vias urbanas</a></li>
+  <li><a href="#vias-municipais" id="toc-vias-municipais" class="nav-link" data-scroll-target="#vias-municipais"><span class="header-section-number">3.2</span> Vias municipais</a></li>
+  <li><a href="#locais-não-identificados" id="toc-locais-não-identificados" class="nav-link" data-scroll-target="#locais-não-identificados"><span class="header-section-number">3.3</span> Locais não identificados</a></li>
   </ul></li>
   <li><a href="#resultados" id="toc-resultados" class="nav-link" data-scroll-target="#resultados"><span class="header-section-number">4</span> Resultados</a>
   <ul>
@@ -81,7 +111,6 @@ div.csl-indent {
   </ul></li>
   <li><a href="#conclusão" id="toc-conclusão" class="nav-link" data-scroll-target="#conclusão"><span class="header-section-number">5</span> Conclusão</a></li>
   <li><a href="#referências-bibliográficas" id="toc-referências-bibliográficas" class="nav-link" data-scroll-target="#referências-bibliográficas">Referências bibliográficas</a></li>
-  <li><a href="#apêndice---custos-por-município" id="toc-apêndice---custos-por-município" class="nav-link" data-scroll-target="#apêndice---custos-por-município">Apêndice - Custos por município</a></li>
   </ul>
 </nav>
 </div>
@@ -107,7 +136,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Data de Publicação</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">6 de maio de 2025</p>
+      <p class="date">7 de maio de 2025</p>
     </div>
   </div>
   
@@ -128,39 +157,2640 @@ div.csl-indent {
 <h2 data-number="1" class="anchored" data-anchor-id="introdução"><span class="header-section-number">1</span> Introdução</h2>
 <p>Os sinistros de trânsito representam um grave problema de saúde pública e segurança viária no Brasil, com impactos sociais e econômicos expressivos. Além da perda de vidas e da sobrecarga ao sistema de saúde, esses eventos impõem elevados custos à economia, afetando a produtividade e o bem-estar das famílias. A quantificação desses custos é essencial para embasar políticas públicas eficazes e priorizar investimentos em prevenção e segurança viária.</p>
 <p>Desde 2003, o Instituto de Pesquisa Econômica Aplicada (IPEA) tem desenvolvido metodologias para estimar os custos associados aos sinistros de trânsito no país. Os estudos incorporam diferentes níveis de gravidade, categorias de vítimas, tipos de vias (rodovias federais, estaduais/municipais e aglomerados urbanos) e métodos de valoração baseados em contas nacionais.</p>
-<p>Neste contexto, essa nota técnica apresenta um método de cálculo da estimativa dos custos de sinistros de trânsito no Estado de São Paulo, buscando sintetizar e adaptar as abordagens descritas pelo IPEA. Em adição, o trabalho oferece uma base metodológica atualizada e padronizada para apoiar gestores públicos e pesquisadores na formulação de ações baseadas em evidências.</p>
+<p>Neste contexto, essa nota técnica apresenta um método de cálculo da estimativa dos custos de sinistros de trânsito no Estado de São Paulo, buscando sintetizar e adaptar as abordagens descritas pelo IPEA. Considerou-se os dados de sinistros dos últimos 12 meses disponíveis no Infosiga.SP (2024-04-01 a 2025-03-31) para calcular o custo deste período no estado e em cada município.</p>
 </section>
 <section id="revisão-bibliográfica" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="revisão-bibliográfica"><span class="header-section-number">2</span> Revisão bibliográfica</h2>
 <p>A análise dos custos decorrentes dos sinistros de trânsito no Brasil tem sido objeto de esforços contínuos por parte do IPEA, com marcos metodológicos importantes ao longo dos últimos 20 anos. O primeiro estudo de referência buscou dimensionar pela primeira vez os impactos econômicos diretos e indiretos associados aos sinistros em aglomerações urbanas brasileiras <span class="citation" data-cites="ipeaImpactosSociaisEconomicos2003">(<a href="#ref-ipeaImpactosSociaisEconomicos2003" role="doc-biblioref">IPEA e ANTP 2003</a>)</span>. Utilizando dados agregados de mortalidade, internações e danos materiais, o estudo propôs uma estrutura inicial de custos baseada nos seguintes componentes: Custos Diretos (custos médico-hospitalares; resgate de vítimas; danos a veículos, a equipamentos urbanos, à sinalização e à propriedade de terceiros; remoção de veículos; atendimento policial; processos judiciais; custos previdenciários; e perda de produção) e Custos Indiretos (perda de produção (potencial) e ao congestionamento decorrente dos acidentes de trânsito). Embora limitado pela escassez de dados desagregados e por fortes pressupostos para estimativas de mortalidade e lesões não fatais, esse trabalho foi pioneiro ao introduzir a abordagem de custo social total como referência para políticas públicas.</p>
-<p>O segundo estudo, <em>Impactos Sociais e Econômicos Dos Acidentes de Trânsito Nas Rodovias Brasileiras</em> <span class="citation" data-cites="ipeaImpactosSociaisEconomicos2006">(<a href="#ref-ipeaImpactosSociaisEconomicos2006" role="doc-biblioref">IPEA, DENATRAN, e ANTP 2006</a>)</span>, focou exclusivamente nas rodovias (federais + estaduais/municipais) e representou um salto em termos de refinamento metodológico. Utilizando registros da Polícia Rodoviária Federal (PRF) e do registro das polícias estaduais de 7 estados, a pesquisa introduziu diferenciações entre tipos de vítimas (ilesas, feridas e fatais) e tipos de veículos, permitindo uma estimativa mais realista da severidade e dos custos médios por ocorrência. Um dos avanços foi a decomposição dos custos em componentes de custos relacionados às pessoas, aos veículos e às vias. Esse trabalho também aplicou uma estrutura de custos ajustada à realidade da malha viária federal, incorporando variáveis como tempo de atendimento e tipo de sinistro.</p>
+<p>O segundo estudo, <em>Impactos Sociais e Econômicos Dos Acidentes de Trânsito Nas Rodovias Brasileiras</em> <span class="citation" data-cites="ipeaImpactosSociaisEconomicos2006">(<a href="#ref-ipeaImpactosSociaisEconomicos2006" role="doc-biblioref">IPEA, DENATRAN, e ANTP 2006</a>)</span>, focou exclusivamente nas rodovias (federais + estaduais/municipais) e representou um salto em termos de refinamento metodológico. Utilizando registros da Polícia Rodoviária Federal (PRF) e do registro das polícias estaduais de 7 estados, a pesquisa introduziu diferenciações entre tipos de vítimas (ilesas, feridas e fatais) e tipos de veículos, permitindo uma estimativa mais realista da severidade e dos custos médios por ocorrência. Um dos avanços foi a decomposição dos custos em componentes de custos relacionados às pessoas, aos veículos e aos custos institucionais / danos patrimoniais. Esse trabalho também aplicou uma estrutura de custos ajustada à realidade da malha viária federal, incorporando variáveis como tempo de atendimento e tipo de sinistro.</p>
 <p>Em 2015, o IPEA publicou um novo trabalho com o objetivo de atualizar os parâmetros de custo e expandir a análise para além das rodovias federais, alcançando um custo para todos os sinistros no Brasil <span class="citation" data-cites="ipeaEstimativaDosCustos2015a">(<a href="#ref-ipeaEstimativaDosCustos2015a" role="doc-biblioref">IPEA 2015</a>)</span>. A principal contribuição metodológica foi a diferenciação territorial dos custos, segmentando-os entre rodovias federais, estaduais/municipais e aglomerados urbanos. As rodovias federais, por apresentarem maior gravidade nos sinistros, possuem custos médios por ocorrência mais elevados, enquanto nas áreas urbanas, embora a letalidade seja menor, o volume de sinistros é muito superior, resultando em elevado custo agregado. Já em rodovias estaduais e municipais, a ausência de dados sistematizados exigiu o uso de proxies e coeficientes baseados na distribuição dos óbitos, aumentando o grau de incerteza nessas estimativas.</p>
 <p>Por fim, em 2020 o IPEA retoma a discussão de forma resumida, trazendo os resultados e metodologias apresentadas anteriormente nos outros trabalhos <span class="citation" data-cites="ipeaCUSTOSDOSACIDENTES2020">(<a href="#ref-ipeaCUSTOSDOSACIDENTES2020" role="doc-biblioref">IPEA 2020</a>)</span>. Um aspecto transversal entre os estudos é a tentativa de capturar tanto os custos diretos — como atendimento médico, remoção, perícias e danos materiais — quanto os custos indiretos e intangíveis, como perda de produtividade e sofrimento das vítimas e familiares. Embora cada estudo tenha adotado variações no escopo e na profundidade das estimativas, todos reforçam o elevado impacto econômico dos sinistros de trânsito, que, segundo as estimativas mais recentes, ultrapassam os 50 bilhões de reais anuais (valor de dez/2014).</p>
 </section>
 <section id="metodologia" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="metodologia"><span class="header-section-number">3</span> Metodologia</h2>
+<p>Todo o processo apresentado nessa nota técnica foi desenvolvido com base na linguagem de programação R <span class="citation" data-cites="rcoreteam2021">(<a href="#ref-rcoreteam2021" role="doc-biblioref">R Core Team 2024</a>)</span>. O código-fonte pode ser acessado no <a href="https://github.com/pabsantos/custos_sinistros_sp">repositório</a>.</p>
+<p>O cálculo dos custos foi elaborado com base nos dados abertos de sinistros disponibilizados no Infosiga <span class="citation" data-cites="detran-spInfosigaSPDadosAbertos2025">(<a href="#ref-detran-spInfosigaSPDadosAbertos2025" role="doc-biblioref">Detran-SP 2025</a>)</span>, considerando os últimos 12 meses disponíveis a partir da data de elaboração deste trabalho (2024-04-01 a 2025-03-31). Para a análise, foram considerados os registros classificados como “Sinistro fatal” e “Sinistro não fatal”.</p>
+<p>Os dados foram filtrados pela datas e separados pelo tipo de via. Neste processo, todos as entradas no atributo <code>tipo_via</code> que estavam como “RODOVIAS”, “RURAL”, “RURAL (COM CARACTERÍSTICA DE URBANA)” foram classificadas como rodovias. As vias classificadas como “URBANA” e “VIAS MUNICIPAIS” foram classificadas como vias municipais. Ainda, a base do infosiga possui alguns registros em que não há o tipo de via registrado.</p>
+<p>Para o cálculo dos custos, decidiu-se separar o método de acordo com a <a href="#eq-custo-total" class="quarto-xref">Equação&nbsp;1</a>, somando os custos relacionados aos sinistros em rodovias (<span class="math inline">\(C_r\)</span>), sinistros em vias municipais (<span class="math inline">\(C_u\)</span>) e sinistros sem o registro do local e tipo de via (<span class="math inline">\(C_{NA}\)</span>) <span id="eq-custo-total"><span class="math display">\[
+C = C_r + C_u + C_{NA}
+\tag{1}\]</span></span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>O <span class="citation" data-cites="ipeaCUSTOSDOSACIDENTES2020">IPEA (<a href="#ref-ipeaCUSTOSDOSACIDENTES2020" role="doc-biblioref">2020</a>)</span> estabelece um método de cálculo apenas para as rodovias federais e estima os custos em rodovias estaduais/municipais. Neste trabalho, utilizou-se o método das rodovias federais para todos tipos de rodovias em São Paulo.</p>
+</div>
+</div>
+<p>As seções a seguir apresentam os custos dos sinistros para cada tipo de via. Os valores apresentados dos componentes de custos foram atualizados, considerando a inflação até o mês de março/2025. O cálculo da inflação foi realizado com base no Índice Nacional de Preços ao Consumidor Amplo (IPCA). A <a href="#eq-ipca" class="quarto-xref">Equação&nbsp;2</a> apresenta o processo de atualização para o custo <span class="math inline">\(c\)</span> no período <span class="math inline">\(j\)</span>, que se baseia na razão dos valores de IPCA para o período <span class="math inline">\(j\)</span> e um período anterior ao período base <span class="math inline">\(k\)</span> (<span class="math inline">\(k-1\)</span>) do custo que se quer atualizar (<span class="math inline">\(c_k\)</span>), considerando que <span class="math inline">\(j\)</span> é mais recente que <span class="math inline">\(k\)</span> e que esses períodos são valores mensais. O IPCA no <span class="math inline">\(k-1\)</span> é necessário pois seu valor é sempre para o último dia do mês. Assim, para atualização dos custos é necessário pegar o IPCA do último dia do mês anterior ao mês que se quer atualizar.</p>
+<p><span id="eq-ipca"><span class="math display">\[
+c_{j} = \frac{\text{IPCA}_j}{\text{IPCA}_{k-1}} \times c_{k}, \quad \forall j &gt; k
+\tag{2}\]</span></span></p>
 <section id="rodovias" class="level3" data-number="3.1">
 <h3 data-number="3.1" class="anchored" data-anchor-id="rodovias"><span class="header-section-number">3.1</span> Rodovias</h3>
+<p>De acordo com <span class="citation" data-cites="ipeaEstimativaDosCustos2015a">IPEA (<a href="#ref-ipeaEstimativaDosCustos2015a" role="doc-biblioref">2015</a>)</span>, os custos de sinistros em rodovias federais podem ser calculados com base na <a href="#eq-custo-rodovias" class="quarto-xref">Equação&nbsp;3</a>, decompondo em custos relacionados às pessoas (<span class="math inline">\(C_r\)</span>), custos relacionados aos veículos (<span class="math inline">\(C_v\)</span>) e custos institucionais e danos patrimoniais (<span class="math inline">\(C_i\)</span>).</p>
+<p><span id="eq-custo-rodovias"><span class="math display">\[
+C_r = C_p + C_v + C_i
+\tag{3}\]</span></span></p>
+<p>A <a href="#tbl-custos-pessoas" class="quarto-xref">Tabela&nbsp;1</a> apresenta os componentes de custos associados às pessoas, com valores atualizados para março/2025. Os valores até a <a href="#tbl-custos-inst" class="quarto-xref">Tabela&nbsp;3</a> foram baseados em <span class="citation" data-cites="ipeaEstimativaDosCustos2015a">IPEA (<a href="#ref-ipeaEstimativaDosCustos2015a" role="doc-biblioref">2015</a>)</span>, que apresentava valores de dezembro/2014. Assim, aplicou-se a <a href="#eq-ipca" class="quarto-xref">Equação&nbsp;2</a>, baseando-se no valor do IPCA de março/2025 (7.245,38) e o valor do IPCA de novembro/2014 (4.028,44), resultando em uma taxa de correção de 1,7986 <span class="citation" data-cites="ibgeIPCAIndiceNacional2025">(<a href="#ref-ibgeIPCAIndiceNacional2025" role="doc-biblioref">IBGE 2025</a>)</span>.</p>
+<p>Os custos apresentados na <a href="#tbl-custos-pessoas" class="quarto-xref">Tabela&nbsp;1</a> englobam os gastos pré-hospitalares, hospitalares, pós-hospitalares, perda de produção e remoção <span class="citation" data-cites="ipeaEstimativaDosCustos2015a">(<a href="#ref-ipeaEstimativaDosCustos2015a" role="doc-biblioref">IPEA 2015</a>)</span>. Os custos variam de acordo com o tipo de sinistro e com a gravidade da vítima.</p>
+<div class="cell">
+<div id="tbl-custos-pessoas" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-custos-pessoas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;1: Componentes de custos associados às pessoas (valores de março/2025)
+</figcaption>
+<div aria-describedby="tbl-custos-pessoas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div id="mdbsovsjnx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#mdbsovsjnx table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#mdbsovsjnx thead, #mdbsovsjnx tbody, #mdbsovsjnx tfoot, #mdbsovsjnx tr, #mdbsovsjnx td, #mdbsovsjnx th {
+  border-style: none;
+}
+
+#mdbsovsjnx p {
+  margin: 0;
+  padding: 0;
+}
+
+#mdbsovsjnx .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#mdbsovsjnx .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#mdbsovsjnx .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#mdbsovsjnx .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#mdbsovsjnx .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#mdbsovsjnx .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#mdbsovsjnx .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#mdbsovsjnx .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#mdbsovsjnx .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#mdbsovsjnx .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#mdbsovsjnx .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#mdbsovsjnx .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#mdbsovsjnx .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#mdbsovsjnx .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#mdbsovsjnx .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#mdbsovsjnx .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#mdbsovsjnx .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#mdbsovsjnx .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#mdbsovsjnx .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#mdbsovsjnx .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#mdbsovsjnx .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#mdbsovsjnx .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#mdbsovsjnx .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#mdbsovsjnx .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#mdbsovsjnx .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#mdbsovsjnx .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#mdbsovsjnx .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#mdbsovsjnx .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#mdbsovsjnx .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#mdbsovsjnx .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#mdbsovsjnx .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#mdbsovsjnx .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#mdbsovsjnx .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#mdbsovsjnx .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#mdbsovsjnx .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#mdbsovsjnx .gt_left {
+  text-align: left;
+}
+
+#mdbsovsjnx .gt_center {
+  text-align: center;
+}
+
+#mdbsovsjnx .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#mdbsovsjnx .gt_font_normal {
+  font-weight: normal;
+}
+
+#mdbsovsjnx .gt_font_bold {
+  font-weight: bold;
+}
+
+#mdbsovsjnx .gt_font_italic {
+  font-style: italic;
+}
+
+#mdbsovsjnx .gt_super {
+  font-size: 65%;
+}
+
+#mdbsovsjnx .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#mdbsovsjnx .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#mdbsovsjnx .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#mdbsovsjnx .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#mdbsovsjnx .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#mdbsovsjnx .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#mdbsovsjnx .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#mdbsovsjnx .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#mdbsovsjnx div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="gt_col_headings gt_spanner_row header">
+<th rowspan="2" id="tipo_vitimas" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Gravidade da vítima</th>
+<th colspan="3" id="Tipo de sinistro" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
+Tipo de sinistro
+</div></th>
+</tr>
+<tr class="gt_col_headings even">
+<th id="Sem-vítimas" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Sem vítimas</th>
+<th id="Sinistro-não-fatal" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Sinistro não fatal</th>
+<th id="Sinistro-fatal" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Sinistro fatal</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="tipo_vitimas">Ileso</td>
+<td class="gt_row gt_right" headers="Sem vítimas">R$ 1.953,48</td>
+<td class="gt_row gt_right" headers="Sinistro não fatal">R$ 7.393,15</td>
+<td class="gt_row gt_right" headers="Sinistro fatal">R$ 3.309,24</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="tipo_vitimas">Leve</td>
+<td class="gt_row gt_right" headers="Sem vítimas">R$ 11.612,08</td>
+<td class="gt_row gt_right" headers="Sinistro não fatal">R$ 15.232,77</td>
+<td class="gt_row gt_right" headers="Sinistro fatal">R$ 15.531,93</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="tipo_vitimas">Grave</td>
+<td class="gt_row gt_right" headers="Sem vítimas">R$ 40.325,56</td>
+<td class="gt_row gt_right" headers="Sinistro não fatal">R$ 225.060,50</td>
+<td class="gt_row gt_right" headers="Sinistro fatal">R$ 253.877,08</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="tipo_vitimas">Fatal</td>
+<td class="gt_row gt_right" headers="Sem vítimas">R$ 358,42</td>
+<td class="gt_row gt_right" headers="Sinistro não fatal">R$ 602.826,39</td>
+<td class="gt_row gt_right" headers="Sinistro fatal">R$ 779.290,92</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>A <a href="#eq-componente-pessoa" class="quarto-xref">Equação&nbsp;4</a> apresenta o método de cálculo para os custos associados às pessoas para cada sinistro. O custo para um sinistro do tipo <span class="math inline">\(t\)</span> (Sem vítimas, Sinistro não fatal ou Sinistro fatal) é o somatório da quantidade de vítimas <span class="math inline">\(q\)</span> da gravidade <span class="math inline">\(g\)</span> multiplicado pelo custo <span class="math inline">\(c\)</span> associado à gravidade <span class="math inline">\(g\)</span> (Ileso, leve, grave ou fatal).</p>
+<p><span id="eq-componente-pessoa"><span class="math display">\[
+C_{pt} = \sum_{g} q_{gt} \times c_{gt}
+\tag{4}\]</span></span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><p>Até o momento de publicação desse trabalho, os sinistros fatais no Infosiga não possuem a informação de gravidade das outras vítimas não fatais que estavam envolvidas (aparecem como “gravidade não disponível”).</p></li>
+<li><p>Nos sinistros não fatais há registros de vítimas com a gravidade não disponível</p></li>
+<li><p>O Infosiga não possui o registro de sinistros sem vítimas, assim, só foi possível calcular os custos para os sinistros fatais e não fatais.</p></li>
+</ol>
+</div>
+</div>
+<p>A <a href="#tbl-custos-veiculos" class="quarto-xref">Tabela&nbsp;2</a> apresenta os componentes de custos associados aos veículos, considerando os valores de março/2025. Os custos são classificados por tipo de veículo e por tipo de sinistro. Esses custos incluem os gastos de remoção/pátio, danos materiais e perda de carga.</p>
+<div class="cell">
+<div id="tbl-custos-veiculos" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-custos-veiculos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;2: Componentes de custos associados aos veículos (valores de março/2025)
+</figcaption>
+<div aria-describedby="tbl-custos-veiculos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div id="vuetslvnqe" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#vuetslvnqe table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#vuetslvnqe thead, #vuetslvnqe tbody, #vuetslvnqe tfoot, #vuetslvnqe tr, #vuetslvnqe td, #vuetslvnqe th {
+  border-style: none;
+}
+
+#vuetslvnqe p {
+  margin: 0;
+  padding: 0;
+}
+
+#vuetslvnqe .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#vuetslvnqe .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#vuetslvnqe .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#vuetslvnqe .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#vuetslvnqe .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#vuetslvnqe .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vuetslvnqe .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#vuetslvnqe .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#vuetslvnqe .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#vuetslvnqe .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#vuetslvnqe .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#vuetslvnqe .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#vuetslvnqe .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#vuetslvnqe .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#vuetslvnqe .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#vuetslvnqe .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#vuetslvnqe .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#vuetslvnqe .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#vuetslvnqe .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vuetslvnqe .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#vuetslvnqe .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#vuetslvnqe .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#vuetslvnqe .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vuetslvnqe .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#vuetslvnqe .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#vuetslvnqe .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vuetslvnqe .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vuetslvnqe .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#vuetslvnqe .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vuetslvnqe .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#vuetslvnqe .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vuetslvnqe .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#vuetslvnqe .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vuetslvnqe .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#vuetslvnqe .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vuetslvnqe .gt_left {
+  text-align: left;
+}
+
+#vuetslvnqe .gt_center {
+  text-align: center;
+}
+
+#vuetslvnqe .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#vuetslvnqe .gt_font_normal {
+  font-weight: normal;
+}
+
+#vuetslvnqe .gt_font_bold {
+  font-weight: bold;
+}
+
+#vuetslvnqe .gt_font_italic {
+  font-style: italic;
+}
+
+#vuetslvnqe .gt_super {
+  font-size: 65%;
+}
+
+#vuetslvnqe .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#vuetslvnqe .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#vuetslvnqe .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#vuetslvnqe .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#vuetslvnqe .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#vuetslvnqe .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#vuetslvnqe .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#vuetslvnqe .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#vuetslvnqe div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="gt_col_headings gt_spanner_row header">
+<th rowspan="2" id="tipo_veiculos" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Tipo de veículo</th>
+<th colspan="3" id="Tipo de sinistro" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
+Tipo de sinistro
+</div></th>
+</tr>
+<tr class="gt_col_headings even">
+<th id="Sem-vítimas" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Sem vítimas</th>
+<th id="Sinistro-não-fatal" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Sinistro não fatal</th>
+<th id="Sinistro-fatal" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Sinistro fatal</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="tipo_veiculos">Automóvel</td>
+<td class="gt_row gt_right" headers="Sem vítimas">R$ 12.876,09</td>
+<td class="gt_row gt_right" headers="Sinistro não fatal">R$ 21.810,78</td>
+<td class="gt_row gt_right" headers="Sinistro fatal">R$ 34.755,16</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="tipo_veiculos">Motocicleta</td>
+<td class="gt_row gt_right" headers="Sem vítimas">R$ 4.448,21</td>
+<td class="gt_row gt_right" headers="Sinistro não fatal">R$ 4.929,88</td>
+<td class="gt_row gt_right" headers="Sinistro fatal">R$ 7.679,53</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="tipo_veiculos">Bicicleta</td>
+<td class="gt_row gt_right" headers="Sem vítimas">R$ 0,00</td>
+<td class="gt_row gt_right" headers="Sinistro não fatal">R$ 303,49</td>
+<td class="gt_row gt_right" headers="Sinistro fatal">R$ 223,20</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="tipo_veiculos">Caminhão</td>
+<td class="gt_row gt_right" headers="Sem vítimas">R$ 40.132,86</td>
+<td class="gt_row gt_right" headers="Sinistro não fatal">R$ 118.086,08</td>
+<td class="gt_row gt_right" headers="Sinistro fatal">R$ 86.016,81</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="tipo_veiculos">Ônibus</td>
+<td class="gt_row gt_right" headers="Sem vítimas">R$ 28.901,56</td>
+<td class="gt_row gt_right" headers="Sinistro não fatal">R$ 18.951,15</td>
+<td class="gt_row gt_right" headers="Sinistro fatal">R$ 37.206,03</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="tipo_veiculos">Outros</td>
+<td class="gt_row gt_right" headers="Sem vítimas">R$ 18.538,38</td>
+<td class="gt_row gt_right" headers="Sinistro não fatal">R$ 144.079,96</td>
+<td class="gt_row gt_right" headers="Sinistro fatal">R$ 146.059,56</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>A <a href="#eq-componente-veic" class="quarto-xref">Equação&nbsp;5</a> descreve o método de cálculo para os custos associados aos veículos para cada sinistro. O custo para um sinistro do tipo <span class="math inline">\(t\)</span> (Sem vítimas, Sinistro não fatal ou Sinistro fatal) é o somatório da quantidade de veículos envolvidos <span class="math inline">\(q\)</span> do tipo <span class="math inline">\(\nu\)</span> multiplicado pelo custo <span class="math inline">\(c\)</span> associado ao tipo <span class="math inline">\(\nu\)</span> (automóvel, motocicleta, bicicleta, caminhão, ônibus ou outros).</p>
+<p><span id="eq-componente-veic"><span class="math display">\[
+C_{vt} = \sum_\nu q_{\nu t} \times c_{\nu t}
+\tag{5}\]</span></span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>O <span class="citation" data-cites="ipeaEstimativaDosCustos2015a">IPEA (<a href="#ref-ipeaEstimativaDosCustos2015a" role="doc-biblioref">2015</a>)</span> também traz custos relacionados aos veículos do tipo “utilitário”. Como o Infosiga não possui essa classificação em seus registros, esse tipo foi desconsiderado.</p>
+</div>
+</div>
+<p>A <a href="#tbl-custos-inst" class="quarto-xref">Tabela&nbsp;3</a> contêm os custos institucionais e danos patrimoniais considerando valores de março/2025, que também incluem os gastos com atendimentos. Como ele não depende do tipo e da quantidade de vítimas / veículos, o seu cálculo é apenas uma soma do valor de acordo com o tipo de sinistro.</p>
+<div class="cell">
+<div id="tbl-custos-inst" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-custos-inst-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;3: Componentes de custos institucionais e danos patrimoniais (valores de março/2025)
+</figcaption>
+<div aria-describedby="tbl-custos-inst-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div id="gnbuxzblik" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#gnbuxzblik table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#gnbuxzblik thead, #gnbuxzblik tbody, #gnbuxzblik tfoot, #gnbuxzblik tr, #gnbuxzblik td, #gnbuxzblik th {
+  border-style: none;
+}
+
+#gnbuxzblik p {
+  margin: 0;
+  padding: 0;
+}
+
+#gnbuxzblik .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#gnbuxzblik .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#gnbuxzblik .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#gnbuxzblik .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#gnbuxzblik .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#gnbuxzblik .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gnbuxzblik .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#gnbuxzblik .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#gnbuxzblik .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#gnbuxzblik .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#gnbuxzblik .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#gnbuxzblik .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#gnbuxzblik .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#gnbuxzblik .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#gnbuxzblik .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#gnbuxzblik .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#gnbuxzblik .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#gnbuxzblik .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#gnbuxzblik .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gnbuxzblik .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#gnbuxzblik .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#gnbuxzblik .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#gnbuxzblik .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gnbuxzblik .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#gnbuxzblik .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#gnbuxzblik .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gnbuxzblik .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gnbuxzblik .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#gnbuxzblik .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gnbuxzblik .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#gnbuxzblik .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gnbuxzblik .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#gnbuxzblik .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gnbuxzblik .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#gnbuxzblik .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gnbuxzblik .gt_left {
+  text-align: left;
+}
+
+#gnbuxzblik .gt_center {
+  text-align: center;
+}
+
+#gnbuxzblik .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#gnbuxzblik .gt_font_normal {
+  font-weight: normal;
+}
+
+#gnbuxzblik .gt_font_bold {
+  font-weight: bold;
+}
+
+#gnbuxzblik .gt_font_italic {
+  font-style: italic;
+}
+
+#gnbuxzblik .gt_super {
+  font-size: 65%;
+}
+
+#gnbuxzblik .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#gnbuxzblik .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#gnbuxzblik .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#gnbuxzblik .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#gnbuxzblik .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#gnbuxzblik .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#gnbuxzblik .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#gnbuxzblik .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#gnbuxzblik div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_col_headings header">
+<th id="tipo_sinistro" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Tipo de sinistro</th>
+<th id="custos_atual" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Custos</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="tipo_sinistro">Sem vítimas</td>
+<td class="gt_row gt_right" headers="custos_atual">R$ 815,38</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="tipo_sinistro">Sinistro não fatal</td>
+<td class="gt_row gt_right" headers="custos_atual">R$ 608,51</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="tipo_sinistro">Sinistro fatal</td>
+<td class="gt_row gt_right" headers="custos_atual">R$ 1.174,57</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
 </section>
-<section id="vias-urbanas" class="level3" data-number="3.2">
-<h3 data-number="3.2" class="anchored" data-anchor-id="vias-urbanas"><span class="header-section-number">3.2</span> Vias urbanas</h3>
+<section id="vias-municipais" class="level3" data-number="3.2">
+<h3 data-number="3.2" class="anchored" data-anchor-id="vias-municipais"><span class="header-section-number">3.2</span> Vias municipais</h3>
+<p>Na <a href="#tbl-custos-urbanos" class="quarto-xref">Tabela&nbsp;4</a> estão apresentados os custos médios dos sinistros ocorridos em aglomerações urbanas com os valores de março/2025, extraídos de <span class="citation" data-cites="ipeaImpactosSociaisEconomicos2003">IPEA e ANTP (<a href="#ref-ipeaImpactosSociaisEconomicos2003" role="doc-biblioref">2003</a>)</span>. O método apresentado pelos autores não inclui um detalhamento sobre o custo de cada componente, como foi elaborado para as rodovias.</p>
+<p>Para a atualização dos valores, baseou-se novamente na <a href="#eq-ipca" class="quarto-xref">Equação&nbsp;2</a>, considerando agora uma atualização dos valores de abril/2003 (IPCA = 2.144,49) <span class="citation" data-cites="ibgeIPCAIndiceNacional2025">(<a href="#ref-ibgeIPCAIndiceNacional2025" role="doc-biblioref">IBGE 2025</a>)</span>, o que resultou em uma taxa de correção de 3,379.</p>
+<div class="cell">
+<div id="tbl-custos-urbanos" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-custos-urbanos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;4: Custos médios de sinistros em vias municipais (valores de março/2025)
+</figcaption>
+<div aria-describedby="tbl-custos-urbanos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div id="niqqckifnu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#niqqckifnu table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#niqqckifnu thead, #niqqckifnu tbody, #niqqckifnu tfoot, #niqqckifnu tr, #niqqckifnu td, #niqqckifnu th {
+  border-style: none;
+}
+
+#niqqckifnu p {
+  margin: 0;
+  padding: 0;
+}
+
+#niqqckifnu .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#niqqckifnu .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#niqqckifnu .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#niqqckifnu .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#niqqckifnu .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#niqqckifnu .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#niqqckifnu .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#niqqckifnu .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#niqqckifnu .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#niqqckifnu .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#niqqckifnu .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#niqqckifnu .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#niqqckifnu .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#niqqckifnu .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#niqqckifnu .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#niqqckifnu .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#niqqckifnu .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#niqqckifnu .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#niqqckifnu .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#niqqckifnu .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#niqqckifnu .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#niqqckifnu .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#niqqckifnu .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#niqqckifnu .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#niqqckifnu .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#niqqckifnu .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#niqqckifnu .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#niqqckifnu .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#niqqckifnu .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#niqqckifnu .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#niqqckifnu .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#niqqckifnu .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#niqqckifnu .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#niqqckifnu .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#niqqckifnu .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#niqqckifnu .gt_left {
+  text-align: left;
+}
+
+#niqqckifnu .gt_center {
+  text-align: center;
+}
+
+#niqqckifnu .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#niqqckifnu .gt_font_normal {
+  font-weight: normal;
+}
+
+#niqqckifnu .gt_font_bold {
+  font-weight: bold;
+}
+
+#niqqckifnu .gt_font_italic {
+  font-style: italic;
+}
+
+#niqqckifnu .gt_super {
+  font-size: 65%;
+}
+
+#niqqckifnu .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#niqqckifnu .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#niqqckifnu .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#niqqckifnu .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#niqqckifnu .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#niqqckifnu .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#niqqckifnu .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#niqqckifnu .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#niqqckifnu div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_col_headings header">
+<th id="tipo_sinistro" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Tipo de sinistro</th>
+<th id="custos_atual" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Custos</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="tipo_sinistro">Sem vítimas</td>
+<td class="gt_row gt_right" headers="custos_atual">R$ 11.019,45</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="tipo_sinistro">Sinistro não fatal</td>
+<td class="gt_row gt_right" headers="custos_atual">R$ 58.989,36</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="tipo_sinistro">Sinistro fatal</td>
+<td class="gt_row gt_right" headers="custos_atual">R$ 488.132,09</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</section>
+<section id="locais-não-identificados" class="level3" data-number="3.3">
+<h3 data-number="3.3" class="anchored" data-anchor-id="locais-não-identificados"><span class="header-section-number">3.3</span> Locais não identificados</h3>
+<p>Para os sinistros com locais não identificados, o custo para os sinistros foi calculado com base na média entre os custos médios em rodovias para cada tipo de sinistro (<span class="math inline">\(C_{rt}\)</span>) e os custos para as vias urbanas para cada tipo de sinistro (<span class="math inline">\(C_{ut}\)</span>), conforme apresentado anteriormente na <a href="#tbl-custos-urbanos" class="quarto-xref">Tabela&nbsp;4</a>. Esse processo está exemplificado na <a href="#eq-custos-na" class="quarto-xref">Equação&nbsp;6</a>.</p>
+<p><span id="eq-custos-na"><span class="math display">\[
+C_{NA t} = \frac{C_{rt} + C_{ut}}{2}
+\tag{6}\]</span></span></p>
+<p>A <a href="#tbl-custos-na" class="quarto-xref">Tabela&nbsp;5</a> apresenta os custos médios para cada tipo de sinistro em locais não identificados, com valores de março/2025.</p>
+<div class="cell">
+<div id="tbl-custos-na" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-custos-na-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;5: Custos médios de sinistros em locais não identificados (valores de março/2025)
+</figcaption>
+<div aria-describedby="tbl-custos-na-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div id="ukgskygxff" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ukgskygxff table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#ukgskygxff thead, #ukgskygxff tbody, #ukgskygxff tfoot, #ukgskygxff tr, #ukgskygxff td, #ukgskygxff th {
+  border-style: none;
+}
+
+#ukgskygxff p {
+  margin: 0;
+  padding: 0;
+}
+
+#ukgskygxff .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#ukgskygxff .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#ukgskygxff .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#ukgskygxff .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#ukgskygxff .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ukgskygxff .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ukgskygxff .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ukgskygxff .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#ukgskygxff .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#ukgskygxff .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#ukgskygxff .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#ukgskygxff .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#ukgskygxff .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#ukgskygxff .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#ukgskygxff .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ukgskygxff .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#ukgskygxff .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#ukgskygxff .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#ukgskygxff .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ukgskygxff .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#ukgskygxff .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#ukgskygxff .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#ukgskygxff .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ukgskygxff .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#ukgskygxff .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#ukgskygxff .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ukgskygxff .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ukgskygxff .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#ukgskygxff .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ukgskygxff .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#ukgskygxff .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ukgskygxff .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ukgskygxff .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ukgskygxff .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ukgskygxff .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ukgskygxff .gt_left {
+  text-align: left;
+}
+
+#ukgskygxff .gt_center {
+  text-align: center;
+}
+
+#ukgskygxff .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#ukgskygxff .gt_font_normal {
+  font-weight: normal;
+}
+
+#ukgskygxff .gt_font_bold {
+  font-weight: bold;
+}
+
+#ukgskygxff .gt_font_italic {
+  font-style: italic;
+}
+
+#ukgskygxff .gt_super {
+  font-size: 65%;
+}
+
+#ukgskygxff .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#ukgskygxff .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#ukgskygxff .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#ukgskygxff .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#ukgskygxff .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#ukgskygxff .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#ukgskygxff .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#ukgskygxff .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#ukgskygxff div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_col_headings header">
+<th id="tipo_registro" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Tipo de sinistro</th>
+<th id="custo_medio" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Custo médio</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="tipo_registro">Sinistro fatal</td>
+<td class="gt_row gt_right" headers="custo_medio">R$ 716.061,78</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="tipo_registro">Sinistro não fatal</td>
+<td class="gt_row gt_right" headers="custo_medio">R$ 85.976,23</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
 </section>
 </section>
 <section id="resultados" class="level2" data-number="4">
 <h2 data-number="4" class="anchored" data-anchor-id="resultados"><span class="header-section-number">4</span> Resultados</h2>
+<ul>
+<li>trazer a soma total de cara</li>
+</ul>
 <section id="sinistros" class="level3" data-number="4.1">
 <h3 data-number="4.1" class="anchored" data-anchor-id="sinistros"><span class="header-section-number">4.1</span> Sinistros</h3>
+<ul>
+<li><p>gráfico tipo de via x tipo de sinistro (facet)</p></li>
+<li><p>grafico quantidade de veículos envolvidos por tipo de sinistro + tipo de via (facet com 4 classes)</p></li>
+<li><p>gráfico quantidade de vítimas x tipo de via + tipo de sinistro (facet com 4 classes)</p></li>
+</ul>
 </section>
 <section id="custos" class="level3" data-number="4.2">
 <h3 data-number="4.2" class="anchored" data-anchor-id="custos"><span class="header-section-number">4.2</span> Custos</h3>
+<ul>
+<li><p>tabela custo pessoas</p></li>
+<li><p>tabela custo veic</p></li>
+<li><p>tabela custo inst</p></li>
+<li><p>tabela custo urbano</p></li>
+<li><p>tabela custo na</p></li>
+<li><p>cada tabela deve ter a quantidade do input, o tipo de sinistro, valor total, valor médio (?)</p></li>
+</ul>
 </section>
 </section>
 <section id="conclusão" class="level2" data-number="5">
 <h2 data-number="5" class="anchored" data-anchor-id="conclusão"><span class="header-section-number">5</span> Conclusão</h2>
+<ul>
+<li><p>Limitações</p></li>
+<li><p>Comparar com o PIB SP</p></li>
+</ul>
 </section>
 <section id="referências-bibliográficas" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="referências-bibliográficas">Referências bibliográficas</h2>
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Referências bibliográficas</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-detran-spInfosigaSPDadosAbertos2025" class="csl-entry" role="listitem">
+Detran-SP. 2025. <span>“Infosiga.<span>SP</span> - <span>Dados</span> Abertos”</span>. <a href="https://www.infosiga.sp.gov.br/">https://www.infosiga.sp.gov.br/</a>.
+</div>
+<div id="ref-ibgeIPCAIndiceNacional2025" class="csl-entry" role="listitem">
+IBGE. 2025. <span>“<span>IPCA</span> - <span>Índice Nacional</span> de <span>Preços</span> Ao <span>Consumidor Amplo</span> - <span>Série Histórica</span>”</span>. <a href="https://ftp.ibge.gov.br/Precos_Indices_de_Precos_ao_Consumidor/IPCA/Serie_Historica/">https://ftp.ibge.gov.br/Precos_Indices_de_Precos_ao_Consumidor/IPCA/Serie_Historica/</a>.
+</div>
 <div id="ref-ipeaEstimativaDosCustos2015a" class="csl-entry" role="listitem">
 IPEA. 2015. <span>“Estimativa Dos <span>Custos</span> Dos <span>Acidentes</span> de <span>Trânsito</span> No <span>Brasil</span> Com <span>Base</span> Na <span>Atualização Simplificada</span> Das <span>Pesquisas Anteriores</span> Do <span>Ipea</span> - <span>Relatório</span> de <span>Pesquisa</span>”</span>. Brasília: Instituto de Pesquisa Econômica Aplicada. <a href="https://repositorio.ipea.gov.br/bitstream/11058/7456/1/RP_Estimativa_2015.pdf">https://repositorio.ipea.gov.br/bitstream/11058/7456/1/RP_Estimativa_2015.pdf</a>.
 </div>
@@ -173,13 +2803,10 @@ IPEA, e ANTP. 2003. <span>“Impactos Sociais e Econômicos Dos Acidentes de Tr�
 <div id="ref-ipeaImpactosSociaisEconomicos2006" class="csl-entry" role="listitem">
 IPEA, DENATRAN, e ANTP. 2006. <span>“Impactos Sociais e Econômicos Dos Acidentes de Trânsito Nas Rodovias Brasileiras – <span>Relatório Final</span>”</span>. Brasília: Instituto de Pesquisa Econômica Aplicada. <a href="https://repositorio.ipea.gov.br/bitstream/11058/16059/1/impactos_sociais_e_economicos_dos_acidentes_de_transito_relatorio_final.pdf">https://repositorio.ipea.gov.br/bitstream/11058/16059/1/impactos_sociais_e_economicos_dos_acidentes_de_transito_relatorio_final.pdf</a>.
 </div>
+<div id="ref-rcoreteam2021" class="csl-entry" role="listitem">
+R Core Team. 2024. <em>R: <span>A</span> Language and Environment for Statistical Computing</em>. Manual. Vienna, Austria: R Foundation for Statistical Computing.
 </div>
-</section>
-<section id="apêndice---custos-por-município" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="apêndice---custos-por-município">Apêndice - Custos por município</h2>
-</section>
-
-</main>
+</div></section></div></main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
