@@ -67,9 +67,9 @@ Todo o processo apresentado nessa nota técnica foi desenvolvido com base na lin
 
 O cálculo dos custos foi elaborado com base nos dados abertos de sinistros disponibilizados no Infosiga [@detran-spInfosigaSPDadosAbertos2025], considerando os últimos 12 meses disponíveis a partir da data de elaboração deste trabalho (2024-04-01 a 2025-03-31). Para a análise, foram considerados os registros classificados como "Sinistro fatal" e "Sinistro não fatal".
 
-Os dados foram filtrados pela datas e separados pelo tipo de via. Neste processo, todos as entradas no atributo `tipo_via` que estavam como "RODOVIAS", "RURAL", "RURAL (COM CARACTERÍSTICA DE URBANA)" foram classificadas como rodovias. As vias classificadas como "URBANA" e "VIAS MUNICIPAIS" foram classificadas como vias municipais. Ainda, a base do infosiga possui alguns registros em que não há o tipo de via registrado.
+Os dados foram filtrados pelas datas e separados pelo tipo de via. Neste processo, todos as entradas no atributo `tipo_via` que estavam como "RODOVIAS", "RURAL", "RURAL (COM CARACTERÍSTICA DE URBANA)" foram classificadas como rodovias. As vias classificadas como "URBANA" e "VIAS MUNICIPAIS" foram classificadas como vias municipais. Ainda, a base do infosiga possui alguns registros em que não há o tipo de via registrado.
 
-Para o cálculo dos custos, decidiu-se separar o método de acordo com a @eq-custo-total, somando os custos relacionados aos sinistros em rodovias ($C_r$), sinistros em vias municipais ($C_u$) e sinistros sem o registro do local e tipo de via ($C_{NA}$)
+Para o cálculo dos custos, decidiu-se separar o método de acordo com a @eq-custo-total, somando os custos relacionados aos sinistros em rodovias ($C_r$), em vias municipais ($C_u$) e casos sem o registro do local e tipo de via ($C_{NA}$)
 $$
 C = C_r + C_u + C_{NA}
 $$ {#eq-custo-total}
@@ -779,9 +779,9 @@ Ainda que com menor representatividade no total de registros, os sinistros em lo
 
 Considerando os três tipos de via analisados, os sinistros em vias municipais concentram o maior volume de custos, totalizando cerca de R$ 7,46 bilhões, impulsionados principalmente pelos sinistros não fatais. Nas rodovias, o impacto foi de aproximadamente R$ 4,8 bilhões, distribuídos entre custos com vítimas, veículos e danos institucionais. Já os registros em locais não identificados, apesar de menos numerosos, somaram R$ 240 milhões exclusivamente em sinistros fatais. Esses números evidenciam tanto a magnitude dos prejuízos econômicos quanto a necessidade de qualificar os dados geográficos para aprimorar a gestão da segurança viária.
 
-### Resultados por município
+### Custos por município
 
-Por fim, a @tbl-custo-municipio apresenta de forma agregada os custos dos sinistros de trânsito por município.
+Por fim, a @tbl-custo-municipio apresenta de forma agregada os custos dos sinistros de trânsito por município. Os custos foram somados pelo município de ocorrência do sinistro, assim, é importante observar que isso não significa  que o custo apresentado é necessariamente a despesa direta que o município teve no período analisado.
 
 ```{r}
 #| label: tbl-custo-municipio
@@ -822,10 +822,13 @@ df_custos_municipio |>
 
 ## Conclusão
 
-- Limitações
+A estimativa apresentada nesta nota técnica aponta que os sinistros de trânsito no estado de São Paulo geraram perdas econômicas que ultrapassam R$ 12 bilhões no período analisado. Desse total, aproximadamente R$ 7,4 bilhões referem-se a ocorrências em vias municipais, que, embora apresentem menor gravidade média por sinistro, concentram a maior parte dos registros. Já os sinistros em rodovias somaram R$ 4,8 bilhões, com destaque para os custos relacionados às vítimas fatais, que representam a maior parcela do impacto financeiro nesse tipo de via. Por fim, os sinistros registrados em locais não identificados totalizaram R$ 240 milhões, exclusivamente associados a casos fatais.
 
-- Comparar com o PIB SP
+Entre os componentes analisados, os custos relacionados às pessoas são os mais expressivos, representando cerca de dois terços do total em rodovias. Em vias municipais, embora o volume de sinistros não fatais seja predominante, o custo médio por ocorrência ainda é elevado, o que amplia o impacto agregado. Já os danos aos veículos e os custos institucionais também contribuem de forma relevante para o total estimado, evidenciando que os prejuízos financeiros vão muito além da dimensão humana, afetando também o patrimônio privado e os recursos públicos.
+
+Ainda assim, algumas limitações devem ser consideradas. O modelo foi construído a partir de parâmetros nacionais definidos em estudos do IPEA, originalmente voltados para rodovias federais, o que pode não refletir integralmente as especificidades das rodovias estaduais e municipais de São Paulo. Além disso, a base de dados utilizada apresenta lacunas importantes, como a ausência de informações detalhadas sobre a gravidade das vítimas em alguns registros e a falta de identificação do tipo de via em uma parcela dos sinistros. Essas limitações podem impactar a precisão das estimativas e reforçam a necessidade de contínuo aprimoramento na coleta e qualificação dos dados. Devido à essas limitações, entende-se que o valor total apresentado nesse trabalho pode estar subestimado, assim, o valor real poderia ser ainda maior.
+
+Quando comparado ao Produto Interno Bruno do estado de R$ 3,1 trilhões em 2022, o custo dos sinistros representa cerca de 0,4% da economia. Embora esse percentual possa parecer modesto em termos relativos, trata-se de um volume expressivo de recursos que poderiam ser direcionados a políticas públicas, infraestrutura, saúde e educação. Reduzir essas perdas por meio de ações efetivas de prevenção e gestão da segurança viária representa, portanto, uma oportunidade concreta de ganho social e econômico para São Paulo.
 
 ## Referências bibliográficas {.unnumbered}
-
 
