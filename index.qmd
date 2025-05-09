@@ -15,12 +15,16 @@ format:
     fig-height: 4
     fig-width: 6
     fig-dpi: 300
+    code-links:
+      - repo
 execute: 
   warning: false
   message: false
   echo: false
 number-sections: true
 bibliography: refs.bib
+#repo-url: https://github.com/pabsantos/custos_sinistros_sp
+
 ---
 
 <style>
