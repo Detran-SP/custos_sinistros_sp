@@ -39,9 +39,7 @@ bibliography: refs.bib
 
 library(targets)
 library(gt)
-library(tidyverse)
 library(ggplot2)
-library(janitor)
 
 theme_set(theme_bw(base_family = "monospace", base_size = 8))
 
@@ -104,25 +102,7 @@ Os custos apresentados na @tbl-custos-pessoas englobam os gastos pré-hospitalar
 #| label: tbl-custos-pessoas
 #| tbl-cap: Componentes de custos associados às pessoas (valores de março/2025)
 
-tar_load(df_custos_pessoas)
-
-df_custos_pessoas |>
-    select(-custos) |> 
-    pivot_wider(names_from = tp_sinistros, values_from = custos_atual) |> 
-    gt() |> 
-    cols_label(
-        tipo_vitimas = "Gravidade da vítima"
-    ) |> 
-    fmt_number(
-        columns = -tipo_vitimas,
-        pattern = "R$ {x}",
-        sep_mark = ".",
-        dec_mark = ","
-    ) |> 
-    tab_spanner(
-        columns = -tipo_vitimas,
-        label = "Tipo de sinistro"
-    )
+tar_read(tbl_custos_pessoas)
 ```
 
 A @eq-componente-pessoa apresenta o método de cálculo para os custos associados às pessoas para cada sinistro. O custo para um sinistro do tipo $t$ (Sem vítimas, Sinistro não fatal ou Sinistro fatal) é o somatório da quantidade de vítimas $q$ da gravidade $g$ multiplicado pelo custo $c$ associado à gravidade $g$ (Ileso, leve, grave ou fatal).
@@ -145,25 +125,7 @@ A @tbl-custos-veiculos apresenta os componentes de custos associados aos veícul
 #| label: tbl-custos-veiculos
 #| tbl-cap: Componentes de custos associados aos veículos (valores de março/2025)
 
-tar_load(df_custos_veiculos)
-
-df_custos_veiculos |>
-    select(-custos) |> 
-    pivot_wider(names_from = tp_sinistros, values_from = custos_atual) |> 
-    gt() |> 
-    cols_label(
-        tipo_veiculos = "Tipo de veículo"
-    ) |> 
-    fmt_number(
-        columns = -tipo_veiculos,
-        pattern = "R$ {x}",
-        sep_mark = ".",
-        dec_mark = ","
-    ) |> 
-    tab_spanner(
-        columns = -tipo_veiculos,
-        label = "Tipo de sinistro"
-    )
+tar_read(tbl_custos_veiculos)
 ```
 
 A @eq-componente-veic descreve o método de cálculo para os custos associados aos veículos para cada sinistro. O custo para um sinistro do tipo $t$ (Sem vítimas, Sinistro não fatal ou Sinistro fatal) é o somatório da quantidade de veículos envolvidos $q$ do tipo $\nu$ multiplicado pelo custo $c$ associado ao tipo $\nu$ (automóvel, motocicleta, bicicleta, caminhão, ônibus ou outros).
@@ -184,21 +146,7 @@ A @tbl-custos-inst contêm os custos institucionais e danos patrimoniais conside
 #| label: tbl-custos-inst
 #| tbl-cap: Componentes de custos institucionais e danos patrimoniais (valores de março/2025)
 
-tar_load(df_custos_inst)
-
-df_custos_inst|>
-    select(-custos) |> 
-    gt() |> 
-    cols_label(
-        tipo_sinistro = "Tipo de sinistro",
-        custos_atual = "Custos"
-    ) |> 
-    fmt_number(
-        columns = -tipo_sinistro,
-        pattern = "R$ {x}",
-        sep_mark = ".",
-        dec_mark = ","
-    )
+tar_read(tbl_custos_inst)
 ```
 
 
@@ -212,21 +160,7 @@ Para a atualização dos valores, baseou-se novamente na @eq-ipca, considerando 
 #| label: tbl-custos-urbanos
 #| tbl-cap: Custos médios de sinistros em vias municipais (valores de março/2025)
 
-tar_load(df_custos_urbanos)
-
-df_custos_urbanos |>
-    select(-custos) |> 
-    gt() |> 
-    cols_label(
-        tipo_sinistro = "Tipo de sinistro",
-        custos_atual = "Custos"
-    ) |> 
-    fmt_number(
-        columns = -tipo_sinistro,
-        pattern = "R$ {x}",
-        sep_mark = ".",
-        dec_mark = ","
-    )
+tar_read(tbl_custos_urbanos)
 ```
 
 ### Locais não identificados
@@ -243,25 +177,7 @@ A @tbl-custos-na apresenta os custos médios para cada tipo de sinistro em locai
 #| label: tbl-custos-na
 #| tbl-cap: Custos médios de sinistros em locais não identificados (valores de março/2025)
 
-tar_load(df_custos_na_rodovias)
-tar_load(df_custos_na_urbano)
-
-df_custos_na_rodovias |> 
-    bind_rows(df_custos_na_urbano) |> 
-    mutate(custo_medio = custos / sinistros) |> 
-    group_by(tipo_registro) |> 
-    summarise(custo_medio = mean(custo_medio)) |> 
-    gt() |> 
-    cols_label(
-        tipo_registro = "Tipo de sinistro", 
-        custo_medio = "Custo médio"
-    ) |> 
-    fmt_number(
-        columns = -tipo_registro,
-        pattern = "R$ {x}",
-        sep_mark = ".",
-        dec_mark = ","
-    )
+tar_read(tbl_custos_na)
 ```
 
 ## Resultados
@@ -269,31 +185,11 @@ df_custos_na_rodovias |>
 ```{r}
 #| label: results
 #| include: false
-
-tar_load(df_custos_municipio)
-tar_load(df_sinistros)
-tar_load(date_start)
-
-custo_total = df_custos_municipio$custos_totais |> sum()
-custo_total_str = scales::dollar(
-    custo_total,
-    accuracy = 0.01,
-    prefix = "R$ ",
-    decimal.mark = ",",
-    big.mark = "."
-)
-
-n_sinistros = df_sinistros |> 
-    filter(
-        data_sinistro > as.Date(date_start),
-        tipo_registro != "Notificação"
-    ) |> 
-    nrow()
-
-
+tar_load(custo_total)
+tar_load(n_sinistros)
 ```
 
-O custo total dos sinistros de trânsito no estado de São Paulo, considerando o período entre 2024-04-01 e 2025-03-31, resultou em aproximadamente 12,5 bilhões de reais (`{r} custo_total_str`), considerando as `{r} n_sinistros` ocorrências nesse período. As seções a seguir apresentam um detalhamento dos sinistros ocorridos e dos custos.
+O custo total dos sinistros de trânsito no estado de São Paulo, considerando o período entre 2024-04-01 e 2025-03-31, resultou em aproximadamente 12,5 bilhões de reais (`{r} custo_total`), considerando as `{r} n_sinistros` ocorrências nesse período. As seções a seguir apresentam um detalhamento dos sinistros ocorridos e dos custos.
 
 ### Sinistros
 
@@ -303,19 +199,7 @@ A @tbl-via-tp-sinistro apresenta a distribuição dos sinistros fatais e não fa
 #| label: tbl-via-tp-sinistro
 #| tbl-cap: Quantidade de sinistros por tipo de via e gravidade.
 
-df_sinistros |> 
-    filter(
-        data_sinistro > as.Date(date_start),
-        tipo_registro != "Notificação"
-    ) |> 
-    count(tipo_via, tipo_registro) |> 
-    mutate(
-        tipo_via = if_else(is.na(tipo_via), "Local não identificado", tipo_via)
-    ) |>
-    pivot_wider(names_from = tipo_registro, values_from = n, values_fill = 0) |> 
-    gt() |> 
-    cols_label(tipo_via = "Tipo de via") |> 
-    fmt_number(-tipo_via, dec_mark = ",", sep_mark = ".", decimals = 0)
+tar_read(tbl_sinistros)
 ```
 
 
@@ -329,52 +213,7 @@ Nas rodovias, a distribuição é semelhante. O maior volume de sinistros não f
 #| label: tbl-vitimas
 #| tbl-cap: Quantidade de vítimas envolvidas nos sinistros, por tipo de via, gravidade e tipo de sinistro.
 
-df_sinistros |> 
-    filter(
-        data_sinistro > as.Date(date_start),
-        tipo_registro != "Notificação"
-    ) |> 
-    group_by(tipo_via, tipo_registro) |>
-    mutate(
-        tipo_via = if_else(is.na(tipo_via), "Local não identificado", tipo_via)
-    ) |> 
-    summarise(
-        sem_info = sum(gravidade_nao_disponivel),
-        ileso = sum(gravidade_ileso),
-        leve = sum(gravidade_leve),
-        grave = sum(gravidade_grave),
-        fatal = sum(gravidade_fatal)
-    ) |> 
-    pivot_longer(
-        cols = sem_info:fatal,
-        names_to = "gravidade_vitima",
-        values_to = "n"
-    ) |> 
-    pivot_wider(names_from = tipo_registro, values_from = n, values_fill = 0) |>
-    #ungroup() |> 
-    mutate(
-        tipo_via = factor(
-            tipo_via, 
-            levels = c("Rodovias", "Vias municipais", "Local não identificado")
-        ),
-        gravidade_vitima = case_match(
-            gravidade_vitima,
-            "sem_info" ~ "Gravidade não disponível",
-            "ileso" ~ "Ileso",
-            "leve" ~ "Leve",
-            "grave" ~ "Grave",
-            "fatal" ~ "Fatal"
-        )
-    ) |> 
-    filter(tipo_via != "Local não identificado") |> 
-    arrange(tipo_via) |> 
-    gt(rowname_col = "gravidade_vitima", row_group_as_column = TRUE) |> 
-    fmt_number(
-        columns = `Sinistro fatal`:`Sinistro não fatal`,
-        sep_mark = ".",
-        dec_mark = ",",
-        decimals = 0
-    )
+tar_read(tbl_vitimas)
 ```
 
 A @fig-veiculos apresenta a quantidade de veículos envolvidos em sinistros, segundo o tipo de via, o tipo de veículo envolvido e a gravidade do evento. Em vias municipais, os veículos mais frequentemente associados a sinistros não fatais são os automóveis (75.245 casos) e motocicletas (68.517 casos), seguidos por bicicletas (3.437). Já entre os sinistros fatais, as motocicletas aparecem com destaque (1.662 ocorrências), seguidas pelos automóveis (1.320 casos) e ônibus (245 casos).
@@ -385,58 +224,7 @@ Nas rodovias, o padrão é semelhante. Os sinistros não fatais são majoritaria
 #| label: fig-veiculos
 #| fig-cap: Quantidade de veículos envolvidos em sinistros
 
-df_sinistros |> 
-    filter(
-        data_sinistro > as.Date(date_start),
-        tipo_registro != "Notificação"
-    ) |> 
-    group_by(tipo_via, tipo_registro) |>
-    mutate(
-        tipo_via = if_else(is.na(tipo_via), "Local não identificado", tipo_via)
-    ) |> 
-    summarise(
-        bicicleta = sum(tp_veiculo_bicicleta),
-        motocicleta = sum(tp_veiculo_motocicleta),
-        automovel = sum(tp_veiculo_automovel),
-        onibus = sum(tp_veiculo_onibus),
-        caminhao = sum(tp_veiculo_caminhao),
-        outros = sum(tp_veiculo_outros)
-    ) |> 
-    pivot_longer(
-        cols = bicicleta:outros,
-        names_to = "tipo_veiculo",
-        values_to = "n"
-    ) |> 
-    mutate(
-        tipo_veiculo = case_match(
-            tipo_veiculo,
-            "bicicleta" ~ "Bicicleta",
-            "motocicleta" ~ "Motocicleta",
-            "automovel" ~ "Automóvel",
-            "onibus" ~ "Ônibus",
-            "caminhao" ~ "Caminhão",
-            "outros" ~ "Outros"
-        ),
-        tipo_veiculo = factor(
-            tipo_veiculo,
-            levels = c(
-                "Outros", "Caminhão", "Ônibus",
-                "Automóvel", "Motocicleta", "Bicicleta"
-            )
-        )
-    ) |> 
-    filter(tipo_via != "Local não identificado") |> 
-    ggplot(aes(x = tipo_veiculo, y = n)) +
-    geom_col(fill = "#004077") +
-    coord_flip() +
-    facet_grid(
-        rows = vars(tipo_via),
-        cols = vars(tipo_registro),
-        scales = "free"
-    ) +
-    labs(x = NULL, y = NULL)
-
-
+tar_read(fig_sinistros_veiculo)
 ```
 
 ### Custos
@@ -449,45 +237,7 @@ Conforme exemplificado na @fig-custos, os custos com sinistros em vias municipai
 #| fig-width: 6
 #| fig-height: 3
 
-custos = df_custos_municipio |> 
-    select(-cod_ibge, -municipio, -custos_rodovias, -custos_totais) |> 
-    colSums()
-
-tibble(
-    componente = names(custos),
-    valor = custos
-) |> 
-    mutate(
-        componente = factor(
-            componente,
-            levels = c(
-                "custos_urbanos", "custos_pessoas", "custos_veiculos",
-                "custos_inst", "custos_na"
-            )
-        ),
-        componente = case_match(
-            componente,
-            "custos_pessoas" ~ "Rodovias - pessoas",
-            "custos_veiculos" ~ "Rodovias - veículos",
-            "custos_inst" ~ "Rodovias - Inst. e danos patrimoniais",
-            "custos_urbanos" ~ "Vias municipais",
-            "custos_na" ~ "Locais não identificados"
-        ),
-        valor_label = scales::dollar(
-            valor,
-            accuracy = 0.01,
-            prefix = "R$ ",
-            decimal.mark = ",",
-            big.mark = "."
-        )
-    ) |> 
-    ggplot(aes(x = componente, y = valor)) +
-    geom_col(fill = "#004077") +
-    coord_flip() +
-    labs(x = NULL, y = NULL) +
-    scale_y_continuous(
-        label = scales::label_currency(prefix = "R$ ", big.mark = ".")
-    )
+tar_read(fig_custos)
 ```
 
 A @tbl-resultados-pessoas detalha os custos relacionados às vítimas de sinistros ocorridos em rodovias. Apesar de representarem apenas 2.566 casos, os óbitos resultaram em um impacto financeiro expressivo, atingindo quase R$ 2 bilhões. Vítimas em estado grave também contribuíram significativamente para o total, com quase R$ 888 milhões, mesmo sendo em menor número que os feridos leves. Estes últimos, embora mais numerosos (21.288), responderam por um custo relativamente menor, de aproximadamente R$ 324 milhões. Ao todo, os custos com pessoas somaram mais de R$ 3,2 bilhões no período analisado.
@@ -496,68 +246,7 @@ A @tbl-resultados-pessoas detalha os custos relacionados às vítimas de sinistr
 #| label: tbl-resultados-pessoas
 #| tbl-cap: Custos de sinistros em rodovias - custos relacionados às pessoas (valores de março/2025).
 
-tar_load(df_sinistros_rodovias)
-tar_load(df_custos_pessoas)
-
-tbl_custos = df_custos_pessoas |> 
-    filter(tipo_vitimas != "Ileso", tp_sinistros != "Sem vítimas") |> 
-    select(-custos)
-
-df_sinistros_rodovias |> 
-    group_by(tipo_registro) |> 
-    summarise(
-        `Leve` = sum(gravidade_leve),
-        `Grave` = sum(gravidade_grave),
-        `Fatal` = sum(gravidade_fatal)
-    ) |> 
-    pivot_longer(
-        cols = -tipo_registro,
-        names_to = "tipo_vitimas",
-        values_to = "n"
-    ) |> 
-    left_join(
-        tbl_custos, 
-        by = c("tipo_registro" = "tp_sinistros", "tipo_vitimas")
-    ) |> 
-    filter(n != 0) |> 
-    mutate(custo_total = n * custos_atual) |> 
-    select(-tipo_registro) |> 
-    gt(rowname_col = "tipo_vitimas") |> 
-    cols_label(
-        n = "Qnt. de vítimas",
-        custos_atual = "Custo p/ vítima",
-        custo_total = "Custo total"
-    ) |> 
-    fmt_number(
-        columns = custos_atual:custo_total,
-        pattern = "R$ {x}",
-        sep_mark = ".",
-        dec_mark = ","
-    ) |> 
-    fmt_number(
-        columns = n,
-        sep_mark = ".",
-        decimals = 0
-    ) |> 
-    grand_summary_rows(
-        columns = custo_total,
-        fns = list(Total = ~ sum(.)),
-        fmt = ~fmt_number(
-            .,
-            pattern = "R$ {x}",
-            sep_mark = ".",
-            dec_mark = ","
-        )
-    ) |> 
-    grand_summary_rows(
-        columns = n,
-        fns = list(Total = ~ sum(.)),
-        fmt = ~fmt_number(
-            .,
-            decimals = 0,
-            sep_mark = "."
-        )
-    )
+tar_read(tbl_resultados_pessoas)
 ```
 
 Na @tbl-resultados-veiculos, observam-se os custos associados aos veículos envolvidos em sinistros em rodovias. Automóveis e caminhões concentram a maior parte do impacto financeiro, respondendo juntos por mais de R$ 950 milhões. Em especial, os caminhões envolvidos em sinistros não fatais geraram um custo superior a R$ 494 milhões, reflexo do elevado valor médio por unidade. Já entre os casos fatais, destacam-se os custos com automóveis (R$ 58,2 milhões) e caminhões (R$ 63,8 milhões). Veículos classificados como “outros” também apresentaram valores expressivos, ultrapassando R$ 528 milhões no total. O custo agregado para esse componente chegou a R$ 1,63 bilhão.
@@ -566,71 +255,7 @@ Na @tbl-resultados-veiculos, observam-se os custos associados aos veículos envo
 #| label: tbl-resultados-veiculos
 #| tbl-cap: Custos de sinistros em rodovias - custos relacionados aos veículos (valores de março/2025).
 
-tar_load(df_custos_veiculos)
-
-tbl_custos = df_custos_veiculos |> 
-    filter(tp_sinistros != "Sem vítimas") |> 
-    select(-custos)
-
-df_sinistros_rodovias |> 
-    group_by(tipo_registro) |> 
-    summarise(
-        `Bicicleta` = sum(tp_veiculo_bicicleta),
-        `Motocicleta` = sum(tp_veiculo_motocicleta),
-        `Automóvel` = sum(tp_veiculo_automovel),
-        `Ônibus` = sum(tp_veiculo_onibus),
-        `Caminhão` = sum(tp_veiculo_caminhao),
-        `Outros` = sum(tp_veiculo_outros)
-    ) |> 
-    pivot_longer(
-        cols = -tipo_registro,
-        names_to = "tipo_veiculos",
-        values_to = "n"
-    ) |> 
-    left_join(
-        tbl_custos, 
-        by = c("tipo_registro" = "tp_sinistros", "tipo_veiculos")
-    ) |> 
-    #filter(n != 0) |> 
-    mutate(custo_total = n * custos_atual) |> 
-    #select(-tipo_registro) |> 
-    gt(groupname_col = "tipo_registro", row_group_as_column = TRUE) |> 
-    cols_label(
-        tipo_veiculos = "Tipo de veículo",
-        n = "Qnt. de veículos",
-        custos_atual = "Custo p/ veículo",
-        custo_total = "Custo total"
-    ) |> 
-    fmt_number(
-        columns = custos_atual:custo_total,
-        pattern = "R$ {x}",
-        sep_mark = ".",
-        dec_mark = ","
-    ) |> 
-    fmt_number(
-        columns = n,
-        sep_mark = ".",
-        decimals = 0
-    ) |> 
-    grand_summary_rows(
-        columns = custo_total,
-        fns = list(Total = ~ sum(.)),
-        fmt = ~fmt_number(
-            .,
-            pattern = "R$ {x}",
-            sep_mark = ".",
-            dec_mark = ","
-        )
-    ) |> 
-    grand_summary_rows(
-        columns = n,
-        fns = list(Total = ~ sum(.)),
-        fmt = ~fmt_number(
-            .,
-            decimals = 0,
-            sep_mark = "."
-        )
-    )
+tar_read(tbl_resultados_veiculos)
 
 ``` 
 
@@ -640,57 +265,7 @@ A @tbl-resultados-inst reúne os custos institucionais e os danos patrimoniais d
 #| label: tbl-resultados-inst
 #| tbl-cap: Custos de sinistros em rodovias - custos institucionais e danos patrimoniais (valores de março/2025).
 
-tar_load(df_custos_inst)
-
-tbl_custos = df_custos_inst |> 
-    filter(tipo_sinistro != "Sem vítimas") |> 
-    select(-custos)
-
-df_sinistros_rodovias |> 
-    count(tipo_registro) |> 
-    left_join(
-        tbl_custos, 
-        by = c("tipo_registro" = "tipo_sinistro")
-    ) |> 
-    #filter(n != 0) |> 
-    mutate(custo_total = n * custos_atual) |> 
-    #select(-tipo_registro) |> 
-    gt(rowname_col = "tipo_registro") |> 
-    cols_label(
-        n = "Qnt. de sinistros",
-        custos_atual = "Custo p/ sinistro",
-        custo_total = "Custo total"
-    ) |> 
-    fmt_number(
-        columns = custos_atual:custo_total,
-        pattern = "R$ {x}",
-        sep_mark = ".",
-        dec_mark = ","
-    ) |> 
-    fmt_number(
-        columns = n,
-        sep_mark = ".",
-        decimals = 0
-    ) |> 
-    grand_summary_rows(
-        columns = custo_total,
-        fns = list(Total = ~ sum(.)),
-        fmt = ~fmt_number(
-            .,
-            pattern = "R$ {x}",
-            sep_mark = ".",
-            dec_mark = ","
-        )
-    ) |> 
-    grand_summary_rows(
-        columns = n,
-        fns = list(Total = ~ sum(.)),
-        fmt = ~fmt_number(
-            .,
-            decimals = 0,
-            sep_mark = "."
-        )
-    )
+tar_read(tbl_resultados_inst)
 ```
 
 Somando os diferentes componentes analisados — custos com pessoas, veículos e danos institucionais — os sinistros em rodovias resultaram em um impacto econômico superior a R$ 3,2 bilhões apenas com vítimas, R$ 1,6 bilhão em danos aos veículos envolvidos e mais de R$ 17 milhões relacionados a encargos institucionais e prejuízos patrimoniais. Esses valores ilustram a abrangência das perdas provocadas pelos sinistros, que vão muito além das vítimas, envolvendo também danos materiais e custos indiretos para o poder público.
@@ -701,82 +276,7 @@ A @tbl-resultados-urbano mostra que os sinistros em vias municipais geraram um c
 #| label: tbl-resultados-urbano
 #| tbl-cap: Custos de sinistros em vias municipais (valores de março/2025).
 
-tar_load(df_custos_urbanos)
-tar_load(df_sinistros_municipios)
-
-tbl_custos = df_custos_urbanos |> 
-    filter(tipo_sinistro != "Sem vítimas") |> 
-    select(-custos)
-
-df_sinistros_municipios |> 
-    count(tipo_registro) |> 
-    left_join(
-        tbl_custos, 
-        by = c("tipo_registro" = "tipo_sinistro")
-    ) |> 
-    #filter(n != 0) |> 
-    mutate(custo_total = n * custos_atual) |> 
-    #select(-tipo_registro) |> 
-    gt(rowname_col = "tipo_registro") |> 
-    cols_label(
-        n = "Qnt. de sinistros",
-        custos_atual = "Custo p/ sinistro",
-        custo_total = "Custo total"
-    ) |> 
-    fmt_number(
-        columns = custos_atual:custo_total,
-        pattern = "R$ {x}",
-        sep_mark = ".",
-        dec_mark = ","
-    ) |> 
-    fmt_number(
-        columns = n,
-        sep_mark = ".",
-        decimals = 0
-    ) |> 
-    grand_summary_rows(
-        columns = custo_total,
-        fns = list(Total = ~ sum(.)),
-        fmt = ~fmt_number(
-            .,
-            pattern = "R$ {x}",
-            sep_mark = ".",
-            dec_mark = ","
-        )
-    ) |> 
-    grand_summary_rows(
-        columns = n,
-        fns = list(Total = ~ sum(.)),
-        fmt = ~fmt_number(
-            .,
-            decimals = 0,
-            sep_mark = "."
-        )
-    )
-```
-
-```{r}
-#| label: resultados-na
-#| include: false
-
-tar_load(df_custos_na_rodovias)
-tar_load(df_custos_na_urbano)
-tar_load(df_sinistros_na)
-
-tbl_custos = df_custos_na_rodovias |> 
-    bind_rows(df_custos_na_urbano) |> 
-    mutate(custo_medio = custos / sinistros) |> 
-    group_by(tipo_registro) |> 
-    summarise(custos_atual = mean(custo_medio))
-
-df_sinistros_na |> 
-    count(tipo_registro) |> 
-    left_join(
-        tbl_custos, 
-        by = c("tipo_registro")
-    ) |> 
-    #filter(n != 0) |> 
-    mutate(custo_total = n * custos_atual)
+tar_read(tbl_resultados_vias_municipais)
 ```
 
 Ainda que com menor representatividade no total de registros, os sinistros em locais não identificados somaram 336 casos fatais, com um custo médio superior a R$ 716 mil por ocorrência. O impacto financeiro estimado para essa categoria ultrapassa os R$ 240 milhões, valor que reforça a importância de aprimorar a identificação espacial dos registros para qualificar a análise e o direcionamento de políticas públicas.
@@ -791,37 +291,7 @@ Por fim, a @tbl-custo-municipio apresenta de forma agregada os custos dos sinist
 #| label: tbl-custo-municipio
 #| tbl-cap: Custo dos sinistros de trânsito agregados por município da ocorrência (Valores de março/2025)
 
-df_custos_municipio |> 
-    select(
-        municipio, custos_rodovias, custos_urbanos, custos_na, custos_totais
-    ) |> 
-    gt() |> 
-    fmt_number(
-        columns = -municipio,
-        pattern = "R$ {x}",
-        sep_mark = ".",
-        dec_mark = ","
-    ) |> 
-    cols_label(
-        municipio = "Município",
-        custos_rodovias = "Rodovias",
-        custos_urbanos = "Vias municipais",
-        custos_na = "Locais não identificados",
-        custos_totais = "Custo total"
-    ) |> 
-    tab_spanner(
-        columns = custos_rodovias:custos_na,
-        label = "Custo por tipo de via"
-    ) |> 
-    opt_interactive(
-        use_pagination = TRUE,
-        use_sorting = TRUE,
-        page_size_default = 20,
-        use_compact_mode = TRUE,
-        use_highlight = TRUE,
-        use_filters = TRUE
-    ) |>
-    tab_options(table.font.size = "11pt")
+tar_read(tbl_custos_municipio)
 ```
 
 ## Conclusão
