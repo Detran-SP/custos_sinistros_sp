@@ -1,21 +1,23 @@
 extract_sinistros <- function(
     df_sinistros,
     tp_via = c("Rodovias", "Vias municipais"),
-    date
+    date_start,
+    date_end
 ) {
     df_sinistros |> 
         filter(
-            data_sinistro > as.Date(date),
+            data_sinistro >= as.Date(date_start),
+            data_sinistro <= as.Date(date_end),
             tipo_via == tp_via,
             tipo_registro != "Notificação"
         )
 }
 
 calc_custos_pessoas <- function(
-    df_sinistros, df_custos, group = c(cod_ibge, tipo_registro)
+    df_sinistros, df_custos, group = c(cod_ibge, tipo_registro), df_ipca
 ) {
     df_wide = df_custos |> 
-        select(-custos) |> 
+        #select(-custos) |> 
         filter(tipo_vitimas != "Ileso") |> 
         pivot_wider(
             names_from = tipo_vitimas, 
@@ -25,25 +27,33 @@ calc_custos_pessoas <- function(
         clean_names()
     
     df_sinistros |> 
+        mutate(
+            date = ym(paste0(year(data_sinistro), "-", month(data_sinistro)))
+        ) |> 
         left_join(
             df_wide,
-            by = c("tipo_registro" = "tp_sinistros")
+            by = c("tipo_registro" = "tp_sinistros", "date")
         ) |> 
         mutate(
-            custos_pessoas = 
+            custos_pessoas_raw = 
                 gravidade_leve * custos_leve + 
                     gravidade_grave * custos_grave + 
                         gravidade_fatal * custos_fatal
+        ) |> 
+        left_join(df_ipca |> select(date, valor_ipca), by = "date") |> 
+        mutate(
+            ipca_last = df_ipca$valor_ipca[12],
+            custos_pessoas = ipca_last / valor_ipca * custos_pessoas_raw
         ) |> 
         group_by({{ group }}) |> 
         summarise(custos_pessoas = sum(custos_pessoas))
 }
 
 calc_custos_veiculos = function(
-    df_sinistros, df_custos, group = c(cod_ibge, tipo_registro)
+    df_sinistros, df_custos, group = c(cod_ibge, tipo_registro), df_ipca
 ) {
     df_wide = df_custos |> 
-        select(-custos) |> 
+        #select(-custos) |> 
         pivot_wider(
             names_from = tipo_veiculos, 
             values_from = custos_atual, 
@@ -51,13 +61,16 @@ calc_custos_veiculos = function(
         ) |> 
         clean_names()
 
-    df_sinistros |> 
+    df_sinistros |>
+        mutate(
+            date = ym(paste0(year(data_sinistro), "-", month(data_sinistro)))
+        ) |> 
         left_join(
             df_wide,
-            by = c("tipo_registro" = "tp_sinistros")
+            by = c("tipo_registro" = "tp_sinistros", "date")
         ) |> 
         mutate(
-            custos_veiculos = 
+            custos_veiculos_raw = 
                 tp_veiculo_bicicleta * custos_bicicleta +
                     tp_veiculo_motocicleta * custos_motocicleta +
                     tp_veiculo_automovel * custos_automovel +
@@ -65,32 +78,53 @@ calc_custos_veiculos = function(
                     tp_veiculo_onibus * custos_onibus +
                     tp_veiculo_outros * custos_outros
         ) |> 
+        left_join(df_ipca |> select(date, valor_ipca), by = "date") |> 
+        mutate(
+            ipca_last = df_ipca$valor_ipca[12],
+            custos_veiculos = ipca_last / valor_ipca * custos_veiculos_raw
+        ) |> 
         group_by({{ group }}) |> 
         summarise(custos_veiculos = sum(custos_veiculos))
 }
 
 calc_custos_inst = function(
-    df_sinistros, df_custos, group = c(cod_ibge, tipo_registro)
+    df_sinistros, df_custos, group = c(cod_ibge, tipo_registro), df_ipca
 ) {
     df_sinistros |> 
+        mutate(
+            date = ym(paste0(year(data_sinistro), "-", month(data_sinistro)))
+        ) |> 
         left_join(
-            df_custos |> select(-custos),
-            by = c("tipo_registro" = "tipo_sinistro")
+            df_custos,
+            by = c("tipo_registro" = "tipo_sinistro", "date")
+        ) |> 
+        left_join(df_ipca |> select(date, valor_ipca), by = "date") |> 
+        mutate(
+            ipca_last = df_ipca$valor_ipca[12],
+            custos_inst = ipca_last / valor_ipca * custos_atual
         ) |> 
         group_by({{ group }}) |> 
-        summarise(custos_inst = sum(custos_atual))
+        summarise(custos_inst = sum(custos_inst))
 }
 
 calc_custos_urbanos = function(
-    df_sinistros, df_custos, group = c(cod_ibge, tipo_registro)
+    df_sinistros, df_custos, group = c(cod_ibge, tipo_registro), df_ipca
 ) {
     df_sinistros |> 
-        left_join(
-            df_custos |> select(-custos),
-            by = c("tipo_registro" = "tipo_sinistro")
+        mutate(
+            date = ym(paste0(year(data_sinistro), "-", month(data_sinistro)))
         ) |> 
+        left_join(
+            df_custos,
+            by = c("tipo_registro" = "tipo_sinistro", "date")
+        ) |>
+        left_join(df_ipca |> select(date, valor_ipca), by = "date") |> 
+        mutate(
+            ipca_last = df_ipca$valor_ipca[12],
+            custos_urbanos = ipca_last / valor_ipca * custos_atual
+        ) |>
         group_by({{ group }}) |> 
-        summarise(custos_urbanos = sum(custos_atual))
+        summarise(custos_urbanos = sum(custos_urbanos))
 }
 
 join_custos_rodovias = function(

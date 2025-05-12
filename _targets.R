@@ -15,7 +15,8 @@ tar_source(
 )
 
 list(
-    tar_target(date_start, "2024-03-31"),
+    tar_target(date_start, "2024-01-01"),
+    tar_target(date_end, "2024-12-31"),
     tar_target(path_ipca, "data/ipca_202504SerieHist.xls", format = "file"),
     tar_target(df_ipca, load_ipca(path_ipca)),
     tar_target(
@@ -48,35 +49,42 @@ list(
         format = "file"
     ),
     tar_target(df_municipios, load_municipios(municipios_path)),
-    tar_target(df_sinistros, load_infosiga("sinistros"))
-    # tar_target(
-    #     df_sinistros_rodovias, 
-    #     extract_sinistros(df_sinistros, "Rodovias", date_start)
-    # ),
-    # tar_target(
-    #     df_sinistros_municipios,
-    #     extract_sinistros(df_sinistros, "Vias municipais", date_start)
-    # ),
-    # tar_target(
-    #     df_custos_rodovias_pessoas, 
-    #     calc_custos_pessoas(
-    #         df_sinistros_rodovias,
-    #         df_custos_pessoas,
-    #         group = cod_ibge
-    #     )
-    # ),
-    # tar_target(
-    #     df_custos_rodovias_veiculos,
-    #     calc_custos_veiculos(
-    #         df_sinistros_rodovias, 
-    #         df_custos_veiculos, 
-    #         cod_ibge
-    #     )
-    # ),
-    # tar_target(
-    #     df_custos_rodovias_inst,
-    #     calc_custos_inst(df_sinistros_rodovias, df_custos_inst, cod_ibge)
-    # ),
+    tar_target(df_sinistros, load_infosiga("sinistros")),
+    tar_target(
+        df_sinistros_rodovias, 
+        extract_sinistros(df_sinistros, "Rodovias", date_start, date_end)
+    ),
+    tar_target(
+        df_sinistros_municipios,
+        extract_sinistros(df_sinistros, "Vias municipais", date_start, date_end)
+    ),
+    tar_target(
+        df_custos_rodovias_pessoas, 
+        calc_custos_pessoas(
+            df_sinistros_rodovias,
+            df_custos_pessoas,
+            group = cod_ibge,
+            df_ipca
+        )
+    ),
+    tar_target(
+        df_custos_rodovias_veiculos,
+        calc_custos_veiculos(
+            df_sinistros_rodovias, 
+            df_custos_veiculos, 
+            cod_ibge,
+            df_ipca
+        )
+    ),
+    tar_target(
+        df_custos_rodovias_inst,
+        calc_custos_inst(
+            df_sinistros_rodovias, 
+            df_custos_inst, 
+            cod_ibge, 
+            df_ipca
+        )
+    ),
     # tar_target(
     #     df_custos_rodovias,
     #     join_custos_rodovias(
@@ -86,14 +94,15 @@ list(
     #         df_custos_rodovias_inst
     #     )
     # ),
-    # tar_target(
-    #     df_custos_vias_municipais,
-    #     calc_custos_urbanos(
-    #         df_sinistros_municipios,
-    #         df_custos_urbanos, 
-    #         cod_ibge
-    #     )
-    # ),
+    tar_target(
+        df_custos_vias_municipais,
+        calc_custos_urbanos(
+            df_sinistros_municipios,
+            df_custos_urbanos, 
+            cod_ibge,
+            df_ipca
+        )
+    )
     # tar_target(
     #     df_custos_tipo_registro_pessoas,
     #     calc_custos_pessoas(
