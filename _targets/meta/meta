@@ -7,13 +7,7 @@ df_municipios|stem|6f2dd11510336448|9cfce6266e932bf4|ae806cce48d09f21|-186996337
 df_sinistros_na|stem|f5258f1d449add5b|c2e4c9f12c194ad3|0345b15e4311c488|-978086335||t20214.5751834618s|s7357b|7357|rds|local|vector|||0.047||
 fator_ipca_200304_202503|stem|ccc3cf51245dea26|56386e8e02afe7f7|2c530c1562a7fbd1|-992374674||t20214.7500858443s|s55b|55|rds|local|vector|||0.609||
 fator_ipca_201412_202503|stem|90dd2f09188a928c|957167517c2a36c2|2c530c1562a7fbd1|1762064624||t20214.7500860758s|s55b|55|rds|local|vector|||0||
-df_custos_tipo_registro_urbano|stem|4fc2cea43e53a76f|9b690365e8f04c38|caa298f62ebbc1fa|-844745833||t20214.7500913999s|s206b|206|rds|local|vector|||0.158||
-df_custos_tipo_registro_pessoas|stem|69df795a84abcf58|ea0e7f461ee09384|5ee324833b1ce221|-803712529||t20214.7500966082s|s206b|206|rds|local|vector|||0.022||
-df_custos_tipo_registro_veiculos|stem|bc8e4db32152ff9f|cdf9cc0d26553193|f74ede342ab472b0|1352739074||t20214.7500983443s|s207b|207|rds|local|vector|||0.029||
-df_custos_tipo_registro_inst|stem|a47011c967481f8c|23ac44f524e67035|56d967cacb63bf30|-560700969||t20214.7500997332s|s204b|204|rds|local|vector|||0.01||
 df_custos_na_urbano|stem|429c1a664b588aea|d8a10db90f4cb870|4bd815fee660fe99|-1193331061||t20214.7501018166s|s228b|228|rds|local|vector|||0.007||
-df_custos_rodovias|stem|55bd7559398eab6d|c4e41e49b77dd3b0|3e0bf02a49fcff97|-441940523||t20214.7501021638s|s22645b|22645|rds|local|vector|||0.007||
-df_custos_tipo_registro_rodovias|stem|e727a6a22bfe3c0e|9d0f01ad69cf4ed0|679ecedb3f050a23|-61194196||t20214.7501023953s|s303b|303|rds|local|vector|||0.002||
 df_custos_na_rodovias|stem|289600fe40f2d816|9341b4217fa8a04e|9c11f85327a45fa7|-1821065718||t20214.7501041314s|s224b|224|rds|local|vector|||0.01||
 df_custos_vias_na|stem|fb4c548ef89cd025|b78eaafa88802a38|99bc7cea0f411d5f|-650389387||t20214.7501043629s|s741b|741|rds|local|vector|||0.008||
 df_custos_municipio|stem|0b3748414310d6d8|a1baa70871406276|b0f6aba0a1cc5268|1182726384||t20214.7501044786s|s30648b|30648|rds|local|vector|||0.007||
@@ -50,9 +44,10 @@ df_sinistros_rodovias|stem|dcd8e81ac4b1b3e5|0bd68b9c33a25bb3|299b31e61988042c|19
 df_custos_rodovias_veiculos|stem|7e957a8ca948dcc0|390761351e040ae6|b68883866dbcfe31|-1023794028||t20220.8129995817s|s6452b|6452|rds|local|vector|||0.117||
 df_custos_vias_municipais|stem|6cc2ea17afd02154|769fa819e1681732|f6a6078dfa19471f|-91893353||t20220.8130075678s|s5493b|5493|rds|local|vector|||0.468||
 df_custos_rodovias_inst|stem|e819e96dc437bad5|d60b8ee444091586|e5fe1c2311c0768e|1458751151||t20220.8130099983s|s4874b|4874|rds|local|vector|||0.14||
+df_custos_rodovias_pessoas|stem|f7f50478d1784cd8|0968a309912dd16b|a3c1355d25416ec6|886019619||t20220.8134841881s|s5761b|5761|rds|local|vector|||0.107||
 join_tipo_registro_rodovias_custos|function|40d998ff7d38aa10
 create_custos_urbanos|function|8b6939b911d47d43
-.Random.seed|object|b1f012234146c20f
+.Random.seed|object|d26f45285d0ab6e8
 plot_veiculos_sinistro|function|3003422c06e51e29
 calc_custos_urbanos|function|bc29b6ca42f7e524
 formatar_custos_pessoas_rodovias|function|541478f67aef2b52
@@ -82,4 +77,9 @@ calc_quantidade_sinistros|function|d1ee2456300b40b1
 calc_custo_total|function|cb7ee4f4e7d81828
 calc_custos_sinistros_na|function|c70116fa9b9bb862
 calc_custos_inst|function|07c72291591b3c12
-df_custos_rodovias_pessoas|stem|f7f50478d1784cd8|0968a309912dd16b|a3c1355d25416ec6|886019619||t20220.8134841881s|s5761b|5761|rds|local|vector|||0.107||
+df_custos_tipo_registro_pessoas|stem|41129c2936cd516b|43acd7d225f125a1|a3c1355d25416ec6|-803712529||t20220.8159728448s|s206b|206|rds|local|vector|||0.12||
+df_custos_tipo_registro_veiculos|stem|12b0e95fb1c9bf7d|1c04262b47ffe5f7|b68883866dbcfe31|1352739074||t20220.8159745809s|s207b|207|rds|local|vector|||0.092||
+df_custos_tipo_registro_urbano|stem|4207e0a4d9bd548c|5ecc3444ff388ee7|f6a6078dfa19471f|-844745833||t20220.8159831457s|s206b|206|rds|local|vector|||0.449||
+df_custos_tipo_registro_inst|stem|4d9728e6195307d2|d1e9a32f6c5ee823|e5fe1c2311c0768e|-560700969||t20220.8159845346s|s204b|204|rds|local|vector|||0.074||
+df_custos_rodovias|stem|6ff5bf6f9d3a217d|c4e41e49b77dd3b0|853f5ddd1b599772|-441940523||t20220.8159848818s|s22897b|22897|rds|local|vector|||0.013||
+df_custos_tipo_registro_rodovias|stem|3c1900c56c418a39|9d0f01ad69cf4ed0|1504e5bcd4558828|-61194196||t20220.8159849976s|s304b|304|rds|local|vector|||0.003||

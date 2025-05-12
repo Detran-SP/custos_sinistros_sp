@@ -85,15 +85,15 @@ list(
             df_ipca
         )
     ),
-    # tar_target(
-    #     df_custos_rodovias,
-    #     join_custos_rodovias(
-    #         df_municipios,
-    #         df_custos_rodovias_pessoas,
-    #         df_custos_rodovias_veiculos,
-    #         df_custos_rodovias_inst
-    #     )
-    # ),
+    tar_target(
+        df_custos_rodovias,
+        join_custos_rodovias(
+            df_municipios,
+            df_custos_rodovias_pessoas,
+            df_custos_rodovias_veiculos,
+            df_custos_rodovias_inst
+        )
+    ),
     tar_target(
         df_custos_vias_municipais,
         calc_custos_urbanos(
@@ -102,47 +102,51 @@ list(
             cod_ibge,
             df_ipca
         )
+    ),
+    tar_target(
+        df_custos_tipo_registro_pessoas,
+        calc_custos_pessoas(
+            df_sinistros_rodovias, 
+            df_custos_pessoas, 
+            tipo_registro,
+            df_ipca
+        )
+    ),
+    tar_target(
+        df_custos_tipo_registro_veiculos,
+        calc_custos_veiculos(
+            df_sinistros_rodovias, 
+            df_custos_veiculos, 
+            tipo_registro,
+            df_ipca
+        )
+    ),
+    tar_target(
+        df_custos_tipo_registro_inst,
+        calc_custos_inst(
+            df_sinistros_rodovias,
+            df_custos_inst,
+            tipo_registro,
+            df_ipca
+        )
+    ),
+    tar_target(
+        df_custos_tipo_registro_urbano,
+        calc_custos_urbanos(
+            df_sinistros_municipios,
+            df_custos_urbanos,
+            tipo_registro,
+            df_ipca
+        )
+    ),
+    tar_target(
+        df_custos_tipo_registro_rodovias,
+        join_tipo_registro_rodovias_custos(
+            df_custos_tipo_registro_pessoas,
+            df_custos_tipo_registro_veiculos,
+            df_custos_tipo_registro_inst
+        )
     )
-    # tar_target(
-    #     df_custos_tipo_registro_pessoas,
-    #     calc_custos_pessoas(
-    #         df_sinistros_rodovias, 
-    #         df_custos_pessoas, 
-    #         tipo_registro
-    #     )
-    # ),
-    # tar_target(
-    #     df_custos_tipo_registro_veiculos,
-    #     calc_custos_veiculos(
-    #         df_sinistros_rodovias, 
-    #         df_custos_veiculos, 
-    #         tipo_registro
-    #     )
-    # ),
-    # tar_target(
-    #     df_custos_tipo_registro_inst,
-    #     calc_custos_inst(
-    #         df_sinistros_rodovias,
-    #         df_custos_inst,
-    #         tipo_registro
-    #     )
-    # ),
-    # tar_target(
-    #     df_custos_tipo_registro_urbano,
-    #     calc_custos_urbanos(
-    #         df_sinistros_municipios,
-    #         df_custos_urbanos,
-    #         tipo_registro
-    #     )
-    # ),
-    # tar_target(
-    #     df_custos_tipo_registro_rodovias,
-    #     join_tipo_registro_rodovias_custos(
-    #         df_custos_tipo_registro_pessoas,
-    #         df_custos_tipo_registro_veiculos,
-    #         df_custos_tipo_registro_inst
-    #     )
-    # ),
     # tar_target(
     #     df_custos_na_rodovias, 
     #     calc_custos_na(
