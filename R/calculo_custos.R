@@ -1,3 +1,26 @@
+#' Filter crash records by date and road type
+#'
+#' This function filters the crash records based on the specified road type 
+#' and the reference date range.
+#'
+#' @param df_sinistros A data frame containing crash records.
+#' @param tp_via A character vector specifying the road types to filter.
+#' Defaults to c("Rodovias", "Vias municipais").
+#' @param date_start A character string representing the start date 
+#' in "yyyy-mm-dd" format.
+#' @param date_end A character string representing the end date 
+#' in "yyyy-mm-dd" format.
+#'
+#' @return A filtered data frame.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#'     filtered <- extract_sinistros(
+#'         crash_data, "Rodovias", "2024-01-01", "2024-12-31"
+#'     )
+#' }
 extract_sinistros <- function(
     df_sinistros,
     tp_via = c("Rodovias", "Vias municipais"),
@@ -13,6 +36,27 @@ extract_sinistros <- function(
         )
 }
 
+
+#' Calculate person-related crash costs
+#'
+#' Calculates costs based on victim severity levels in crash records.
+#'
+#' @param df_sinistros A data frame with crash records.
+#' @param df_custos A data frame with cost definitions by severity.
+#' @param group Grouping variables. Default is c(cod_ibge, tipo_registro).
+#'
+#' @return A summarized data frame with person-related costs.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' costs <- calc_custos_pessoas(
+#'     crash_data,
+#'     cost_table,
+#'     cod_ibge
+#' )
+#' }
 calc_custos_pessoas <- function(
     df_sinistros, df_custos, group = c(cod_ibge, tipo_registro)
 ) {
@@ -41,6 +85,25 @@ calc_custos_pessoas <- function(
         summarise(custos_pessoas = sum(custos_pessoas))
 }
 
+#' Calculate vehicle-related crash costs
+#'
+#' Calculates costs based on vehicle types involved in crashes.
+#'
+#' @param df_sinistros A data frame with crash records.
+#' @param df_custos A data frame with vehicle cost definitions.
+#' @param group Grouping variables. Default is c(cod_ibge, tipo_registro).
+#'
+#' @return A summarized data frame with vehicle-related costs.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' costs <- calc_custos_veiculos(
+#'     crash_data,
+#'     cost_table
+#' )
+#' }
 calc_custos_veiculos = function(
     df_sinistros, df_custos, group = c(cod_ibge, tipo_registro)
 ) {
@@ -71,6 +134,25 @@ calc_custos_veiculos = function(
         summarise(custos_veiculos = sum(custos_veiculos))
 }
 
+#' Calculate institutional crash costs
+#'
+#' Calculates institutional response costs for crashes.
+#'
+#' @param df_sinistros A data frame with crash records.
+#' @param df_custos A data frame with institutional cost definitions.
+#' @param group Grouping variables. Default is c(cod_ibge, tipo_registro).
+#'
+#' @return A summarized data frame with institutional costs.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' costs <- calc_custos_inst(
+#'     crash_data,
+#'     institutional_costs
+#' )
+#' }
 calc_custos_inst = function(
     df_sinistros, df_custos, group = c(cod_ibge, tipo_registro)
 ) {
@@ -83,6 +165,26 @@ calc_custos_inst = function(
         summarise(custos_inst = sum(custos_atual))
 }
 
+
+#' Calculate urban crash costs
+#'
+#' Calculates crash costs for urban road segments.
+#'
+#' @param df_sinistros A data frame with crash records.
+#' @param df_custos A data frame with urban cost definitions.
+#' @param group Grouping variables. Default is c(cod_ibge, tipo_registro).
+#'
+#' @return A summarized data frame with urban crash costs.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' costs <- calc_custos_urbanos(
+#'     crash_data,
+#'     urban_costs
+#' )
+#' }
 calc_custos_urbanos = function(
     df_sinistros, df_custos, group = c(cod_ibge, tipo_registro)
 ) {
@@ -95,6 +197,28 @@ calc_custos_urbanos = function(
         summarise(custos_urbanos = sum(custos_atual))
 }
 
+#' Join highway cost components
+#'
+#' Combines person, vehicle, and institutional costs for highways.
+#'
+#' @param df_municipios A data frame with municipality identifiers.
+#' @param custos_pessoas A data frame with person-related costs.
+#' @param custos_veiculos A data frame with vehicle-related costs.
+#' @param custos_inst A data frame with institutional costs.
+#'
+#' @return A data frame with total highway costs.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' result <- join_custos_rodovias(
+#'     municipalities,
+#'     person_costs,
+#'     vehicle_costs,
+#'     inst_costs
+#' )
+#' }
 join_custos_rodovias = function(
     df_municipios, custos_pessoas, custos_veiculos, custos_inst
 ) {
@@ -108,6 +232,28 @@ join_custos_rodovias = function(
         )
 }
 
+#' Join all cost components
+#'
+#' Combines highway, urban, and undefined road type costs.
+#'
+#' @param df_municipios A data frame with municipality identifiers.
+#' @param custos_rodovias A data frame with highway costs.
+#' @param custos_urbanos A data frame with urban costs.
+#' @param custos_vias_na A data frame with undefined road type costs.
+#'
+#' @return A data frame with total costs.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' result <- join_all_custos(
+#'     municipalities,
+#'     rodovias_costs,
+#'     urbanos_costs,
+#'     na_costs
+#' )
+#' }
 join_all_custos <- function(
     df_municipios, custos_rodovias, custos_urbanos, custos_vias_na
 ) {
@@ -121,6 +267,26 @@ join_all_custos <- function(
         )
 }
 
+#' Join rodovias costs by crash type
+#'
+#' Combines person, vehicle, and institutional costs by crash type.
+#'
+#' @param custos_pessoas A data frame with person-related costs.
+#' @param custos_veiculos A data frame with vehicle-related costs.
+#' @param custos_inst A data frame with institutional costs.
+#'
+#' @return A data frame with total costs by crash type.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' result <- join_tipo_registro_rodovias_custos(
+#'     person_costs,
+#'     vehicle_costs,
+#'     inst_costs
+#' )
+#' }
 join_tipo_registro_rodovias_custos = function(
     custos_pessoas, custos_veiculos, custos_inst
 ) {
@@ -133,6 +299,25 @@ join_tipo_registro_rodovias_custos = function(
         )
 }
 
+#' Calculate costs for undefined road type
+#'
+#' Estimates costs for crashes with undefined road types.
+#'
+#' @param df_sinistros A data frame with crash records.
+#' @param df_custos_tipo_registro A data frame with cost definitions by crash type.
+#' @param tipo A character vector with assumed road types.
+#'
+#' @return A data frame with estimated costs.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' result <- calc_custos_na(
+#'     na_crash_data,
+#'     cost_by_type
+#' )
+#' }
 calc_custos_na <- function(
     df_sinistros, 
     df_custos_tipo_registro, 
@@ -150,6 +335,26 @@ calc_custos_na <- function(
     return(df)
 }
 
+#' Extract crashes with undefined road type
+#'
+#' Filters crashes with missing road type information.
+#'
+#' @param df_sinistros A data frame with crash records.
+#' @param date_start The start date in "yyyy-mm-dd" format.
+#' @param date_end The end date in "yyyy-mm-dd" format.
+#'
+#' @return A filtered data frame of crashes with undefined road type.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' result <- extract_sinistros_tipo_via_na(
+#'     crash_data,
+#'     "2024-01-01",
+#'     "2024-12-31"
+#' )
+#' }
 extract_sinistros_tipo_via_na <- function(df_sinistros, date_start, date_end) {
     df_sinistros |> 
         filter(
@@ -160,6 +365,26 @@ extract_sinistros_tipo_via_na <- function(df_sinistros, date_start, date_end) {
         )
 }
 
+#' Estimate costs for undefined road type crashes
+#'
+#' Estimates costs using average costs from known road types.
+#'
+#' @param df_sinistros_na A data frame with undefined road type crashes.
+#' @param custos_urbano A data frame with urban costs by crash type.
+#' @param custos_rodovias A data frame with highway costs by crash type.
+#'
+#' @return A data frame with estimated costs by municipality.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' result <- calc_custos_sinistros_na(
+#'     na_crashes,
+#'     urban_costs,
+#'     rodovias_costs
+#' )
+#' }
 calc_custos_sinistros_na <- function(
     df_sinistros_na, custos_urbano, custos_rodovias
 ) {

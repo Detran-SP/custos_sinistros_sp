@@ -1,4 +1,23 @@
-create_custos_pessoas = function(tp_sinistros, fator_ipca) {
+#' Create person-related cost table
+#'
+#' Generates a cost table for different victim severity levels, based on
+#' provided crash types and inflation adjustment factor.
+#'
+#' @param tp_sinistros A character vector with crash types.
+#' @param fator_ipca A numeric value to adjust costs by inflation.
+#'
+#' @return A data frame with victim severity costs.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' costs <- create_custos_pessoas(
+#'     c("Sem vítimas", "Sinistro não fatal", "Sinistro fatal"),
+#'     1.5
+#' )
+#' }
+create_custos_pessoas <- function(tp_sinistros, fator_ipca) {
     tipo_vitimas = c("Ileso", "Leve", "Grave", "Fatal")
     expand_grid(tipo_vitimas, tp_sinistros) |> 
         mutate(
@@ -13,6 +32,25 @@ create_custos_pessoas = function(tp_sinistros, fator_ipca) {
         )
 }
 
+#' Create vehicle-related cost table
+#'
+#' Generates a cost table for different vehicle types, based on provided
+#' crash types and inflation adjustment factor.
+#'
+#' @param tp_sinistros A character vector with crash types.
+#' @param fator_ipca A numeric value to adjust costs by inflation.
+#'
+#' @return A data frame with vehicle type costs.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' costs <- create_custos_veiculos(
+#'     c("Sem vítimas", "Sinistro não fatal", "Sinistro fatal"),
+#'     1.5
+#' )
+#' }
 create_custos_veiculos <- function(tp_sinistros, fator_ipca) {
     tipo_veiculos = c(
         "Automóvel", "Motocicleta", "Bicicleta", "Caminhão", "Ônibus", "Outros"
@@ -32,6 +70,25 @@ create_custos_veiculos <- function(tp_sinistros, fator_ipca) {
         )
 }
 
+#' Create institutional cost table
+#'
+#' Generates a cost table for institutional response costs, based on provided
+#' crash types and inflation adjustment factor.
+#'
+#' @param tp_sinistros A character vector with crash types.
+#' @param fator_ipca A numeric value to adjust costs by inflation.
+#'
+#' @return A data frame with institutional costs.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' costs <- create_custos_inst(
+#'     c("Sem vítimas", "Sinistro não fatal", "Sinistro fatal"),
+#'     1.5
+#' )
+#' }
 create_custos_inst <- function(tp_sinistros, fator_ipca) {
     tibble(
         tipo_sinistro = tp_sinistros,
@@ -41,6 +98,25 @@ create_custos_inst <- function(tp_sinistros, fator_ipca) {
     )
 }
 
+#' Create institutional cost table
+#'
+#' Generates a cost table for institutional response costs, based on provided
+#' crash types and inflation adjustment factor.
+#'
+#' @param tp_sinistros A character vector with crash types.
+#' @param fator_ipca A numeric value to adjust costs by inflation.
+#'
+#' @return A data frame with institutional costs.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' costs <- create_custos_inst(
+#'     c("Sem vítimas", "Sinistro não fatal", "Sinistro fatal"),
+#'     1.5
+#' )
+#' }
 create_custos_urbanos <- function(tp_sinistros, fator_ipca) {
     tibble(
         tipo_sinistro = tp_sinistros,

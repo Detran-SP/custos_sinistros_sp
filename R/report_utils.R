@@ -1,3 +1,24 @@
+#' Format cost table by category
+#'
+#' Formats a cost table with optional expansion by crash type.
+#'
+#' @param df A data frame with cost data.
+#' @param coluna_categoria The name of the category column.
+#' @param label_categoria A label to display for the category column.
+#' @param expandir Logical. If TRUE, expand by crash type. Default is TRUE.
+#'
+#' @return A formatted gt table.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' tabela <- formatar_tabela_custos(
+#'     df_custos,
+#'     "tipo_vitimas",
+#'     "Type of Victim"
+#' )
+#' }
 formatar_tabela_custos <- function(
     df, coluna_categoria, label_categoria, expandir = TRUE
 ) {
@@ -30,6 +51,20 @@ formatar_tabela_custos <- function(
     return(tabela)
 }
 
+#' Format urban cost table
+#'
+#' Formats a table showing costs for urban crashes.
+#'
+#' @param df A data frame with urban cost data.
+#'
+#' @return A formatted gt table.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' tabela <- formatar_custos_urbanos(df_urbanos)
+#' }
 formatar_custos_urbanos <- function(df) {
     df_formatado <- df |>
         select(-custos)
@@ -50,6 +85,21 @@ formatar_custos_urbanos <- function(df) {
     return(tabela)
 }
 
+#' Format average cost table for undefined road type
+#'
+#' Calculates and formats the average cost per crash for undefined road types.
+#'
+#' @param df_rodovias A data frame with highway costs.
+#' @param df_urbanos A data frame with urban costs.
+#'
+#' @return A formatted gt table with average costs.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' tabela <- formatar_custos_na(df_rodovias, df_urbanos)
+#' }
 formatar_custos_na <- function(df_rodovias, df_urbanos) {
     tabela <- df_rodovias |>
         bind_rows(df_urbanos) |>
@@ -71,6 +121,21 @@ formatar_custos_na <- function(df_rodovias, df_urbanos) {
     return(tabela)
 }
 
+#' Format average cost table for undefined road type
+#'
+#' Calculates and formats the average cost per crash for undefined road types.
+#'
+#' @param df_rodovias A data frame with highway costs.
+#' @param df_urbanos A data frame with urban costs.
+#'
+#' @return A formatted gt table with average costs.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' tabela <- formatar_custos_na(df_rodovias, df_urbanos)
+#' }
 calc_custo_total <- function(df_custos) {
     custo_total <- df_custos$custos_totais |> sum()
 
@@ -85,6 +150,26 @@ calc_custo_total <- function(df_custos) {
     return(custo_total_str)
 }
 
+#' Calculate number of crash records in a date range
+#'
+#' Counts the number of crash records in the specified date range.
+#'
+#' @param df_sinistros A data frame with crash records.
+#' @param date_start Start date in "yyyy-mm-dd" format.
+#' @param date_end End date in "yyyy-mm-dd" format.
+#'
+#' @return A formatted string with the number of crashes.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' n <- calc_quantidade_sinistros(
+#'     df_sinistros,
+#'     "2024-01-01",
+#'     "2024-12-31"
+#' )
+#' }
 calc_quantidade_sinistros <- function(df_sinistros, date_start, date_end) {
     n_sinistros <- df_sinistros |>
         filter(
@@ -103,6 +188,35 @@ calc_quantidade_sinistros <- function(df_sinistros, date_start, date_end) {
     return(n_sinistros)
 }
 
+#' Format crash summary or severity table
+#'
+#' Creates a summary or severity table based on filtered crash records.
+#'
+#' @param df A data frame with crash records.
+#' @param date_start Start date in "yyyy-mm-dd" format.
+#' @param date_end End date in "yyyy-mm-dd" format.
+#' @param tipo Either "resumo" or "gravidade". Default is "resumo".
+#'
+#' @return A formatted gt table.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' tabela_resumo <- formatar_tabela_sinistros(
+#'     df_sinistros,
+#'     "2024-01-01",
+#'     "2024-12-31",
+#'     tipo = "resumo"
+#' )
+#'
+#' tabela_gravidade <- formatar_tabela_sinistros(
+#'     df_sinistros,
+#'     "2024-01-01",
+#'     "2024-12-31",
+#'     tipo = "gravidade"
+#' )
+#' }
 formatar_tabela_sinistros <- function(
     df, date_start, date_end, tipo = c("resumo", "gravidade")
 ) {
@@ -194,6 +308,27 @@ formatar_tabela_sinistros <- function(
     }
 }
 
+#' Plot vehicle involvement in crashes
+#'
+#' Creates a bar plot showing vehicle types involved in crashes by road type
+#' and crash severity.
+#'
+#' @param df A data frame with crash records.
+#' @param date_start Start date in "yyyy-mm-dd" format.
+#' @param date_end End date in "yyyy-mm-dd" format.
+#'
+#' @return A ggplot2 object with the bar plot.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' plot <- plot_veiculos_sinistro(
+#'     df_sinistros,
+#'     "2024-01-01",
+#'     "2024-12-31"
+#' )
+#' }
 plot_veiculos_sinistro <- function(df, date_start, date_end) {
     df_filtrado <- df |>
         filter(
@@ -256,7 +391,21 @@ plot_veiculos_sinistro <- function(df, date_start, date_end) {
     return(plot)
 }
 
-
+#' Plot cost components
+#'
+#' Creates a bar plot showing the distribution of cost components in
+#' billions of Reais.
+#'
+#' @param df_custos A data frame with cost components.
+#'
+#' @return A ggplot2 object with the bar plot.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' plot <- plot_custos_componentes(df_custos)
+#' }
 plot_custos_componentes <- function(df_custos) {
     custos <- df_custos |>
         select(-cod_ibge, -municipio, -custos_rodovias, -custos_totais) |>
@@ -302,6 +451,24 @@ plot_custos_componentes <- function(df_custos) {
     return(grafico)
 }
 
+#' Format person-related costs for highways
+#'
+#' Formats a table summarizing person-related costs for highway crashes.
+#'
+#' @param df_sinistros A data frame with crash records.
+#' @param df_custos A data frame with cost definitions.
+#'
+#' @return A formatted gt table with person-related costs.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' tabela <- formatar_custos_pessoas_rodovias(
+#'     df_sinistros,
+#'     df_custos
+#' )
+#' }
 formatar_custos_pessoas_rodovias <- function(df_sinistros, df_custos) {
     tbl_custos <- df_custos |>
         filter(
@@ -362,7 +529,24 @@ formatar_custos_pessoas_rodovias <- function(df_sinistros, df_custos) {
     return(tabela)
 }
 
-
+#' Format vehicle-related costs for highways
+#'
+#' Formats a table summarizing vehicle-related costs for highway crashes.
+#'
+#' @param df_sinistros A data frame with crash records.
+#' @param df_custos A data frame with cost definitions.
+#'
+#' @return A formatted gt table with vehicle-related costs.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' tabela <- formatar_custos_veiculos_rodovias(
+#'     df_sinistros,
+#'     df_custos
+#' )
+#' }
 formatar_custos_veiculos_rodovias <- function(df_sinistros, df_custos) {
     tbl_custos <- df_custos |>
         filter(tp_sinistros != "Sem vítimas") |>
@@ -422,6 +606,24 @@ formatar_custos_veiculos_rodovias <- function(df_sinistros, df_custos) {
     return(tabela)
 }
 
+#' Format institutional costs for highways
+#'
+#' Formats a table summarizing institutional costs for highway crashes.
+#'
+#' @param df_sinistros A data frame with crash records.
+#' @param df_custos A data frame with institutional cost definitions.
+#'
+#' @return A formatted gt table with institutional costs.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' tabela <- formatar_custos_inst_rodovias(
+#'     df_sinistros,
+#'     df_custos
+#' )
+#' }
 formatar_custos_inst_rodovias <- function(df_sinistros, df_custos) {
     tbl_custos <- df_custos |>
         filter(tipo_sinistro != "Sem vítimas") |>
@@ -466,6 +668,24 @@ formatar_custos_inst_rodovias <- function(df_sinistros, df_custos) {
     return(tabela)
 }
 
+#' Format urban road costs
+#'
+#' Formats a table summarizing costs for urban road crashes.
+#'
+#' @param df_sinistros A data frame with crash records.
+#' @param df_custos A data frame with cost definitions.
+#'
+#' @return A formatted gt table with urban road costs.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' tabela <- formatar_custos_vias_municipais(
+#'     df_sinistros,
+#'     df_custos
+#' )
+#' }
 formatar_custos_vias_municipais <- function(df_sinistros, df_custos) {
     tbl_custos <- df_custos |>
         filter(tipo_sinistro != "Sem vítimas") |>
@@ -510,7 +730,27 @@ formatar_custos_vias_municipais <- function(df_sinistros, df_custos) {
     return(tabela)
 }
 
-
+#' Calculate costs for undefined road type (report version)
+#'
+#' Calculates costs for crashes with undefined road type using average costs
+#' from known road types.
+#'
+#' @param df_custos_rodo A data frame with highway costs.
+#' @param df_custos_urbano A data frame with urban costs.
+#' @param df_sinistros_na A data frame with undefined road type crashes.
+#'
+#' @return A data frame with calculated costs for undefined road type.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' custos_na <- calc_custos_na_report(
+#'     df_custos_rodo,
+#'     df_custos_urbano,
+#'     df_sinistros_na
+#' )
+#' }
 calc_custos_na_report <- function(
     df_custos_rodo, df_custos_urbano, df_sinistros_na
 ) {
@@ -531,6 +771,20 @@ calc_custos_na_report <- function(
     return(resultado)
 }
 
+#' Format cost table by municipality
+#'
+#' Formats a cost table with municipality-level summary.
+#'
+#' @param df_custos A data frame with cost components by municipality.
+#'
+#' @return A formatted gt table with costs by municipality.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' tabela <- formatar_tabela_custos_municipios(df_custos)
+#' }
 formatar_tabela_custos_municipios <- function(df_custos) {
     tabela <- df_custos |>
         select(
