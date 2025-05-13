@@ -20,8 +20,8 @@ list(
         tp_sinistros,
         c("Sem vítimas", "Sinistro não fatal", "Sinistro fatal")
     ),
-    tar_target(fator_ipca_201412_202503, 7245.38 / 4028.44),
-    tar_target(fator_ipca_200304_202503, 7245.38 / 2144.49),
+    tar_target(fator_ipca_201412_202503, 7276.54 / 4028.44),
+    tar_target(fator_ipca_200304_202503, 7276.54 / 2144.49),
     tar_target(
         df_custos_pessoas,
         create_custos_pessoas(tp_sinistros, fator_ipca_201412_202503)
