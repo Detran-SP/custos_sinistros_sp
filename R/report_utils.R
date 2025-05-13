@@ -94,6 +94,12 @@ calc_quantidade_sinistros <- function(df_sinistros, date_start, date_end) {
         ) |>
         nrow()
 
+    n_sinistros = scales::number(
+        n_sinistros, 
+        big.mark = ".",
+        decimal.mark = ","
+    )
+    
     return(n_sinistros)
 }
 
@@ -275,13 +281,6 @@ plot_custos_componentes <- function(df_custos) {
                 "custos_inst" ~ "Rodovias - Inst. e danos patrimoniais",
                 "custos_urbanos" ~ "Vias municipais",
                 "custos_na" ~ "Locais não identificados"
-            ),
-            valor_label = scales::dollar(
-                valor,
-                accuracy = 0.01,
-                prefix = "R$ ",
-                decimal.mark = ",",
-                big.mark = "."
             )
         )
 
@@ -290,8 +289,15 @@ plot_custos_componentes <- function(df_custos) {
         coord_flip() +
         labs(x = NULL, y = NULL) +
         scale_y_continuous(
-            label = scales::label_currency(prefix = "R$ ", big.mark = ".")
-        )
+            label = scales::label_number(
+                scale = 1e-9,
+                prefix = "R$ ",
+                suffix = " bi",
+                big.mark = ".",
+                decimal.mark = ","
+            )
+        ) +
+        theme(plot.margin = margin(10, 40, 10, 10)) # top, right, bottom, left
 
     return(grafico)
 }
