@@ -1,11 +1,13 @@
 extract_sinistros <- function(
     df_sinistros,
     tp_via = c("Rodovias", "Vias municipais"),
-    date
+    date_start,
+    date_end
 ) {
     df_sinistros |> 
         filter(
-            data_sinistro > as.Date(date),
+            data_sinistro >= as.Date(date_start),
+            data_sinistro <= as.Date(date_end),
             tipo_via == tp_via,
             tipo_registro != "Notificação"
         )
@@ -148,10 +150,11 @@ calc_custos_na <- function(
     return(df)
 }
 
-extract_sinistros_tipo_via_na <- function(df_sinistros, date) {
+extract_sinistros_tipo_via_na <- function(df_sinistros, date_start, date_end) {
     df_sinistros |> 
         filter(
-            data_sinistro > as.Date(date),
+            data_sinistro >= as.Date(date_start),
+            data_sinistro <= as.Date(date_end),
             is.na(tipo_via),
             tipo_registro != "Notificação"
         )

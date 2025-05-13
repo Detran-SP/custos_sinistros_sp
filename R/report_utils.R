@@ -85,10 +85,11 @@ calc_custo_total <- function(df_custos) {
     return(custo_total_str)
 }
 
-calc_quantidade_sinistros <- function(df_sinistros, date_start) {
+calc_quantidade_sinistros <- function(df_sinistros, date_start, date_end) {
     n_sinistros <- df_sinistros |>
         filter(
-            data_sinistro > as.Date(date_start),
+            data_sinistro >= as.Date(date_start),
+            data_sinistro <= as.Date(date_end),
             tipo_registro != "Notificação"
         ) |>
         nrow()
@@ -97,13 +98,14 @@ calc_quantidade_sinistros <- function(df_sinistros, date_start) {
 }
 
 formatar_tabela_sinistros <- function(
-    df, date_start, tipo = c("resumo", "gravidade")
+    df, date_start, date_end, tipo = c("resumo", "gravidade")
 ) {
     tipo <- match.arg(tipo)
 
     df_filtrado <- df |>
         filter(
-            data_sinistro > as.Date(date_start),
+            data_sinistro >= as.Date(date_start),
+            data_sinistro <= as.Date(date_end),
             tipo_registro != "Notificação"
         ) |>
         mutate(
@@ -186,10 +188,11 @@ formatar_tabela_sinistros <- function(
     }
 }
 
-plot_veiculos_sinistro <- function(df, date_start) {
+plot_veiculos_sinistro <- function(df, date_start, date_end) {
     df_filtrado <- df |>
         filter(
-            data_sinistro > as.Date(date_start),
+            data_sinistro >= as.Date(date_start),
+            data_sinistro <= as.Date(date_end),
             tipo_registro != "Notificação"
         ) |>
         mutate(

@@ -15,7 +15,8 @@ tar_source(
 )
 
 list(
-    tar_target(date_start, "2024-03-31"),
+    tar_target(date_start, "2024-01-01"),
+    tar_target(date_end, "2024-12-31"),
     tar_target(
         tp_sinistros,
         c("Sem vítimas", "Sinistro não fatal", "Sinistro fatal")
@@ -47,11 +48,11 @@ list(
     tar_target(df_sinistros, load_infosiga("sinistros")),
     tar_target(
         df_sinistros_rodovias, 
-        extract_sinistros(df_sinistros, "Rodovias", date_start)
+        extract_sinistros(df_sinistros, "Rodovias", date_start, date_end)
     ),
     tar_target(
         df_sinistros_municipios,
-        extract_sinistros(df_sinistros, "Vias municipais", date_start)
+        extract_sinistros(df_sinistros, "Vias municipais", date_start, date_end)
     ),
     tar_target(
         df_custos_rodovias_pessoas, 
@@ -148,7 +149,7 @@ list(
     ),
     tar_target(
         df_sinistros_na,
-        extract_sinistros_tipo_via_na(df_sinistros, date_start)
+        extract_sinistros_tipo_via_na(df_sinistros, date_start, date_end)
     ),
     tar_target(
         df_custos_vias_na,
@@ -200,19 +201,24 @@ list(
     tar_target(custo_total, calc_custo_total(df_custos_municipio)),
     tar_target(
         n_sinistros, 
-        calc_quantidade_sinistros(df_sinistros, date_start)
+        calc_quantidade_sinistros(df_sinistros, date_start, date_end)
     ),
     tar_target(
         tbl_sinistros,
-        formatar_tabela_sinistros(df_sinistros, date_start, "resumo")
+        formatar_tabela_sinistros(df_sinistros, date_start, date_end, "resumo")
     ),
     tar_target(
         tbl_vitimas,
-        formatar_tabela_sinistros(df_sinistros, date_start, "gravidade")
+        formatar_tabela_sinistros(
+            df_sinistros,
+            date_start,
+            date_end, 
+            "gravidade"
+        )
     ),
     tar_target(
         fig_sinistros_veiculo,
-        plot_veiculos_sinistro(df_sinistros, date_start)
+        plot_veiculos_sinistro(df_sinistros, date_start, date_end)
     ),
     tar_target(fig_custos, plot_custos_componentes(df_custos_municipio)),
     tar_target(
