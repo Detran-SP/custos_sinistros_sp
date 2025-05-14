@@ -48,7 +48,7 @@ n_sinistros|stem|e281ed1d07463d11|209f965130348021|ccee91c63a4c69d2|-39204943||t
 fig_custos|stem|3ae3bb64a2cc40a1|9b252752661f8aa1|88a6aeddebdebc26|1940198464||t20221.7294991674s|s221534b|221534|rds|local|vector|||0.044||
 join_tipo_registro_rodovias_custos|function|40d998ff7d38aa10
 create_custos_urbanos|function|4277daa01f67fa88
-.Random.seed|object|8e93fb40ce00484d
+.Random.seed|object|106b4feb29d7a100
 plot_veiculos_sinistro|function|ead994afa04923ee
 calc_custos_urbanos|function|0e60280282e1e4e4
 formatar_custos_pessoas_rodovias|function|541478f67aef2b52
@@ -77,4 +77,4 @@ calc_quantidade_sinistros|function|03fc3915ee616e1b
 calc_custo_total|function|cb7ee4f4e7d81828
 calc_custos_sinistros_na|function|c70116fa9b9bb862
 calc_custos_inst|function|0fc3659c4523401f
-report|stem|423513efc91bfa0d|646c53b4f1c084bb|2eaf585ee88fc878|787668912|index_files*index.html*index.qmd|t20221.8190320308s|s327121b|327121|file|local|vector|||15.016||
+report|stem|4bb699870deb3446|646c53b4f1c084bb|2eaf585ee88fc878|787668912|index_files*index.html*index.qmd|t20222.6060724086s|s8186929b|8186929|file|local|vector|||17.112||
