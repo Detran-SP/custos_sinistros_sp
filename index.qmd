@@ -1,6 +1,6 @@
 ---
 title: "Estimativa do custo dos sinistros de trânsito no estado de São Paulo - Metodologia de cálculo"
-subtitle: "Nota Técnica 02 - V1"
+subtitle: "Nota Técnica 02 - v1.0"
 date: last-modified
 author:
   - name: Divisão de Estudos para Segurança no Trânsito
@@ -92,7 +92,7 @@ Por fim, em 2020 o IPEA retoma a discussão de forma resumida, trazendo os resul
 
 ## Metodologia
 
-Todo o processo apresentado nessa nota técnica foi desenvolvido com base na linguagem de programação R [@rcoreteam2021]. O código-fonte pode ser acessado no [repositório](https://github.com/pabsantos/custos_sinistros_sp).
+Todo o processo apresentado nessa nota técnica foi desenvolvido com base na linguagem de programação R [@rcoreteam2021]. O código-fonte pode ser acessado no [repositório](https://github.com/detran-sp/custos_sinistros_sp).
 
 O cálculo dos custos foi elaborado com base nos dados abertos de sinistros disponibilizados no Infosiga [@detran-spInfosigaSPDadosAbertos2025], considerando os último ano completo até da data de elaboração deste trabalho (2024-01-01 a 2024-12-31). Para a análise, foram considerados os registros classificados como "Sinistro fatal" e "Sinistro não fatal".
 
