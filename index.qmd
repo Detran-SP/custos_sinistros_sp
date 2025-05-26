@@ -17,6 +17,7 @@ format:
     fig-dpi: 300
     code-links:
       - repo
+    embed-resources: true
     #mermaid:
     #  theme: neutral
 execute: 
