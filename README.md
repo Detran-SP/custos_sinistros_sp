@@ -28,7 +28,7 @@ renv::restore()
 
 ## Uso
 
-1. **Configure os parâmetros**: Edite o arquivo `_targets.R` caso necessário.
+1. **Configure os parâmetros**: Edite o arquivo `_targets.R` caso necessário (datas e índices IPCA).
 
 2. **Execute o pipeline**:
 
@@ -43,6 +43,7 @@ O relatório final estará disponível como `index.html`.
 ```
 ├── _targets.R       # Definição do pipeline
 ├── index.qmd        # Relatório em Quarto Markdown
+├── index.qmd        # Relatório em HTML
 ├── data/            # Bases de dados de entrada
 ├── R/               # Funções em R
 ├── renv/            # Ambiente R
