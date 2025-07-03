@@ -20,7 +20,10 @@
 #' )
 #' }
 formatar_tabela_custos <- function(
-    df, coluna_categoria, label_categoria, expandir = TRUE
+    df,
+    coluna_categoria,
+    label_categoria,
+    expandir = TRUE
 ) {
     df_formatado <- df |>
         select(-custos)
@@ -46,6 +49,11 @@ formatar_tabela_custos <- function(
                 columns = -all_of(coluna_categoria),
                 label = "Tipo de sinistro"
             )
+    }
+
+    if (coluna_categoria == "tipo_sinistro") {
+        tabela <- tabela |>
+            cols_label(custos_atual = "Custos")
     }
 
     return(tabela)
@@ -180,11 +188,11 @@ calc_quantidade_sinistros <- function(df_sinistros, date_start, date_end) {
         nrow()
 
     n_sinistros = scales::number(
-        n_sinistros, 
+        n_sinistros,
         big.mark = ".",
         decimal.mark = ","
     )
-    
+
     return(n_sinistros)
 }
 
@@ -218,7 +226,10 @@ calc_quantidade_sinistros <- function(df_sinistros, date_start, date_end) {
 #' )
 #' }
 formatar_tabela_sinistros <- function(
-    df, date_start, date_end, tipo = c("resumo", "gravidade")
+    df,
+    date_start,
+    date_end,
+    tipo = c("resumo", "gravidade")
 ) {
     tipo <- match.arg(tipo)
 
@@ -230,8 +241,8 @@ formatar_tabela_sinistros <- function(
         ) |>
         mutate(
             tipo_via = if_else(
-                is.na(tipo_via), 
-                "Local não identificado", 
+                is.na(tipo_via),
+                "Local não identificado",
                 tipo_via
             )
         )
@@ -240,8 +251,8 @@ formatar_tabela_sinistros <- function(
         tabela <- df_filtrado |>
             count(tipo_via, tipo_registro) |>
             pivot_wider(
-                names_from = tipo_registro, 
-                values_from = n, 
+                names_from = tipo_registro,
+                values_from = n,
                 values_fill = 0
             ) |>
             gt() |>
@@ -272,16 +283,16 @@ formatar_tabela_sinistros <- function(
                 values_to = "n"
             ) |>
             pivot_wider(
-                names_from = tipo_registro, 
-                values_from = n, 
+                names_from = tipo_registro,
+                values_from = n,
                 values_fill = 0
             ) |>
             mutate(
                 tipo_via = factor(
                     tipo_via,
                     levels = c(
-                        "Rodovias", 
-                        "Vias municipais", 
+                        "Rodovias",
+                        "Vias municipais",
                         "Local não identificado"
                     )
                 ),
@@ -371,8 +382,12 @@ plot_veiculos_sinistro <- function(df, date_start, date_end) {
             tipo_veiculo = factor(
                 tipo_veiculo,
                 levels = c(
-                    "Outros", "Caminhão", "Ônibus",
-                    "Automóvel", "Motocicleta", "Bicicleta"
+                    "Outros",
+                    "Caminhão",
+                    "Ônibus",
+                    "Automóvel",
+                    "Motocicleta",
+                    "Bicicleta"
                 )
             )
         ) |>
@@ -419,8 +434,11 @@ plot_custos_componentes <- function(df_custos) {
             componente = factor(
                 componente,
                 levels = c(
-                    "custos_urbanos", "custos_pessoas", "custos_veiculos",
-                    "custos_inst", "custos_na"
+                    "custos_urbanos",
+                    "custos_pessoas",
+                    "custos_veiculos",
+                    "custos_inst",
+                    "custos_na"
                 )
             ),
             componente = case_match(
@@ -752,7 +770,9 @@ formatar_custos_vias_municipais <- function(df_sinistros, df_custos) {
 #' )
 #' }
 calc_custos_na_report <- function(
-    df_custos_rodo, df_custos_urbano, df_sinistros_na
+    df_custos_rodo,
+    df_custos_urbano,
+    df_sinistros_na
 ) {
     tbl_custos <- df_custos_rodo |>
         bind_rows(df_custos_urbano) |>
@@ -762,7 +782,7 @@ calc_custos_na_report <- function(
             custos_atual = mean(custo_medio),
             .groups = "drop"
         )
-    
+
     resultado <- df_sinistros_na |>
         count(tipo_registro) |>
         left_join(tbl_custos, by = "tipo_registro") |>
