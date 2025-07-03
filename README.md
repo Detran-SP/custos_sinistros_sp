@@ -1,13 +1,13 @@
 # Estimativa do custo dos sinistros de trânsito no estado de São Paulo - Metodologia de cálculo
 
-## 📊 Visão geral
+## Visão geral
 
 Este projeto oferece um fluxo reprodutível para estimar os custos
 associados aos sinistros de trânsito nos municípios do estado de São Paulo.
 Integra dados de sinistros, modelos de custos e ajustes por inflação para gerar
 relatórios e visualizações detalhadas.
 
-## 📦 Funcionalidades
+## Funcionalidades
 
 - Funções modulares em R para cálculo de custos por tipo de vítima, tipo de
   veículo e resposta institucional.
@@ -16,15 +16,9 @@ relatórios e visualizações detalhadas.
 - Suporte a ajustes por inflação utilizando o índice IPCA.
 - Tabelas e gráficos formatados para relatórios técnicos.
 
-## 🛠️ Instalação
+## Instalação
 
 Para instalar os pacotes necessários e configurar o ambiente:
-
-```bash
-# Clone o repositório
-git clone https://github.com/pabsantos/custos_sinistros_sp.git
-cd custos_sinistros_sp
-```
 
 ```r
 # Instale as dependências
@@ -32,9 +26,9 @@ install.packages("renv")
 renv::restore()
 ```
 
-## 🚀 Uso
+## Uso
 
-1. **Configure os parâmetros**: Edite o arquivo `_targets.R` caso necessário.
+1. **Configure os parâmetros**: Edite o arquivo `_targets.R` caso necessário (datas e índices IPCA).
 
 2. **Execute o pipeline**:
 
@@ -44,11 +38,12 @@ renv::restore()
 
 O relatório final estará disponível como `index.html`.
 
-## 📁 Estrutura do projeto
+## Estrutura do projeto
 
 ```
 ├── _targets.R       # Definição do pipeline
 ├── index.qmd        # Relatório em Quarto Markdown
+├── index.qmd        # Relatório em HTML
 ├── data/            # Bases de dados de entrada
 ├── R/               # Funções em R
 ├── renv/            # Ambiente R
@@ -57,11 +52,11 @@ O relatório final estará disponível como `index.html`.
 └── LICENSE          # Licença do projeto
 ```
 
-## 📄 Licença
+## Licença
 
 Este projeto está licenciado sob a [Licença GPL-3.0](LICENSE).
 
-## 📬 Contato
+## Contato
 
 Divisão de Estudos para Segurança no Trânsito - DETRAN-SP  
 📧 [estudos.transito@detran.sp.gov.br](mailto:estudos.transito@detran.sp.gov.br)
