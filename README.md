@@ -43,7 +43,7 @@ O relatório final estará disponível como `index.html`.
 ```
 ├── _targets.R       # Definição do pipeline
 ├── index.qmd        # Relatório em Quarto Markdown
-├── index.qmd        # Relatório em HTML
+├── index.html        # Relatório em HTML
 ├── data/            # Bases de dados de entrada
 ├── R/               # Funções em R
 ├── renv/            # Ambiente R
