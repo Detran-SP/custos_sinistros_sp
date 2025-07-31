@@ -44,9 +44,11 @@ df_custos_municipio|stem|d41b81d6139451de|a1baa70871406276|2ec3390e11b9fc84|1182
 custo_total|stem|65fbd3c7ee16cb98|9819d82e5754a34f|27b5410b12afac98|1744079069||t20299.9007792268s|s73b|73|rds|local|vector|||0||
 fig_custos|stem|ab02a51516bb27da|9b252752661f8aa1|7338f71e7e4e6b02|1940198464||t20299.9007801527s|s226910b|226910|rds|local|vector|||0.021||
 tbl_custos_municipio|stem|60298471c7a37e5a|862a4558d56b5408|ad1a5f91677dcd55|374933986||t20299.9007806157s|s103401b|103401|rds|local|vector|||0.028||
+tbl_sinistros|stem|887f2f60afdbbdba|180fe98979b5acd6|33fa8d4a583d2ec5|1375349614||t20300.5346164946s|s54315572b|54315572|rds|local|vector|||0.129||
+tbl_vitimas|stem|04f72b1b283cbc67|b62a671bc2dd6eeb|33fa8d4a583d2ec5|-1459871545||t20300.5347485548s|s54317917b|54317917|rds|local|vector|||0.137||
 join_tipo_registro_rodovias_custos|function|40d998ff7d38aa10
 create_custos_urbanos|function|4277daa01f67fa88
-.Random.seed|object|86d5a48d704b9d01
+.Random.seed|object|425ded457ed0eef0
 plot_veiculos_sinistro|function|ead994afa04923ee
 calc_custos_urbanos|function|0e60280282e1e4e4
 formatar_custos_pessoas_rodovias|function|541478f67aef2b52
@@ -76,6 +78,4 @@ calc_quantidade_sinistros|function|03fc3915ee616e1b
 calc_custo_total|function|cb7ee4f4e7d81828
 calc_custos_sinistros_na|function|c70116fa9b9bb862
 calc_custos_inst|function|0fc3659c4523401f
-tbl_sinistros|stem|887f2f60afdbbdba|180fe98979b5acd6|33fa8d4a583d2ec5|1375349614||t20300.5346164946s|s54315572b|54315572|rds|local|vector|||0.129||
-tbl_vitimas|stem|04f72b1b283cbc67|b62a671bc2dd6eeb|33fa8d4a583d2ec5|-1459871545||t20300.5347485548s|s54317917b|54317917|rds|local|vector|||0.137||
-report|stem|d753365331d53dd3|646c53b4f1c084bb|b272ad3e8a4ac397|787668912|index.html*index.qmd|t20300.5350676519s|s5581312b|5581312|file|local|vector|||18.42||
+report|stem|d7d33ce15186fe67|646c53b4f1c084bb|b272ad3e8a4ac397|787668912|index.html*index.qmd|t20300.899022785s|s5581226b|5581226|file|local|vector|||19.375||
