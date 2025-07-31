@@ -2,7 +2,7 @@ library(targets)
 library(tarchetypes)
 
 tar_option_set(
-    packages = c("tidyverse", "infosiga", "janitor", "gt", "quarto")
+    packages = c("tidyverse", "ost.utils", "janitor", "gt", "quarto")
 )
 
 tar_source(
@@ -45,17 +45,23 @@ list(
         format = "file"
     ),
     tar_target(df_municipios, load_municipios(municipios_path)),
-    tar_target(df_sinistros, load_infosiga("sinistros")),
+    #tar_target(df_sinistros, load_infosiga("sinistros")),
+    tar_target(df_sinistros, load_sinistros_full()),
     tar_target(
-        df_sinistros_rodovias, 
-        extract_sinistros(df_sinistros, "Rodovias", date_start, date_end)
+        df_sinistros_rodovias,
+        extract_sinistros(
+            df_sinistros,
+            "Estradas e rodovias",
+            date_start,
+            date_end
+        )
     ),
     tar_target(
         df_sinistros_municipios,
-        extract_sinistros(df_sinistros, "Vias municipais", date_start, date_end)
+        extract_sinistros(df_sinistros, "Vias urbanas", date_start, date_end)
     ),
     tar_target(
-        df_custos_rodovias_pessoas, 
+        df_custos_rodovias_pessoas,
         calc_custos_pessoas(
             df_sinistros_rodovias,
             df_custos_pessoas,
@@ -65,8 +71,8 @@ list(
     tar_target(
         df_custos_rodovias_veiculos,
         calc_custos_veiculos(
-            df_sinistros_rodovias, 
-            df_custos_veiculos, 
+            df_sinistros_rodovias,
+            df_custos_veiculos,
             cod_ibge
         )
     ),
@@ -87,23 +93,23 @@ list(
         df_custos_vias_municipais,
         calc_custos_urbanos(
             df_sinistros_municipios,
-            df_custos_urbanos, 
+            df_custos_urbanos,
             cod_ibge
         )
     ),
     tar_target(
         df_custos_tipo_registro_pessoas,
         calc_custos_pessoas(
-            df_sinistros_rodovias, 
-            df_custos_pessoas, 
+            df_sinistros_rodovias,
+            df_custos_pessoas,
             tipo_registro
         )
     ),
     tar_target(
         df_custos_tipo_registro_veiculos,
         calc_custos_veiculos(
-            df_sinistros_rodovias, 
-            df_custos_veiculos, 
+            df_sinistros_rodovias,
+            df_custos_veiculos,
             tipo_registro
         )
     ),
@@ -132,11 +138,11 @@ list(
         )
     ),
     tar_target(
-        df_custos_na_rodovias, 
+        df_custos_na_rodovias,
         calc_custos_na(
-            df_sinistros_rodovias, 
-            df_custos_tipo_registro_rodovias, 
-            "Rodovias"
+            df_sinistros_rodovias,
+            df_custos_tipo_registro_rodovias,
+            "Estradas e rodovias"
         )
     ),
     tar_target(
@@ -171,36 +177,36 @@ list(
     tar_target(
         tbl_custos_veiculos,
         formatar_tabela_custos(
-            df_custos_veiculos, 
-            "tipo_veiculos", 
+            df_custos_veiculos,
+            "tipo_veiculos",
             "Tipo de veículo"
         )
     ),
     tar_target(
         tbl_custos_pessoas,
         formatar_tabela_custos(
-            df_custos_pessoas, 
-            "tipo_vitimas", 
+            df_custos_pessoas,
+            "tipo_vitimas",
             "Gravidade da vítima"
         )
     ),
     tar_target(
         tbl_custos_inst,
         formatar_tabela_custos(
-            df_custos_inst, 
-            "tipo_sinistro", 
-            "Tipo de sinistro", 
+            df_custos_inst,
+            "tipo_sinistro",
+            "Tipo de sinistro",
             expandir = FALSE
         )
     ),
     tar_target(tbl_custos_urbanos, formatar_custos_urbanos(df_custos_urbanos)),
     tar_target(
-        tbl_custos_na, 
+        tbl_custos_na,
         formatar_custos_na(df_custos_na_rodovias, df_custos_na_urbano)
     ),
     tar_target(custo_total, calc_custo_total(df_custos_municipio)),
     tar_target(
-        n_sinistros, 
+        n_sinistros,
         calc_quantidade_sinistros(df_sinistros, date_start, date_end)
     ),
     tar_target(
@@ -212,7 +218,7 @@ list(
         formatar_tabela_sinistros(
             df_sinistros,
             date_start,
-            date_end, 
+            date_end,
             "gravidade"
         )
     ),
@@ -250,10 +256,10 @@ list(
         )
     ),
     tar_target(
-        df_custos_na_report, 
+        df_custos_na_report,
         calc_custos_na_report(
-            df_custos_na_rodovias, 
-            df_custos_na_urbano, 
+            df_custos_na_rodovias,
+            df_custos_na_urbano,
             df_sinistros_na
         )
     ),
@@ -263,4 +269,3 @@ list(
     ),
     tar_quarto(report, "index.qmd")
 )
-

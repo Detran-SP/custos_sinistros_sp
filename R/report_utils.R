@@ -291,8 +291,8 @@ formatar_tabela_sinistros <- function(
                 tipo_via = factor(
                     tipo_via,
                     levels = c(
-                        "Rodovias",
-                        "Vias municipais",
+                        "Estradas e rodovias",
+                        "Vias urbanas",
                         "Local não identificado"
                     )
                 ),
