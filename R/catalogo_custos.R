@@ -64,13 +64,13 @@ create_custos_pessoas <- function(tp_sinistros, fator_ipca, df_prop_vitimas) {
 
     df_custos <- df_custos |>
         add_row(
-            tipo_vitimas = "Não identificado",
+            tipo_vitimas = "Não disponível",
             tp_sinistros = "Sinistro não fatal",
             custos = NA_real_,
             custos_atual = custos_nao_identificado
         ) |>
         add_row(
-            tipo_vitimas = "Não identificado",
+            tipo_vitimas = "Não disponível",
             tp_sinistros = "Sinistro fatal",
             custos = NA_real_,
             custos_atual = custos_nao_identificado
@@ -169,13 +169,13 @@ create_custos_veiculos <- function(
 
     df_custos <- df_custos |>
         add_row(
-            tipo_veiculos = "Não identificado",
+            tipo_veiculos = "Não disponível",
             tp_sinistros = "Sinistro fatal",
             custos = NA_real_,
             custos_atual = custo_nao_identificados_fatais
         ) |>
         add_row(
-            tipo_veiculos = "Não identificado",
+            tipo_veiculos = "Não disponível",
             tp_sinistros = "Sinistro não fatal",
             custos = NA_real_,
             custos_atual = custo_nao_identificados_naofatais

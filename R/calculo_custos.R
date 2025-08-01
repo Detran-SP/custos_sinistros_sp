@@ -139,7 +139,8 @@ calc_custos_pessoas <- function(
             custos_pessoas = gravidade_leve *
                 custos_leve +
                 gravidade_grave * custos_grave +
-                gravidade_fatal * custos_fatal
+                gravidade_fatal * custos_fatal +
+                gravidade_nao_disponivel * custos_nao_disponivel
         ) |>
         group_by({{ group }}) |>
         summarise(custos_pessoas = sum(custos_pessoas))
@@ -190,7 +191,8 @@ calc_custos_veiculos = function(
                 tp_veiculo_automovel * custos_automovel +
                 tp_veiculo_caminhao * custos_caminhao +
                 tp_veiculo_onibus * custos_onibus +
-                tp_veiculo_outros * custos_outros
+                tp_veiculo_outros * custos_outros +
+                tp_veiculo_nao_disponivel * custos_nao_disponivel
         ) |>
         group_by({{ group }}) |>
         summarise(custos_veiculos = sum(custos_veiculos))
