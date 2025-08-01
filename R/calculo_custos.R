@@ -9,6 +9,52 @@ load_sinistros_full <- function() {
     return(df_clean)
 }
 
+calc_prop_vitimas <- function(sinistros) {
+    sinistros |>
+        group_by(tipo_registro) |>
+        summarise(
+            vitimas_ilesas = sum(gravidade_ileso),
+            vitimas_leves = sum(gravidade_leve),
+            vitimas_graves = sum(gravidade_grave),
+            vitimas_fatais = sum(gravidade_fatal),
+            vitimas_nao_disponivel = sum(gravidade_nao_disponivel),
+            .groups = "drop"
+        ) |>
+        tidyr::pivot_longer(
+            cols = starts_with("vitimas"),
+            names_to = "tipo_vitima",
+            values_to = "quantidade"
+        ) |>
+        filter(tipo_registro == "Sinistro não fatal") |>
+        mutate(proporcao_vitima = quantidade / sum(quantidade)) |>
+        select(tipo_vitima, proporcao_vitima)
+}
+
+calc_prop_veiculos <- function(sinistros, tipo) {
+    sinistros |>
+        group_by(tipo_registro) |>
+        summarise(
+            `Bicicleta` = sum(tp_veiculo_bicicleta),
+            `Motocicleta` = sum(tp_veiculo_motocicleta),
+            `Automóvel` = sum(tp_veiculo_automovel),
+            `Caminhão` = sum(tp_veiculo_caminhao),
+            `Ônibus` = sum(tp_veiculo_onibus),
+            `Outros` = sum(tp_veiculo_outros),
+            `Não disponível` = sum(tp_veiculo_nao_disponivel),
+            .groups = "drop"
+        ) |>
+        tidyr::pivot_longer(
+            cols = -tipo_registro,
+            names_to = "tipo_veiculo",
+            values_to = "quantidade"
+        ) |>
+        filter(tipo_registro == tipo) |>
+        mutate(
+            proporcao_veiculo = quantidade / sum(quantidade)
+        ) |>
+        select(tipo_veiculo, proporcao_veiculo)
+}
+
 
 #' Filter crash records by date and road type
 #'
@@ -93,7 +139,8 @@ calc_custos_pessoas <- function(
             custos_pessoas = gravidade_leve *
                 custos_leve +
                 gravidade_grave * custos_grave +
-                gravidade_fatal * custos_fatal
+                gravidade_fatal * custos_fatal +
+                gravidade_nao_disponivel * custos_nao_disponivel
         ) |>
         group_by({{ group }}) |>
         summarise(custos_pessoas = sum(custos_pessoas))
@@ -144,7 +191,8 @@ calc_custos_veiculos = function(
                 tp_veiculo_automovel * custos_automovel +
                 tp_veiculo_caminhao * custos_caminhao +
                 tp_veiculo_onibus * custos_onibus +
-                tp_veiculo_outros * custos_outros
+                tp_veiculo_outros * custos_outros +
+                tp_veiculo_nao_disponivel * custos_nao_disponivel
         ) |>
         group_by({{ group }}) |>
         summarise(custos_veiculos = sum(custos_veiculos))

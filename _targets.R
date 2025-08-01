@@ -25,11 +25,20 @@ list(
     tar_target(fator_ipca_200304_202503, 7276.54 / 2144.49),
     tar_target(
         df_custos_pessoas,
-        create_custos_pessoas(tp_sinistros, fator_ipca_201412_202503)
+        create_custos_pessoas(
+            tp_sinistros,
+            fator_ipca_201412_202503,
+            df_prop_vitimas
+        )
     ),
     tar_target(
         df_custos_veiculos,
-        create_custos_veiculos(tp_sinistros, fator_ipca_201412_202503)
+        create_custos_veiculos(
+            tp_sinistros,
+            fator_ipca_201412_202503,
+            df_prop_veiculos_fatais,
+            df_prop_veiculos_naofatais
+        )
     ),
     tar_target(
         df_custos_inst,
@@ -266,6 +275,24 @@ list(
     tar_target(
         tbl_custos_municipio,
         formatar_tabela_custos_municipios(df_custos_municipio)
+    ),
+    tar_target(
+        df_prop_vitimas,
+        calc_prop_vitimas(df_sinistros)
+    ),
+    tar_target(
+        df_prop_veiculos_fatais,
+        calc_prop_veiculos(
+            df_sinistros,
+            "Sinistro fatal"
+        )
+    ),
+    tar_target(
+        df_prop_veiculos_naofatais,
+        calc_prop_veiculos(
+            df_sinistros,
+            "Sinistro não fatal"
+        )
     ),
     tar_quarto(report, "index.qmd")
 )
