@@ -28,6 +28,29 @@ formatar_tabela_custos <- function(
     df_formatado <- df |>
         select(-custos)
 
+    if (coluna_categoria != 'tipo_sinistro') {
+        df_formatado <- df_formatado |>
+            filter(tp_sinistros != "Sem vítimas")
+    }
+
+    if (coluna_categoria == "tipo_sinistro") {
+        df_formatado <- df_formatado |>
+            filter(tipo_sinistro != "Sem vítimas")
+    }
+
+    if (coluna_categoria == "tipo_vitimas") {
+        df_formatado <- df_formatado |>
+            filter(tipo_vitimas != "Ileso") |>
+            mutate(
+                custos_atual = if_else(
+                    tipo_vitimas == "Fatal" &
+                        tp_sinistros == "Sinistro não fatal",
+                    NA,
+                    custos_atual
+                )
+            )
+    }
+
     if (expandir) {
         df_formatado <- df_formatado |>
             pivot_wider(names_from = tp_sinistros, values_from = custos_atual)
@@ -41,7 +64,8 @@ formatar_tabela_custos <- function(
             pattern = "R$ {x}",
             sep_mark = ".",
             dec_mark = ","
-        )
+        ) |>
+        sub_missing(missing_text = "-")
 
     if (expandir) {
         tabela <- tabela |>
@@ -75,7 +99,8 @@ formatar_tabela_custos <- function(
 #' }
 formatar_custos_urbanos <- function(df) {
     df_formatado <- df |>
-        select(-custos)
+        select(-custos) |>
+        filter(tipo_sinistro != "Sem vítimas")
 
     tabela <- df_formatado |>
         gt() |>
