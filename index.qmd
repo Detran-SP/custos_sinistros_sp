@@ -42,7 +42,8 @@ bibliography: refs.bib
 
 library(targets)
 library(gt)
-library(ggplot2)
+library(plotly)
+library(tidyverse)
 
 theme_set(theme_bw(base_family = "monospace", base_size = 8))
 
@@ -248,12 +249,34 @@ A @fig-veiculos apresenta a quantidade de veículos envolvidos em sinistros, seg
 
 Nas rodovias, o padrão é semelhante. Os sinistros não fatais são majoritariamente associados a automóveis (18.894casos) e motocicletas (13.690 casos). Entre os sinistros fatais, os automóveis lideram com 1.660 registros, seguidos por motocicletas (877) e caminhões (735). Em ambos os tipos de via, observa-se que as motocicletas concentram uma proporção expressiva dos sinistros fatais.
 
-```{r}
-#| label: fig-veiculos
-#| fig-cap: Quantidade de veículos envolvidos em sinistros
+::: {.panel-tabset}
 
-tar_read(fig_sinistros_veiculo)
+## Estradas e rodovias
+
+```{r}
+#| label: fig-veiculos-rodovias
+#| fig-cap: Quantidade de veículos envolvidos em estradas e rodovias - ocorrências em 2024
+
+source("R/report_utils.R")
+
+tar_load(df_sinistros)
+tar_load(date_start)
+tar_load(date_end)
+
+plot_veiculos_sinistro(df_sinistros, date_start, date_end, "Estradas e rodovias")
 ```
+
+## Vias urbanas
+
+```{r}
+#| label: fig-veiculos-urbanos
+#| fig-cap: Quantidade de veículos envolvidos em vias urbanas - ocorrências em 2024
+
+plot_veiculos_sinistro(df_sinistros, date_start, date_end, "Vias urbanas")
+
+```
+
+:::
 
 ### Custos
 
@@ -262,10 +285,10 @@ Conforme mostrado na @fig-custos, os custos com sinistros em vias urbanas supera
 ```{r}
 #| label: fig-custos
 #| fig-cap: Custos dos sinistros de trânsito no estado de São Paulo - Componentes por tipo de via (valores de abril/2025)
-#| fig-width: 6
-#| fig-height: 3
 
-tar_read(fig_custos)
+tar_load(df_custos_municipio)
+
+plot_custos_componentes(df_custos_municipio)
 ```
 
 A @tbl-resultados-pessoas detalha os custos relacionados às vítimas de sinistros ocorridos em rodovias. Apesar de representarem apenas 2.537 casos, os óbitos resultaram em um impacto financeiro expressivo, atingindo quase R$ 2 bi. O custo associados às vítimas em estado grave também contribuíram significativamente para o total, com quase R$ 1 bi, mesmo sendo em menor número que os feridos leves. Estes últimos, embora mais numerosos (22.752), representaram um custo relativamente menor, de aproximadamente R$ 350 milhões. Ao todo, os custos com pessoas somaram quase R$ 3,3 bilhões no período analisado.
