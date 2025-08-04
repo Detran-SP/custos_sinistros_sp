@@ -365,7 +365,7 @@ formatar_tabela_sinistros <- function(
 #'     "2024-12-31"
 #' )
 #' }
-plot_veiculos_sinistro <- function(df, date_start, date_end) {
+plot_veiculos_sinistro <- function(df, date_start, date_end, via) {
     df_filtrado <- df |>
         filter(
             data_sinistro >= as.Date(date_start),
@@ -387,10 +387,11 @@ plot_veiculos_sinistro <- function(df, date_start, date_end) {
             onibus = sum(tp_veiculo_onibus),
             caminhao = sum(tp_veiculo_caminhao),
             outros = sum(tp_veiculo_outros),
+            nao_disponivel = sum(tp_veiculo_nao_disponivel),
             .groups = "drop"
         ) |>
         pivot_longer(
-            cols = bicicleta:outros,
+            cols = bicicleta:nao_disponivel,
             names_to = "tipo_veiculo",
             values_to = "n"
         ) |>
@@ -402,11 +403,13 @@ plot_veiculos_sinistro <- function(df, date_start, date_end) {
                 "automovel" ~ "Automóvel",
                 "onibus" ~ "Ônibus",
                 "caminhao" ~ "Caminhão",
-                "outros" ~ "Outros"
+                "outros" ~ "Outros",
+                "nao_disponivel" ~ "Não disponível"
             ),
             tipo_veiculo = factor(
                 tipo_veiculo,
                 levels = c(
+                    "Não disponível",
                     "Outros",
                     "Caminhão",
                     "Ônibus",
@@ -416,20 +419,34 @@ plot_veiculos_sinistro <- function(df, date_start, date_end) {
                 )
             )
         ) |>
-        filter(tipo_via != "Local não identificado")
+        filter(tipo_via == via)
 
-    plot <- ggplot(df_filtrado, aes(x = tipo_veiculo, y = n)) +
-        geom_col(fill = "#004077") +
-        coord_flip() +
-        facet_grid(
-            rows = vars(tipo_via),
-            cols = vars(tipo_registro),
-            scales = "free"
-        ) +
-        labs(x = NULL, y = NULL)
+    plot <- plot_ly(
+        data = df_filtrado,
+        y = ~tipo_veiculo,
+        x = ~n,
+        type = "bar",
+        color = ~tipo_registro,
+        orientation = "h",
+        colors = c(
+            ost.utils::palette_detran()$darkblue,
+            ost.utils::palette_detran()$lightblue
+        )
+    ) |>
+        layout(
+            barmode = "group",
+            xaxis = list(
+                title = "Quantidade de veículos",
+                showline = TRUE,
+                showgrid = FALSE,
+                tickformat = ".0f"
+            ),
+            yaxis = list(title = "Tipo de veículo")
+        )
 
     return(plot)
 }
+
 
 #' Plot cost components
 #'
@@ -468,28 +485,33 @@ plot_custos_componentes <- function(df_custos) {
             ),
             componente = case_match(
                 componente,
-                "custos_pessoas" ~ "Rodovias - pessoas",
-                "custos_veiculos" ~ "Rodovias - veículos",
-                "custos_inst" ~ "Rodovias - Inst. e danos patrimoniais",
-                "custos_urbanos" ~ "Vias municipais",
+                "custos_pessoas" ~ "Estradas e rodovias - pessoas",
+                "custos_veiculos" ~ "Estradas e rodovias - veículos",
+                "custos_inst" ~ "Estradas e rodovias - danos patrimoniais",
+                "custos_urbanos" ~ "Vias urbanas",
                 "custos_na" ~ "Locais não identificados"
-            )
+            ),
+            valor_formatado = valor / 1e9
         )
 
-    grafico <- ggplot(df_componentes, aes(x = componente, y = valor)) +
-        geom_col(fill = "#004077") +
-        coord_flip() +
-        labs(x = NULL, y = NULL) +
-        scale_y_continuous(
-            label = scales::label_number(
-                scale = 1e-9,
-                prefix = "R$ ",
-                suffix = " bi",
-                big.mark = ".",
-                decimal.mark = ","
-            )
-        ) +
-        theme(plot.margin = margin(10, 40, 10, 10)) # top, right, bottom, left
+    grafico <- plotly::plot_ly(
+        data = df_componentes,
+        y = ~componente,
+        x = ~valor_formatado,
+        type = "bar",
+        orientation = "h",
+        marker = list(color = ost.utils::palette_detran()$blue)
+    ) |>
+        layout(
+            xaxis = list(
+                title = "Custos",
+                showline = TRUE,
+                showgrid = FALSE,
+                tickprefix = "R$ ",
+                ticksuffix = " bi"
+            ),
+            yaxis = list(title = "Componente de custo")
+        )
 
     return(grafico)
 }

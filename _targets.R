@@ -2,7 +2,7 @@ library(targets)
 library(tarchetypes)
 
 tar_option_set(
-    packages = c("tidyverse", "ost.utils", "janitor", "gt", "quarto")
+    packages = c("tidyverse", "ost.utils", "janitor", "gt", "quarto", "plotly")
 )
 
 tar_source(
@@ -231,11 +231,17 @@ list(
             "gravidade"
         )
     ),
-    tar_target(
-        fig_sinistros_veiculo,
-        plot_veiculos_sinistro(df_sinistros, date_start, date_end)
-    ),
-    tar_target(fig_custos, plot_custos_componentes(df_custos_municipio)),
+    # tar_target(
+    #     list_fig_sinistros_veiculo,
+    #     map(
+    #         c("Estradas e rodovias", "Vias urbanas"),
+    #         plot_veiculos_sinistro,
+    #         df = df_sinistros,
+    #         date_start = date_start,
+    #         date_end = date_end
+    #     )
+    # ),
+    #tar_target(fig_custos, plot_custos_componentes(df_custos_municipio)),
     tar_target(
         tbl_resultados_pessoas,
         formatar_custos_pessoas_rodovias(
