@@ -330,7 +330,7 @@ formatar_tabela_sinistros <- function(
                     "fatal" ~ "Fatal"
                 )
             ) |>
-            filter(tipo_via != "Local não identificado") |>
+            #filter(tipo_via != "Local não identificado") |>
             arrange(tipo_via) |>
             gt(rowname_col = "gravidade_vitima", row_group_as_column = TRUE) |>
             fmt_number(
@@ -548,10 +548,11 @@ formatar_custos_pessoas_rodovias <- function(df_sinistros, df_custos) {
             Leve = sum(gravidade_leve),
             Grave = sum(gravidade_grave),
             Fatal = sum(gravidade_fatal),
+            `Não disponível` = sum(gravidade_nao_disponivel),
             .groups = "drop"
         ) |>
         pivot_longer(
-            cols = Leve:Fatal,
+            cols = Leve:`Não disponível`,
             names_to = "tipo_vitimas",
             values_to = "n"
         ) |>
@@ -560,8 +561,11 @@ formatar_custos_pessoas_rodovias <- function(df_sinistros, df_custos) {
             by = c("tipo_registro" = "tp_sinistros", "tipo_vitimas")
         ) |>
         filter(n != 0) |>
+        group_by(tipo_vitimas) |>
+        summarise(n = sum(n), custos_atual, .groups = "drop") |>
+        slice_head(n = 4) |>
         mutate(custo_total = n * custos_atual) |>
-        select(-tipo_registro) |>
+        # select(-tipo_registro) |>
         gt(rowname_col = "tipo_vitimas") |>
         cols_label(
             n = "Qnt. de vítimas",
@@ -626,10 +630,11 @@ formatar_custos_veiculos_rodovias <- function(df_sinistros, df_custos) {
             Ônibus = sum(tp_veiculo_onibus),
             Caminhão = sum(tp_veiculo_caminhao),
             Outros = sum(tp_veiculo_outros),
+            `Não disponível` = sum(tp_veiculo_nao_disponivel),
             .groups = "drop"
         ) |>
         pivot_longer(
-            cols = Bicicleta:Outros,
+            cols = Bicicleta:`Não disponível`,
             names_to = "tipo_veiculos",
             values_to = "n"
         ) |>
