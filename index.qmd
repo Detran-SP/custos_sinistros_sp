@@ -1,10 +1,15 @@
 ---
 title: "Estimativa do custo dos sinistros de trânsito no estado de São Paulo - Metodologia de cálculo"
-subtitle: "Nota Técnica 02 - v1.0"
+subtitle: "Nota Técnica 02 - v2.0"
 date: last-modified
 author:
+  - name: Departamento Estadual de Trânsito de São Paulo (Detran-SP)
+  - name: Diretoria de Segurança Viária
+  - name: Coordenadoria Geral de Segurança Viária
+  - name: Coordenadoria do Observatório de Segurança no Trânsito
   - name: Divisão de Estudos para Segurança no Trânsito
     email: estudos.transito@detran.sp.gov.br
+  - name: Divisão de Estatísticas de Trânsito
 format: 
   html:
     lang: pt-BR
@@ -59,7 +64,7 @@ Neste contexto, essa nota técnica apresenta um método de cálculo da estimativ
 
 ## Revisão bibliográfica
 
-A análise dos custos decorrentes dos sinistros de trânsito no Brasil tem sido objeto de esforços contínuos por parte do IPEA, com marcos metodológicos importantes ao longo dos últimos anos [@fig-timeline]. O primeiro estudo de referência buscou dimensionar pela primeira vez os impactos econômicos diretos e indiretos associados aos sinistros em aglomerações urbanas brasileiras [@ipeaImpactosSociaisEconomicos2003]. Utilizando dados agregados de mortalidade, internações e danos materiais, o estudo propôs uma estrutura inicial de custos baseada nos seguintes componentes: Custos Diretos (custos médico-hospitalares; resgate de vítimas; danos a veículos, a equipamentos urbanos, à sinalização e à propriedade de terceiros; remoção de veículos; atendimento policial; processos judiciais; custos previdenciários; e perda de produção) e Custos Indiretos (perda de produção (potencial) e ao congestionamento decorrente dos sinistros de trânsito). Embora limitado pela escassez de dados desagregados e por fortes pressupostos para estimativas de mortalidade e lesões não fatais, esse trabalho foi pioneiro ao introduzir a abordagem de custos totais para a sociedade como referência para políticas públicas.
+A análise dos custos decorrentes dos sinistros de trânsito no Brasil tem sido objeto de esforços contínuos por parte do IPEA, com marcos metodológicos importantes ao longo dos últimos anos ([@fig-timeline]). O primeiro estudo de referência buscou dimensionar pela primeira vez os impactos econômicos diretos e indiretos associados aos sinistros em aglomerações urbanas brasileiras [@ipeaImpactosSociaisEconomicos2003]. Utilizando dados agregados de mortalidade, internações e danos materiais, o estudo propôs uma estrutura inicial de custos baseada nos seguintes componentes: Custos Diretos (custos médico-hospitalares; resgate de vítimas; danos a veículos, a equipamentos urbanos, à sinalização e à propriedade de terceiros; remoção de veículos; atendimento policial; processos judiciais; custos previdenciários; e perda de produção) e Custos Indiretos (perda de produção (potencial) e ao congestionamento decorrente dos sinistros de trânsito). Embora limitado pela escassez de dados desagregados e por fortes pressupostos para estimativas de mortalidade e lesões não fatais, esse trabalho foi pioneiro ao introduzir a abordagem de custos totais para a sociedade como referência para políticas públicas.
 
 <!--
 ```{mermaid}
@@ -98,7 +103,7 @@ Todo o processo apresentado nessa nota técnica foi desenvolvido com base na lin
 
 O cálculo dos custos foi elaborado com base nos dados abertos de sinistros disponibilizados no Infosiga [@detran-spInfosigaSPDadosAbertos2025], considerando os último ano completo até da data de elaboração deste trabalho (2024-01-01 a 2024-12-31). Para a análise, foram considerados os registros classificados como "Sinistro fatal" e "Sinistro não fatal".
 
-Os dados foram filtrados pelas datas e separados pelo tipo de via. Neste processo, todos as entradas no atributo `tipo_via` que estavam como "RODOVIAS", "RURAL" e "RURAL (COM CARACTERÍSTICA DE URBANA)" foram classificadas como Estradas e rodovias. As vias classificadas como "URBANA" e "VIAS MUNICIPAIS" foram classificadas como vias urbanas. Ainda, a base do infosiga possui alguns registros em que não há o tipo de via registrado.
+Os dados foram filtrados pelas datas e separados pelo tipo de via. Neste processo, todos as entradas no atributo `tipo_via` que estavam como "RODOVIAS", "RURAL" e "RURAL (COM CARACTERÍSTICA DE URBANA)" foram classificadas como **Estradas e rodovias**. As vias classificadas como "URBANA" e "VIAS MUNICIPAIS" foram classificadas como **Vias urbanas**. Ainda, a base do infosiga possui alguns registros em que não há o tipo de via registrado.
 
 Para o cálculo dos custos, decidiu-se separar o método de acordo com a @eq-custo-total, somando os custos relacionados aos sinistros em rodovias ($C_r$), em vias urbanas ($C_u$) e casos sem o registro do local e tipo de via ($C_{NA}$)
 $$
@@ -125,6 +130,14 @@ $$ {#eq-custo-rodovias}
 
 A @tbl-custos-pessoas apresenta os componentes de custos associados às pessoas, com valores atualizados para abril/2025. Os valores até a @tbl-custos-inst foram baseados em @ipeaEstimativaDosCustos2015a, que apresentava valores de dezembro/2014. Assim, aplicou-se a @eq-ipca, baseando-se no valor do IPCA de abril/2025 (7.276,54) e o valor do IPCA de novembro/2014 (4.028,44), resultando em uma taxa de correção de 1,8063 [@ibgeIPCAIndiceNacional2025].
 
+Até o momento de publicação desse trabalho, os sinistros fatais no Infosiga não possuem a informação de gravidade das outras vítimas não fatais que estavam envolvidas (aparecem como "gravidade não disponível"). Ainda, nos sinistros não fatais tammbém há registros de vítimas com a gravidade não disponível. Como o @ipeaEstimativaDosCustos2015a não fornece custos para gravidade "não disponível", foi necessário fazer uma estimativa com base nos custos disponíveis das gravidades "Leve" e "Grave".
+
+Para isso, foi considerada a @eq-estimativa-gravidade-na, que calcula o custo unitário das vítimas com gravidade não disponível ($c_n$) através de uma média ponderada dos custos $c_g$ já disponibilizados das outras gravidades $g$. Com os dados de sinistros do Infosiga entre janeiro/2019 e junho/2025, foram calculadas as proporções de cada gravidade ($p_g$) envolvida em sinistros não fatais, assim, compondo a média ponderada entre as gravidades "Leve" e "Grave". O resultado dessa média dos sinistros não fatais também foi considerada para os sinistros fatais.
+
+$$
+c_n = \frac{\sum_{i=1}^{n} p_g c_g}{\sum_{i=1}^n p_g}
+$$ {#eq-estimativa-gravidade-na}
+
 Os custos apresentados na @tbl-custos-pessoas englobam os gastos pré-hospitalares, hospitalares, pós-hospitalares, perda de produção e remoção [@ipeaEstimativaDosCustos2015a]. Os custos variam de acordo com o tipo de sinistro e com a gravidade da vítima.
 
 ```{r}
@@ -141,12 +154,10 @@ C_{pt} = \sum_{g} q_{gt} \times c_{gt}
 $$ {#eq-componente-pessoa}
 
 ::: {.callout-note}
-1. Até o momento de publicação desse trabalho, os sinistros fatais no Infosiga não possuem a informação de gravidade das outras vítimas não fatais que estavam envolvidas (aparecem como "gravidade não disponível").
-
-2. Nos sinistros não fatais há registros de vítimas com a gravidade não disponível
-
-3. O Infosiga não possui o registro de sinistros sem vítimas, assim, só foi possível calcular os custos para os sinistros fatais e não fatais.
+Nesse trabalho foi considerado a tipo de sinistro ("Sinistro fatal" ou "Sinistro não fatal") de acordo com a chave `tipo_registro` dos dados abertos do Infosiga. Assim, não foram considerados os custos de sinistros "Sem vítimas" estabelecidos pelo IPEA
 :::
+
+Similar ao caso dos tipos de vítima "não disponíveis", o Infosiga também apresenta casos em que o tipo do veículo envolvido é "Não disponível". O mesmo procedimento de média ponderada descrito na @eq-estimativa-gravidade-na foi aplicado para o caso dos veículos não identificados, dessa vez de forma separada para os sinistros fatais e não fatais. No caso dos sinistros fatais, a amostra considerada para calcular as proporções por tipo de veículo foi de janeiro/2015 a junho/2025.
 
 A @tbl-custos-veiculos apresenta os componentes de custos associados aos veículos, considerando os valores de abril/2025. Os custos são classificados por tipo de veículo e por tipo de sinistro. Esses custos incluem os gastos de remoção/pátio, danos materiais e perda de carga.
 
@@ -164,9 +175,7 @@ C_{vt} = \sum_\nu q_{\nu t} \times c_{\nu t}
 $$ {#eq-componente-veic}
 
 ::: {.callout-note}
-1. O @ipeaEstimativaDosCustos2015a também traz custos relacionados aos veículos do tipo "utilitário". Como o Infosiga não possui essa classificação em seus registros, esse tipo foi desconsiderado.
-
-2. O Infosiga apresenta em alguns sinistros o tipo de veículo envolvido "não disponível". Esses casos foram desconsiderados no cálculo.
+O @ipeaEstimativaDosCustos2015a também traz custos relacionados aos veículos do tipo "utilitário". Como o Infosiga não possui essa classificação em seus registros, esse tipo foi desconsiderado.
 :::
 
 A @tbl-custos-inst contêm os custos institucionais e danos patrimoniais considerando valores de abril/2025, que também incluem os gastos com atendimentos. Como ele não depende do tipo e da quantidade de vítimas / veículos, o seu cálculo é apenas uma soma do valor de acordo com o tipo de sinistro.
@@ -222,7 +231,7 @@ O custo total dos sinistros de trânsito no estado de São Paulo, considerando o
 
 ### Sinistros
 
-A @tbl-via-tp-sinistro apresenta a distribuição dos sinistros fatais e não fatais segundo o tipo de via. Observa-se que o maior número absoluto de sinistros não fatais ocorreu em vias urbanas, totalizando 105.053 registros, seguido por rodovias, com 24.716 casos. Os sinistros fatais foram ligeiramente mais frequentes em vias urbanas (3.136 casos) do que em rodovias (2.310 casos). Destaca-se também a presença de 335 sinistros fatais em locais não identificados, categoria que não apresenta registros de sinistros não fatais no período em análise.
+A @tbl-via-tp-sinistro apresenta a distribuição dos sinistros fatais e não fatais segundo o tipo de via. Observa-se que o maior número absoluto de sinistros não fatais ocorreu em vias urbanas, totalizando 105.049 registros, seguido por rodovias, com 24.713 casos. Os sinistros fatais foram ligeiramente mais frequentes em vias urbanas (3.137 casos) do que em rodovias (2.312 casos). Destaca-se também a presença de 337 sinistros fatais em locais não identificados, categoria que não apresenta registros de sinistros não fatais no período em análise.
 
 ```{r}
 #| label: tbl-via-tp-sinistro
@@ -232,11 +241,11 @@ tar_read(tbl_sinistros)
 ```
 
 
-A @tbl-vitimas apresenta a quantidade de vítimas envolvidas nos sinistros, segundo o tipo de via, a gravidade e o tipo de sinistro. Nas vias urbanas, observa-se que a maioria dos sinistros não fatais está associada a vítimas com gravidade leve (97.740 casos) ou gravidade não disponível (108.375 casos). Os sinistros fatais totalizam 3.245, todos classificados como de gravidade fatal.
+A @tbl-vitimas apresenta a quantidade de vítimas envolvidas nos sinistros, segundo o tipo de via, a gravidade e o tipo de sinistro. Nas vias urbanas, observa-se que a maioria dos sinistros não fatais está associada a vítimas com gravidade leve (97.741 casos) ou gravidade não disponível (108.370 casos). Os sinistros fatais totalizam 3.246, todos classificados como de gravidade fatal.
 
-Nas rodovias, a distribuição é semelhante. O maior volume de sinistros não fatais envolve vítimas com gravidade leve (22.752 casos) ou gravidade não disponível (18.246 casos). Já os sinistros fatais totalizam 2.537 com gravidade fatal, além de 1.154 registros com gravidade não disponível.
+Nas rodovias, a distribuição é semelhante. O maior volume de sinistros não fatais envolve vítimas com gravidade leve (22.760 casos) ou gravidade não disponível (18.247 casos). Já os sinistros fatais totalizam 2.539 com gravidade fatal, além de 1.154 registros com gravidade não disponível.
 
-É importante ressaltar a expressiva quantidade de registros com gravidade não disponível, tanto nas rodovias quanto nas vias urbanas. Essa ausência de informação compromete a análise mais precisa dos impactos dos sinistros.
+É importante ressaltar a expressiva quantidade de registros com gravidade não disponível, tanto nas rodovias quanto nas vias urbanas. Essa ausência de informação compromete a análise mais precisa dos impactos dos sinistros. Também há uma quantidade de sinistros com local não identificado, todos com vítimas fatais ou com gravidade não identificada.
 
 ```{r}
 #| label: tbl-vitimas
@@ -245,9 +254,9 @@ Nas rodovias, a distribuição é semelhante. O maior volume de sinistros não f
 tar_read(tbl_vitimas)
 ```
 
-A @fig-veiculos apresenta a quantidade de veículos envolvidos em sinistros, segundo o tipo de via, o tipo de veículo envolvido e a gravidade do evento. Em vias urbanas, os veículos mais frequentemente associados a sinistros não fatais são os automóveis (76.446 casos) e motocicletas (69.418 casos), seguidos por bicicletas (4.163). Já entre os sinistros fatais, as motocicletas aparecem com destaque (1.653 ocorrências), seguidas pelos automóveis (1.357 casos) e caminhões (264 casos).
+As @fig-veiculos-rodovias e @fig-veiculos-urbanos apresentam a quantidade de veículos envolvidos em sinistros, segundo o tipo de via, o tipo de veículo envolvido e a gravidade do evento. Em vias urbanas, os veículos mais frequentemente associados a sinistros não fatais são os automóveis (51.560 casos) e motocicletas (44.563 casos). Já entre os sinistros fatais, as motocicletas aparecem com destaque (1.221 casos), seguidas pelos automóveis (1.064 casos).
 
-Nas rodovias, o padrão é semelhante. Os sinistros não fatais são majoritariamente associados a automóveis (18.894casos) e motocicletas (13.690 casos). Entre os sinistros fatais, os automóveis lideram com 1.660 registros, seguidos por motocicletas (877) e caminhões (735). Em ambos os tipos de via, observa-se que as motocicletas concentram uma proporção expressiva dos sinistros fatais.
+Nas rodovias, o padrão é semelhante. Os sinistros não fatais incluem majoritariamente automóveis (14.350 casos) e motocicletas (10.013 casos). Entre os sinistros fatais, os automóveis lideram com 1.317 registros, seguidos por motocicletas (613) e caminhões (464). Em ambos os tipos de via, observa-se que as motocicletas concentram uma proporção expressiva dos sinistros fatais.
 
 ::: {.panel-tabset}
 
@@ -280,7 +289,7 @@ plot_veiculos_sinistro(df_sinistros, date_start, date_end, "Vias urbanas")
 
 ### Custos
 
-Conforme mostrado na @fig-custos, os custos com sinistros em vias urbanas superaram R$ 7,7 bilhões em abril de 2025, concentrando a maior parte das perdas. Já nas rodovias, os danos relacionados aos veículos representaram R$ 1,7 bilhão, seguidos pelos custos relacionados as vítimas (quase R$ 3,3 bilhões) e por infraestrutura e patrimônio (R$ 18 milhões). Houve ainda R$ 241 milhões registrados em locais não identificados.
+Conforme mostrado na @fig-custos, os custos com sinistros em vias urbanas atingem quase R$ 7,7 bilhões, concentrando a maior parte das perdas. Já nas rodovias, os danos relacionados aos veículos representaram quase R$ 1 bilhão, seguidos pelos custos relacionados as vítimas (R$ 4 bilhões) e por infraestrutura e patrimônio (R$ 18 milhões). Houve ainda R$ 240 milhões registrados em locais não identificados.
 
 ```{r}
 #| label: fig-custos
@@ -291,7 +300,7 @@ tar_load(df_custos_municipio)
 plot_custos_componentes(df_custos_municipio)
 ```
 
-A @tbl-resultados-pessoas detalha os custos relacionados às vítimas de sinistros ocorridos em rodovias. Apesar de representarem apenas 2.537 casos, os óbitos resultaram em um impacto financeiro expressivo, atingindo quase R$ 2 bi. O custo associados às vítimas em estado grave também contribuíram significativamente para o total, com quase R$ 1 bi, mesmo sendo em menor número que os feridos leves. Estes últimos, embora mais numerosos (22.752), representaram um custo relativamente menor, de aproximadamente R$ 350 milhões. Ao todo, os custos com pessoas somaram quase R$ 3,3 bilhões no período analisado.
+A @tbl-resultados-pessoas detalha os custos relacionados às vítimas de sinistros ocorridos em rodovias. Apesar de representarem apenas 2.539 casos, os óbitos resultaram em um impacto financeiro expressivo, atingindo quase R$ 2 bi. O custo associados às vítimas em estado grave também contribuíram significativamente para o total, com quase R$ 1 bi, mesmo sendo em menor número que os feridos leves. Estes últimos, embora mais numerosos (22.760), representaram um custo relativamente menor, de aproximadamente R$ 350 milhões. No caso das vítimas com gravidade não disponível, houveram 19.401 casos, com custo aproximado de R$ 720 milhões. Ao todo, os custos com pessoas somaram aproxcimadamente R$ 4 bilhões no período analisado.
 
 ```{r}
 #| label: tbl-resultados-pessoas
@@ -300,7 +309,7 @@ A @tbl-resultados-pessoas detalha os custos relacionados às vítimas de sinistr
 tar_read(tbl_resultados_pessoas)
 ```
 
-Na @tbl-resultados-veiculos, observam-se os custos associados aos veículos envolvidos em sinistros em rodovias. Automóveis e caminhões concentram a maior parte do impacto financeiro, respondendo juntos por mais de R$ 1 bi. Em especial, os caminhões envolvidos em sinistros não fatais geraram um custo superior a R$ 515 milhões, reflexo do elevado valor médio por unidade. Já entre os casos fatais, destacam-se os custos com automóveis (quase R$ 58 milhões) e caminhões (R$ 63,5 milhões). Veículos classificados como “outros” também apresentaram valores expressivos, ultrapassando R$ 473 milhões no total. O custo agregado para esse componente chegou a R$ 1,68 bilhão.
+Na @tbl-resultados-veiculos, observam-se os custos associados aos veículos envolvidos em sinistros em rodovias. Automóveis e caminhões concentram a maior parte do impacto financeiro. Em especial, os caminhões envolvidos em sinistros não fatais geraram um custo de R$ 360 milhões, reflexo do elevado valor médio por unidade. Já entre os casos fatais, destacam-se os custos com automóveis (quase R$ 46 milhões) e caminhões (R$ 40 milhões). O custo agregado para esse componente chegou a R$ 940 milhões.
 
 ```{r}
 #| label: tbl-resultados-veiculos
@@ -319,7 +328,7 @@ A @tbl-resultados-inst reúne os custos institucionais e os danos patrimoniais d
 tar_read(tbl_resultados_inst)
 ```
 
-Somando os diferentes componentes analisados — custos com pessoas, veículos e danos institucionais — os sinistros em rodovias resultaram em um impacto econômico superior a R$ 3,3 bilhões apenas com vítimas, R$ 1,7 bilhão em danos aos veículos envolvidos e mais de R$ 18 milhões relacionados a encargos institucionais e prejuízos patrimoniais. Esses valores ilustram a abrangência das perdas provocadas pelos sinistros, que vão muito além das vítimas, envolvendo também danos materiais e custos indiretos para o poder público.
+Somando os diferentes componentes analisados — custos com pessoas, veículos e danos institucionais — os sinistros em rodovias resultaram em um impacto econômico superior a R$ 4 bilhões apenas com vítimas, R$ 1 bilhão em danos aos veículos envolvidos e quase R$ 18 milhões relacionados a encargos institucionais e prejuízos patrimoniais. Esses valores ilustram a abrangência das perdas provocadas pelos sinistros, que vão muito além das vítimas, envolvendo também danos materiais e custos indiretos para o poder público.
 
 A @tbl-resultados-urbano mostra que os sinistros em vias urbanas geraram um custo total de aproximadamente R$ 7,7 bilhões, o maior entre os tipos de via analisados. Embora os sinistros fatais representem menos de 5% dos registros, responderam por mais de R$ 1,5 bilhão, devido ao elevado custo por ocorrência. Já os sinistros não fatais, em maior volume, concentraram cerca de R$ 6,2 bilhões, refletindo o peso financeiro agregado mesmo em casos de menor gravidade individual.
 
@@ -330,7 +339,7 @@ A @tbl-resultados-urbano mostra que os sinistros em vias urbanas geraram um cust
 tar_read(tbl_resultados_vias_municipais)
 ```
 
-Ainda que com menor representatividade no total de registros, os sinistros em locais não identificados somaram 335 casos fatais, com um custo médio superior a R$ 718 mil por ocorrência. O impacto financeiro estimado para essa categoria ultrapassa os R$ 240 milhões, valor que reforça a importância de aprimorar a identificação espacial dos registros para qualificar a análise e o direcionamento de políticas públicas.
+Ainda que com menor representatividade no total de registros, os sinistros em locais não identificados somaram 337 casos fatais, com um custo médio superior a R$ 718 mil por ocorrência. O impacto financeiro estimado para essa categoria ultrapassa os R$ 240 milhões, valor que reforça a importância de aprimorar a identificação espacial dos registros para qualificar a análise e o direcionamento de políticas públicas.
 
 Considerando os três tipos de via analisados, os sinistros em vias urbanas concentram o maior volume de custos, totalizando cerca de R$ 7,76 bilhões, impulsionados principalmente pelos sinistros não fatais. Nas rodovias, o impacto foi de aproximadamente R$ 5 bilhões, distribuídos entre custos com vítimas, veículos e danos institucionais. Já os registros em locais não identificados, apesar de menos numerosos, somaram R$ 240 milhões exclusivamente em sinistros fatais. Esses números evidenciam tanto a magnitude dos prejuízos econômicos quanto a necessidade de qualificar os dados geográficos para aprimorar a gestão da segurança viária.
 
@@ -347,9 +356,9 @@ tar_read(tbl_custos_municipio)
 
 ## Conclusão
 
-A estimativa apresentada nesta nota técnica aponta que os sinistros de trânsito no estado de São Paulo geraram perdas econômicas que quase alcançaram R$ 13 bilhões no período analisado. Desse total, aproximadamente R$ 7,7 bilhões referem-se a ocorrências em vias urbanas, que, embora apresentem menor gravidade média por sinistro, concentram a maior parte dos registros. Já os sinistros em rodovias somaram R$ 5 bilhões, com destaque para os custos relacionados às vítimas fatais, que representam a maior parcela do impacto financeiro nesse tipo de via. Por fim, os sinistros registrados em locais não identificados totalizaram R$ 240 milhões, exclusivamente associados a casos fatais.
+A estimativa apresentada nesta nota técnica aponta que os sinistros de trânsito no estado de São Paulo geraram perdas econômicas que quase alcançaram R$ 13 bilhões no período analisado. Desse total, aproximadamente R$ 7,7 bilhões referem-se a ocorrências em vias urbanas, que, embora apresentem menor gravidade média por sinistro, concentram a maior parte dos registros. Já os sinistros em rodovias somaram quase R$ 5 bilhões, com destaque para os custos relacionados às vítimas fatais, que representam a maior parcela do impacto financeiro nesse tipo de via. Por fim, os sinistros registrados em locais não identificados totalizaram R$ 240 milhões, exclusivamente associados a casos fatais.
 
-Entre os componentes analisados, os custos relacionados às pessoas são os mais expressivos, representando cerca de dois terços do total em rodovias. Em vias urbanas, embora o volume de sinistros não fatais seja predominante, o custo médio por ocorrência ainda é elevado, o que amplia o impacto agregado. Já os danos aos veículos e os custos institucionais também contribuem de forma relevante para o total estimado, evidenciando que os prejuízos financeiros vão muito além da dimensão humana, afetando também o patrimônio privado e os recursos públicos.
+Entre os componentes analisados, os custos relacionados às pessoas são os mais expressivos, representando cerca de 80% do total em rodovias. Em vias urbanas, embora o volume de sinistros não fatais seja predominante, o custo médio por ocorrência ainda é elevado, o que amplia o impacto agregado. Já os danos aos veículos e os custos institucionais também contribuem de forma relevante para o total estimado, evidenciando que os prejuízos financeiros vão muito além da dimensão humana, afetando também o patrimônio privado e os recursos públicos.
 
 Ainda assim, algumas limitações devem ser consideradas. O modelo foi construído a partir de parâmetros nacionais definidos em estudos do IPEA, originalmente voltados para rodovias federais, o que pode não refletir integralmente as especificidades das rodovias estaduais e municipais de São Paulo. Além disso, a base de dados utilizada apresenta lacunas importantes, como a ausência de informações detalhadas sobre a gravidade das vítimas em alguns registros e a falta de identificação do tipo de via em uma parcela dos sinistros. Essas limitações podem impactar a precisão das estimativas e reforçam a necessidade de contínuo aprimoramento na coleta e qualificação dos dados. Devido a essas limitações, entende-se que o valor total apresentado nesse trabalho pode estar subestimado, assim, o valor real poderia ser ainda maior.
 
