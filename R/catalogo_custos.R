@@ -1,10 +1,13 @@
 #' Create person-related cost table
 #'
 #' Generates a cost table for different victim severity levels, based on
-#' provided crash types and inflation adjustment factor.
+#' provided crash types and inflation adjustment factor. Includes calculation
+#' of costs for unidentified victim severity using proportions.
 #'
 #' @param tp_sinistros A character vector with crash types.
 #' @param fator_ipca A numeric value to adjust costs by inflation.
+#' @param df_prop_vitimas A data frame containing victim proportions by type,
+#' used to calculate costs for unidentified severity levels.
 #'
 #' @return A data frame with victim severity costs.
 #'
@@ -12,9 +15,11 @@
 #'
 #' @examples
 #' \dontrun{
+#' victim_props <- calc_prop_vitimas(crash_data)
 #' costs <- create_custos_pessoas(
 #'     c("Sem vítimas", "Sinistro não fatal", "Sinistro fatal"),
-#'     1.5
+#'     1.5,
+#'     victim_props
 #' )
 #' }
 create_custos_pessoas <- function(tp_sinistros, fator_ipca, df_prop_vitimas) {
@@ -83,10 +88,17 @@ create_custos_pessoas <- function(tp_sinistros, fator_ipca, df_prop_vitimas) {
 #' Create vehicle-related cost table
 #'
 #' Generates a cost table for different vehicle types, based on provided
-#' crash types and inflation adjustment factor.
+#' crash types and inflation adjustment factor. Includes calculation of
+#' costs for unidentified vehicle types using proportions.
 #'
 #' @param tp_sinistros A character vector with crash types.
 #' @param fator_ipca A numeric value to adjust costs by inflation.
+#' @param df_prop_veiculos_fatais A data frame containing vehicle type
+#' proportions for fatal crashes, used to calculate costs for unidentified
+#' vehicle types in fatal crashes.
+#' @param df_prop_veiculos_naofatais A data frame containing vehicle type
+#' proportions for non-fatal crashes, used to calculate costs for unidentified
+#' vehicle types in non-fatal crashes.
 #'
 #' @return A data frame with vehicle type costs.
 #'
@@ -94,9 +106,13 @@ create_custos_pessoas <- function(tp_sinistros, fator_ipca, df_prop_vitimas) {
 #'
 #' @examples
 #' \dontrun{
+#' fatal_props <- calc_prop_veiculos(crash_data, "Sinistro fatal")
+#' nonfatal_props <- calc_prop_veiculos(crash_data, "Sinistro não fatal")
 #' costs <- create_custos_veiculos(
 #'     c("Sem vítimas", "Sinistro não fatal", "Sinistro fatal"),
-#'     1.5
+#'     1.5,
+#'     fatal_props,
+#'     nonfatal_props
 #' )
 #' }
 create_custos_veiculos <- function(
@@ -213,21 +229,21 @@ create_custos_inst <- function(tp_sinistros, fator_ipca) {
     )
 }
 
-#' Create institutional cost table
+#' Create urban road cost table
 #'
-#' Generates a cost table for institutional response costs, based on provided
-#' crash types and inflation adjustment factor.
+#' Generates a cost table for urban road costs, based on
+#' provided crash types and inflation adjustment factor.
 #'
 #' @param tp_sinistros A character vector with crash types.
 #' @param fator_ipca A numeric value to adjust costs by inflation.
 #'
-#' @return A data frame with institutional costs.
+#' @return A data frame with urban road costs.
 #'
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' costs <- create_custos_inst(
+#' costs <- create_custos_urbanos(
 #'     c("Sem vítimas", "Sinistro não fatal", "Sinistro fatal"),
 #'     1.5
 #' )

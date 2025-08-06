@@ -1,3 +1,16 @@
+#' Load full crash data from InfoSiga
+#'
+#' Downloads and loads the complete InfoSiga crash dataset, applies
+#' data cleaning, and filters records up to June 30, 2025.
+#'
+#' @return A cleaned data frame containing crash records.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#'     crash_data <- load_sinistros_full()
+#' }
 load_sinistros_full <- function() {
     temp <- tempdir()
     ost.utils::download_infosiga(temp)
@@ -9,6 +22,22 @@ load_sinistros_full <- function() {
     return(df_clean)
 }
 
+#' Calculate victim proportions by severity
+#'
+#' Calculates the proportions of victims by injury severity level
+#' for non-fatal crashes.
+#'
+#' @param sinistros A data frame containing crash records with victim
+#' severity information.
+#'
+#' @return A data frame with victim types and their proportions.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#'     victim_props <- calc_prop_vitimas(crash_data)
+#' }
 calc_prop_vitimas <- function(sinistros) {
     sinistros |>
         group_by(tipo_registro) |>
@@ -30,6 +59,24 @@ calc_prop_vitimas <- function(sinistros) {
         select(tipo_vitima, proporcao_vitima)
 }
 
+#' Calculate vehicle type proportions
+#'
+#' Calculates the proportions of different vehicle types involved
+#' in crashes for a specific crash type.
+#'
+#' @param sinistros A data frame containing crash records with vehicle
+#' type information.
+#' @param tipo A character string specifying the crash type to filter
+#' (e.g., "Sinistro não fatal", "Sinistro fatal").
+#'
+#' @return A data frame with vehicle types and their proportions.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#'     vehicle_props <- calc_prop_veiculos(crash_data, "Sinistro fatal")
+#' }
 calc_prop_veiculos <- function(sinistros, tipo) {
     sinistros |>
         group_by(tipo_registro) |>

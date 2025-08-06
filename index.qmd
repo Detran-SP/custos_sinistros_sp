@@ -66,21 +66,6 @@ Neste contexto, essa nota técnica apresenta um método de cálculo da estimativ
 
 A análise dos custos decorrentes dos sinistros de trânsito no Brasil tem sido objeto de esforços contínuos por parte do IPEA, com marcos metodológicos importantes ao longo dos últimos anos ([@fig-timeline]). O primeiro estudo de referência buscou dimensionar pela primeira vez os impactos econômicos diretos e indiretos associados aos sinistros em aglomerações urbanas brasileiras [@ipeaImpactosSociaisEconomicos2003]. Utilizando dados agregados de mortalidade, internações e danos materiais, o estudo propôs uma estrutura inicial de custos baseada nos seguintes componentes: Custos Diretos (custos médico-hospitalares; resgate de vítimas; danos a veículos, a equipamentos urbanos, à sinalização e à propriedade de terceiros; remoção de veículos; atendimento policial; processos judiciais; custos previdenciários; e perda de produção) e Custos Indiretos (perda de produção (potencial) e ao congestionamento decorrente dos sinistros de trânsito). Embora limitado pela escassez de dados desagregados e por fortes pressupostos para estimativas de mortalidade e lesões não fatais, esse trabalho foi pioneiro ao introduzir a abordagem de custos totais para a sociedade como referência para políticas públicas.
 
-<!--
-```{mermaid}
-%%| label: fig-timeline-bak
-%%| fig-cap: Evolução dos trabalhos do IPEA
-
-timeline
-  2003 : Custos de sinistros em aglomerações urbanas brasileiras.
-  2006 : Custos de sinistros em rodovias brasileiras.
-  2015 : Atualização e resultados para todos os tipos de vias.
-  2020 : Consolidação dos estudos anteriores.
-
-```
-
--->
-
 ```{mermaid}
 %%| label: fig-timeline
 %%| fig-cap: Evolução dos trabalhos do IPEA
