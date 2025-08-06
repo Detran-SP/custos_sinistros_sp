@@ -154,20 +154,21 @@ formatar_custos_na <- function(df_rodovias, df_urbanos) {
     return(tabela)
 }
 
-#' Format average cost table for undefined road type
+#' Calculate total cost from cost data
 #'
-#' Calculates and formats the average cost per crash for undefined road types.
+#' Calculates the total cost from a cost data frame and returns it
+#' as a formatted currency string.
 #'
-#' @param df_rodovias A data frame with highway costs.
-#' @param df_urbanos A data frame with urban costs.
+#' @param df_custos A data frame containing cost data with a
+#' `custos_totais` column.
 #'
-#' @return A formatted gt table with average costs.
+#' @return A formatted string with the total cost in Brazilian Real.
 #'
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' tabela <- formatar_custos_na(df_rodovias, df_urbanos)
+#' total_str <- calc_custo_total(df_custos)
 #' }
 calc_custo_total <- function(df_custos) {
     custo_total <- df_custos$custos_totais |> sum()
@@ -347,13 +348,15 @@ formatar_tabela_sinistros <- function(
 #' Plot vehicle involvement in crashes
 #'
 #' Creates a bar plot showing vehicle types involved in crashes by road type
-#' and crash severity.
+#' and crash severity for a specific road type.
 #'
 #' @param df A data frame with crash records.
 #' @param date_start Start date in "yyyy-mm-dd" format.
 #' @param date_end End date in "yyyy-mm-dd" format.
+#' @param via A character string specifying the road type to filter
+#' (e.g., "Estradas e rodovias", "Vias urbanas").
 #'
-#' @return A ggplot2 object with the bar plot.
+#' @return A plotly object with the bar plot.
 #'
 #' @export
 #'
@@ -362,7 +365,8 @@ formatar_tabela_sinistros <- function(
 #' plot <- plot_veiculos_sinistro(
 #'     df_sinistros,
 #'     "2024-01-01",
-#'     "2024-12-31"
+#'     "2024-12-31",
+#'     "Estradas e rodovias"
 #' )
 #' }
 plot_veiculos_sinistro <- function(df, date_start, date_end, via) {
