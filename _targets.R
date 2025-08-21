@@ -54,7 +54,6 @@ list(
         format = "file"
     ),
     tar_target(df_municipios, load_municipios(municipios_path)),
-    #tar_target(df_sinistros, load_infosiga("sinistros")),
     tar_target(df_sinistros, load_sinistros_full()),
     tar_target(
         df_sinistros_rodovias,
