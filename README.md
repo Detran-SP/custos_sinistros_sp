@@ -32,9 +32,9 @@ renv::restore()
 
 2. **Execute o pipeline**:
 
-   ```r
-   targets::tar_make()
-   ```
+```r
+targets::tar_make()
+```
 
 O relatório final estará disponível como `index.html`.
 
