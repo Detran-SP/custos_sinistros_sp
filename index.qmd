@@ -86,7 +86,7 @@ Por fim, em 2020 o IPEA retoma a discussão de forma resumida, trazendo os resul
 
 Todo o processo apresentado nessa nota técnica foi desenvolvido com base na linguagem de programação R [@rcoreteam2021]. O código-fonte pode ser acessado no [repositório](https://github.com/detran-sp/custos_sinistros_sp).
 
-O cálculo dos custos foi elaborado com base nos dados abertos de sinistros disponibilizados no Infosiga [@detran-spInfosigaSPDadosAbertos2025], considerando os último ano completo até da data de elaboração deste trabalho (2024-01-01 a 2024-12-31). Para a análise, foram considerados os registros classificados como "Sinistro fatal" e "Sinistro não fatal".
+O cálculo dos custos foi elaborado com base nos dados abertos de sinistros disponibilizados no Infosiga [@detran-spInfosigaSPDadosAbertos2025], considerando os último ano completo até da data de elaboração deste trabalho (2024-01-01 a 2024-12-31). Para a análise, foram considerados os registros classificados como "Sinistro fatal" e "Sinistro não fatal", desconsiderando assim os registros classificados como "notificação", os quais possuem informações menos completas.
 
 Os dados foram filtrados pelas datas e separados pelo tipo de via. Neste processo, todos as entradas no atributo `tipo_via` que estavam como "RODOVIAS", "RURAL" e "RURAL (COM CARACTERÍSTICA DE URBANA)" foram classificadas como **Estradas e rodovias**. As vias classificadas como "URBANA" e "VIAS MUNICIPAIS" foram classificadas como **Vias urbanas**. Ainda, a base do infosiga possui alguns registros em que não há o tipo de via registrado.
 
@@ -115,7 +115,7 @@ $$ {#eq-custo-rodovias}
 
 A @tbl-custos-pessoas apresenta os componentes de custos associados às pessoas, com valores atualizados para abril/2025. Os valores até a @tbl-custos-inst foram baseados em @ipeaEstimativaDosCustos2015a, que apresentava valores de dezembro/2014. Assim, aplicou-se a @eq-ipca, baseando-se no valor do IPCA de abril/2025 (7.276,54) e o valor do IPCA de novembro/2014 (4.028,44), resultando em uma taxa de correção de 1,8063 [@ibgeIPCAIndiceNacional2025].
 
-Até o momento de publicação desse trabalho, os sinistros fatais no Infosiga não possuem a informação de gravidade das outras vítimas não fatais que estavam envolvidas (aparecem como "gravidade não disponível"). Ainda, nos sinistros não fatais tammbém há registros de vítimas com a gravidade não disponível. Como o @ipeaEstimativaDosCustos2015a não fornece custos para gravidade "não disponível", foi necessário fazer uma estimativa com base nos custos disponíveis das gravidades "Leve" e "Grave".
+Até o momento de publicação desse trabalho, os sinistros fatais no Infosiga não possuem a informação de gravidade das outras vítimas não fatais que estavam envolvidas (aparecem como "gravidade não disponível"). Ainda, nos sinistros não fatais também há registros de vítimas com a gravidade não disponível. Como o @ipeaEstimativaDosCustos2015a não fornece custos para gravidade "não disponível", foi necessário fazer uma estimativa com base nos custos disponíveis das gravidades "Leve" e "Grave".
 
 Para isso, foi considerada a @eq-estimativa-gravidade-na, que calcula o custo unitário das vítimas com gravidade não disponível ($c_n$) através de uma média ponderada dos custos $c_g$ já disponibilizados das outras gravidades $g$. Com os dados de sinistros do Infosiga entre janeiro/2019 e junho/2025, foram calculadas as proporções de cada gravidade ($p_g$) envolvida em sinistros não fatais, assim, compondo a média ponderada entre as gravidades "Leve" e "Grave". O resultado dessa média dos sinistros não fatais também foi considerada para os sinistros fatais.
 
@@ -139,7 +139,7 @@ C_{pt} = \sum_{g} q_{gt} \times c_{gt}
 $$ {#eq-componente-pessoa}
 
 ::: {.callout-note}
-Nesse trabalho foi considerado a tipo de sinistro ("Sinistro fatal" ou "Sinistro não fatal") de acordo com a chave `tipo_registro` dos dados abertos do Infosiga. Assim, não foram considerados os custos de sinistros "Sem vítimas" estabelecidos pelo IPEA
+Nesse trabalho foi considerado a tipo de sinistro ("Sinistro fatal" ou "Sinistro não fatal") de acordo com a chave `tipo_registro` dos dados abertos do Infosiga. Assim, não foram considerados os custos de sinistros "Sem vítimas" estabelecidos pelo IPEA.
 :::
 
 Similar ao caso dos tipos de vítima "não disponíveis", o Infosiga também apresenta casos em que o tipo do veículo envolvido é "Não disponível". O mesmo procedimento de média ponderada descrito na @eq-estimativa-gravidade-na foi aplicado para o caso dos veículos não identificados, dessa vez de forma separada para os sinistros fatais e não fatais. No caso dos sinistros fatais, a amostra considerada para calcular as proporções por tipo de veículo foi de janeiro/2015 a junho/2025.
@@ -163,7 +163,7 @@ $$ {#eq-componente-veic}
 O @ipeaEstimativaDosCustos2015a também traz custos relacionados aos veículos do tipo "utilitário". Como o Infosiga não possui essa classificação em seus registros, esse tipo foi desconsiderado.
 :::
 
-A @tbl-custos-inst contêm os custos institucionais e danos patrimoniais considerando valores de abril/2025, que também incluem os gastos com atendimentos. Como ele não depende do tipo e da quantidade de vítimas / veículos, o seu cálculo é apenas uma soma do valor de acordo com o tipo de sinistro.
+A @tbl-custos-inst contém os custos institucionais e danos patrimoniais considerando valores de abril/2025, que também incluem os gastos com atendimentos. Como ele não depende do tipo e da quantidade de vítimas / veículos, o seu cálculo é apenas uma soma do valor de acordo com o tipo de sinistro.
 
 ```{r}
 #| label: tbl-custos-inst
@@ -175,7 +175,7 @@ tar_read(tbl_custos_inst)
 
 ### Vias urbanas
 
-Na @tbl-custos-urbanos estão apresentados os custos médios dos sinistros ocorridos em aglomerações urbanas com os valores de abril/2025, extraídos de @ipeaImpactosSociaisEconomicos2003. O método apresentado pelos autores não inclui um detalhamento sobre o custo de cada componente, como foi elaborado para as rodovias.
+Na @tbl-custos-urbanos estão apresentados os custos médios dos sinistros ocorridos em aglomerações urbanas com os valores de abril/2025, atualizados a partir de @ipeaImpactosSociaisEconomicos2003. O método original apresentado pelos autores não inclui um detalhamento sobre o custo de cada componente, como foi elaborado para as rodovias.
 
 Para a atualização dos valores, baseou-se novamente na @eq-ipca, considerando agora uma atualização dos valores de abril/2003 (IPCA = 2.144,49) [@ibgeIPCAIndiceNacional2025], o que resultou em uma taxa de correção de 3,393.
 
