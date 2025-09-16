@@ -239,7 +239,7 @@ Nas rodovias, a distribuição é semelhante. O maior volume de sinistros não f
 tar_read(tbl_vitimas)
 ```
 
-As @fig-veiculos-rodovias e @fig-veiculos-urbanos apresentam a quantidade de veículos envolvidos em sinistros, segundo o tipo de via, o tipo de veículo envolvido e a gravidade do evento. Em vias urbanas, os veículos mais frequentemente associados a sinistros não fatais são os automóveis (76.442 casos) e motocicletas (69.413 casos). Já entre os sinistros fatais, as motocicletas aparecem com destaque (1.657 casos), seguidas pelos automóveis (1.435 casos).
+A @fig-veiculos-rodovias e a @fig-veiculos-urbanos apresentam a quantidade de veículos envolvidos em sinistros, segundo o tipo de via, o tipo de veículo envolvido e a gravidade do evento. Em vias urbanas, os veículos mais frequentemente associados a sinistros não fatais são os automóveis (76.442 casos) e motocicletas (69.413 casos). Já entre os sinistros fatais, as motocicletas aparecem com destaque (1.657 casos), seguidas pelos automóveis (1.435 casos).
 
 Nas rodovias, o padrão é semelhante. Os sinistros não fatais incluem majoritariamente automóveis (18.910 casos) e motocicletas (13.700 casos). Entre os sinistros fatais, os automóveis lideram com 1.750 registros, seguidos por motocicletas (878) e caminhões (737). Em ambos os tipos de via, observa-se que as motocicletas concentram uma proporção expressiva dos sinistros fatais.
 
@@ -285,7 +285,7 @@ tar_load(df_custos_municipio)
 plot_custos_componentes(df_custos_municipio)
 ```
 
-A @tbl-resultados-pessoas detalha os custos relacionados às vítimas de sinistros ocorridos em rodovias. Apesar de representarem apenas 2.046 casos, os óbitos resultaram em um impacto financeiro expressivo, atingindo mais de R$ 1,6 bi. O custo associados às vítimas em estado grave também contribuíram significativamente para o total, com quase R$ 0,85 bi, mesmo sendo em menor número que os feridos leves. Estes últimos, embora mais numerosos (21.907), representaram um custo relativamente menor, de aproximadamente R$ 335 milhões. No caso das vítimas com gravidade não disponível, houveram 2.438 casos, com custo aproximado de R$ 86 milhões. Ao todo, os custos com pessoas somaram aproximadamente R$ 2,85 bilhões no período analisado.
+A @tbl-resultados-pessoas detalha os custos relacionados às vítimas de sinistros ocorridos em rodovias. Apesar de representarem apenas 2.046 casos, os óbitos resultaram em um impacto financeiro expressivo, atingindo mais de R$ 1,6 bi. O custo associados às vítimas em estado grave também contribuíram significativamente para o total, com quase R$ 0,85 bi, mesmo sendo em menor número que os feridos leves. Estes últimos, embora mais numerosos (21.907), representaram um custo relativamente menor, de aproximadamente R$ 335 milhões. No caso das vítimas com gravidade não disponível, houve 2.438 casos, com custo aproximado de R$ 86 milhões. Ao todo, os custos com pessoas somaram aproximadamente R$ 2,85 bilhões no período analisado.
 
 ```{r}
 #| label: tbl-resultados-pessoas
@@ -294,7 +294,7 @@ A @tbl-resultados-pessoas detalha os custos relacionados às vítimas de sinistr
 tar_read(tbl_resultados_pessoas)
 ```
 
-Na @tbl-resultados-veiculos, observam-se os custos associados aos veículos envolvidos em sinistros em rodovias. Automóveis e caminhões concentram a maior parte do impacto financeiro. Em especial, os caminhões envolvidos em sinistros não fatais geraram um custo de R$ 516 milhões, reflexo do elevado valor médio por unidade. Já entre os casos fatais, destacam-se os custos com automóveis (R% 61  milhões) e caminhões (R$ 64 milhões). O custo agregado para esse componente chegou a R$ 1,3 bilhão.
+Na @tbl-resultados-veiculos, observam-se os custos associados aos veículos envolvidos em sinistros em rodovias. Automóveis e caminhões concentram a maior parte do impacto financeiro. Em especial, os caminhões envolvidos em sinistros não fatais geraram um custo de R$ 516 milhões, reflexo do elevado valor médio por unidade. Já entre os casos fatais, destacam-se os custos com automóveis (R$ 61  milhões) e caminhões (R$ 64 milhões). O custo agregado para esse componente chegou a R$ 1,3 bilhão.
 
 ```{r}
 #| label: tbl-resultados-veiculos
