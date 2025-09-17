@@ -1,6 +1,6 @@
 ---
 title: "Estimativa do custo dos sinistros de trânsito no estado de São Paulo - Metodologia de cálculo"
-subtitle: "Nota Técnica 02 - v2.1"
+subtitle: "Nota Técnica 02 - v2.2"
 date: last-modified
 author:
   - name: Departamento Estadual de Trânsito de São Paulo (Detran-SP)
