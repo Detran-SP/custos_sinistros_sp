@@ -297,11 +297,11 @@ formatar_tabela_sinistros <- function(
         tabela <- df_filtrado |>
             group_by(tipo_via, tipo_registro) |>
             summarise(
-                sem_info = sum(gravidade_nao_disponivel),
-                ileso = sum(gravidade_ileso),
-                leve = sum(gravidade_leve),
-                grave = sum(gravidade_grave),
-                fatal = sum(gravidade_fatal)
+                sem_info = sum(qtd_gravidade_nao_disponivel),
+                ileso = sum(qtd_gravidade_ileso),
+                leve = sum(qtd_gravidade_leve),
+                grave = sum(qtd_gravidade_grave),
+                fatal = sum(qtd_gravidade_fatal)
             ) |>
             pivot_longer(
                 cols = sem_info:fatal,
@@ -385,13 +385,13 @@ plot_veiculos_sinistro <- function(df, date_start, date_end, via) {
         ) |>
         group_by(tipo_via, tipo_registro) |>
         summarise(
-            bicicleta = sum(tp_veiculo_bicicleta),
-            motocicleta = sum(tp_veiculo_motocicleta),
-            automovel = sum(tp_veiculo_automovel),
-            onibus = sum(tp_veiculo_onibus),
-            caminhao = sum(tp_veiculo_caminhao),
-            outros = sum(tp_veiculo_outros),
-            nao_disponivel = sum(tp_veiculo_nao_disponivel),
+            bicicleta = sum(qtd_bicicleta),
+            motocicleta = sum(qtd_motocicleta),
+            automovel = sum(qtd_automovel),
+            onibus = sum(qtd_onibus),
+            caminhao = sum(qtd_caminhao),
+            outros = sum(qtd_veic_outros),
+            nao_disponivel = sum(qtd_veic_nao_disponivel),
             .groups = "drop"
         ) |>
         pivot_longer(
@@ -549,10 +549,10 @@ formatar_custos_pessoas_rodovias <- function(df_sinistros, df_custos) {
     tabela <- df_sinistros |>
         group_by(tipo_registro) |>
         summarise(
-            Leve = sum(gravidade_leve),
-            Grave = sum(gravidade_grave),
-            Fatal = sum(gravidade_fatal),
-            `Não disponível` = sum(gravidade_nao_disponivel),
+            Leve = sum(qtd_gravidade_leve),
+            Grave = sum(qtd_gravidade_grave),
+            Fatal = sum(qtd_gravidade_fatal),
+            `Não disponível` = sum(qtd_gravidade_nao_disponivel),
             .groups = "drop"
         ) |>
         pivot_longer(
@@ -628,13 +628,13 @@ formatar_custos_veiculos_rodovias <- function(df_sinistros, df_custos) {
     tabela <- df_sinistros |>
         group_by(tipo_registro) |>
         summarise(
-            Bicicleta = sum(tp_veiculo_bicicleta),
-            Motocicleta = sum(tp_veiculo_motocicleta),
-            Automóvel = sum(tp_veiculo_automovel),
-            Ônibus = sum(tp_veiculo_onibus),
-            Caminhão = sum(tp_veiculo_caminhao),
-            Outros = sum(tp_veiculo_outros),
-            `Não disponível` = sum(tp_veiculo_nao_disponivel),
+            Bicicleta = sum(qtd_bicicleta),
+            Motocicleta = sum(qtd_motocicleta),
+            Automóvel = sum(qtd_automovel),
+            Ônibus = sum(qtd_onibus),
+            Caminhão = sum(qtd_caminhao),
+            Outros = sum(qtd_veic_outros),
+            `Não disponível` = sum(qtd_veic_nao_disponivel),
             .groups = "drop"
         ) |>
         pivot_longer(
