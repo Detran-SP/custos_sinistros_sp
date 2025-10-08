@@ -28,9 +28,11 @@ renv::restore()
 
 ## Uso
 
-1. **Configure os parâmetros**: Edite o arquivo `_targets.R` caso necessário (datas e índices IPCA).
+1. **Carregue os [dados abertos do Infosiga](https://infosiga.detran.sp.gov.br/rest/painel/download/file/dados_infosiga.zip)**: Baixe os dados abertos do Infosiga e insira o arquivo `dados_infosiga.zip` na pasta `data/`.
 
-2. **Execute o pipeline**:
+2. **Configure os parâmetros**: Edite o arquivo `_targets.R` caso necessário (datas e índices IPCA).
+
+3. **Execute o pipeline**:
 
 ```r
 targets::tar_make()
@@ -43,7 +45,7 @@ O relatório final estará disponível como `index.html`.
 ```
 ├── _targets.R       # Definição do pipeline
 ├── index.qmd        # Relatório em Quarto Markdown
-├── index.html        # Relatório em HTML
+├── index.html       # Relatório em HTML
 ├── data/            # Bases de dados de entrada
 ├── R/               # Funções em R
 ├── renv/            # Ambiente R
