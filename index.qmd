@@ -1,6 +1,6 @@
 ---
 title: "Estimativa do custo dos sinistros de trânsito no estado de São Paulo - Metodologia de cálculo"
-subtitle: "Nota Técnica 02 - v2.2"
+subtitle: "Nota Técnica 02 - v2.3"
 date: last-modified
 author:
   - name: Departamento Estadual de Trânsito de São Paulo (Detran-SP)
@@ -62,7 +62,7 @@ Além do custo psicológico associado à perda de entes queridos, sinistros de t
 
 Desde 2003, o Instituto de Pesquisa Econômica Aplicada (IPEA) tem desenvolvido metodologias para estimar os custos associados aos sinistros de trânsito no país. Os estudos incorporam diferentes níveis de gravidade, categorias de vítimas, tipos de vias (rodovias federais, estaduais/municipais e aglomerados urbanos) e métodos de valoração.
 
-Neste contexto, essa nota técnica apresenta um método de cálculo da estimativa dos custos de sinistros de trânsito no Estado de São Paulo, buscando sintetizar e adaptar as abordagens descritas pelo IPEA. Considerou-se os dados de sinistros de 2024 disponíveis no Infosiga.SP (2024-01-01 a 2024-12-31) para calcular o custo deste período no estado e em cada município.
+Neste contexto, essa nota técnica apresenta um método de cálculo da estimativa dos custos de sinistros de trânsito no Estado de São Paulo, buscando sintetizar e adaptar as abordagens descritas pelo IPEA. Considerou-se os dados de sinistros de 2024 disponíveis no Infosiga (2024-01-01 a 2024-12-31) para calcular o custo deste período no estado e em cada município.
 
 ## Revisão bibliográfica
 
@@ -88,9 +88,9 @@ Por fim, em 2020 o IPEA retoma a discussão de forma resumida, trazendo os resul
 
 Todo o processo apresentado nessa nota técnica foi desenvolvido com base na linguagem de programação R [@rcoreteam2021]. O código-fonte pode ser acessado no [repositório](https://github.com/detran-sp/custos_sinistros_sp).
 
-O cálculo dos custos foi elaborado com base nos dados abertos de sinistros disponibilizados no Infosiga [@detran-spInfosigaSPDadosAbertos2025], considerando os último ano completo até da data de elaboração deste trabalho (2024-01-01 a 2024-12-31). Para a análise, foram considerados os registros classificados como "Sinistro fatal" e "Sinistro não fatal", desconsiderando assim os registros classificados como "notificação", os quais possuem informações menos completas.
+O cálculo dos custos foi elaborado com base nos dados abertos de sinistros disponibilizados no Infosiga [@detran-spInfosigaSPDadosAbertos2025], considerando os último ano completo até da data de elaboração deste trabalho (2024-01-01 a 2024-12-31). Para a análise, foram considerados os registros classificados como "Sinistro fatal" e "Sinistro não fatal", desconsiderando assim os registros classificados como "Notificação", os quais possuem informações menos completas.
 
-Os dados foram filtrados pelas datas e separados pelo tipo de via. Neste processo, todos as entradas no atributo `tipo_via` que estavam como "RODOVIAS", "RURAL" e "RURAL (COM CARACTERÍSTICA DE URBANA)" foram classificadas como **Estradas e rodovias**. As vias classificadas como "URBANA" e "VIAS MUNICIPAIS" foram classificadas como **Vias urbanas**. Ainda, a base do infosiga possui alguns registros em que não há o tipo de via registrado.
+Os dados foram filtrados pelas datas e separados pelo tipo de via: **Estradas e rodovias** e **Vias urbanas**. A base do Infosiga também possui alguns registros em que não há o tipo de via registrado.
 
 Para o cálculo dos custos, decidiu-se separar o método de acordo com a @eq-custo-total, somando os custos relacionados aos sinistros em rodovias ($C_r$), em vias urbanas ($C_u$) e casos sem o registro do local e tipo de via ($C_{NA}$)
 $$
@@ -287,7 +287,7 @@ tar_load(df_custos_municipio)
 plot_custos_componentes(df_custos_municipio)
 ```
 
-A @tbl-resultados-pessoas detalha os custos relacionados às vítimas de sinistros ocorridos em rodovias. Apesar de representarem apenas 2.046 casos, os óbitos resultaram em um impacto financeiro expressivo, atingindo mais de R$ 1,6 bi. O custo associados às vítimas em estado grave também contribuíram significativamente para o total, com quase R$ 0,85 bi, mesmo sendo em menor número que os feridos leves. Estes últimos, embora mais numerosos (21.907), representaram um custo relativamente menor, de aproximadamente R$ 335 milhões. No caso das vítimas com gravidade não disponível, houve 2.438 casos, com custo aproximado de R$ 86 milhões. Ao todo, os custos com pessoas somaram aproximadamente R$ 2,85 bilhões no período analisado.
+A @tbl-resultados-pessoas detalha os custos relacionados às vítimas de sinistros ocorridos em rodovias. Apesar de representarem apenas 2.046 casos, os óbitos resultaram em um impacto financeiro expressivo, atingindo mais de R$ 1,6 bi. O custo associados às vítimas em estado grave também contribuíram significativamente para o total, com quase R$ 0,83 bi, mesmo sendo em menor número que os feridos leves. Estes últimos, embora mais numerosos (21.907), representaram um custo relativamente menor, de aproximadamente R$ 335 milhões. No caso das vítimas com gravidade não disponível, houve 2.438 casos, com custo aproximado de R$ 86 milhões. Ao todo, os custos com pessoas somaram aproximadamente R$ 2,85 bilhões no período analisado.
 
 ```{r}
 #| label: tbl-resultados-pessoas
@@ -296,7 +296,7 @@ A @tbl-resultados-pessoas detalha os custos relacionados às vítimas de sinistr
 tar_read(tbl_resultados_pessoas)
 ```
 
-Na @tbl-resultados-veiculos, observam-se os custos associados aos veículos envolvidos em sinistros em rodovias. Automóveis e caminhões concentram a maior parte do impacto financeiro. Em especial, os caminhões envolvidos em sinistros não fatais geraram um custo de R$ 516 milhões, reflexo do elevado valor médio por unidade. Já entre os casos fatais, destacam-se os custos com automóveis (R$ 61  milhões) e caminhões (R$ 64 milhões). O custo agregado para esse componente chegou a R$ 1,3 bilhão.
+Na @tbl-resultados-veiculos, observam-se os custos associados aos veículos envolvidos em sinistros em rodovias. Automóveis e caminhões concentram a maior parte do impacto financeiro. Em especial, os caminhões envolvidos em sinistros não fatais geraram um custo de R$ 516 milhões, reflexo do elevado valor médio por unidade. Já entre os casos fatais, destacam-se os custos com automóveis (R$ 61 milhões) e caminhões (R$ 64 milhões). O custo agregado para esse componente chegou a R$ 1,3 bilhão.
 
 ```{r}
 #| label: tbl-resultados-veiculos
