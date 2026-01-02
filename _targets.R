@@ -299,5 +299,5 @@ list(
             "Sinistro não fatal"
         )
     ),
-    tar_quarto(report, "index.qmd")
+    tar_quarto(report, ".")
 )
