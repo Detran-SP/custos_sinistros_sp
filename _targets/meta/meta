@@ -52,7 +52,7 @@ custo_total|stem|47ca4db9489e94c3|9819d82e5754a34f|31d8b35984e0aaeb|1744079069||
 tbl_custos_municipio|stem|1d7546cdd5e73215|862a4558d56b5408|76c2fd6966465f80|374933986||t20455.6924523669s|s104193b|104193|rds|local|vector|||0.032||
 join_tipo_registro_rodovias_custos|function|40d998ff7d38aa10
 create_custos_urbanos|function|4277daa01f67fa88
-.Random.seed|object|15eb6d884b72b436
+.Random.seed|object|f0fb24089a1b88ef
 calc_prop_vitimas|function|4990c427c9945c5b
 plot_veiculos_sinistro|function|e65616e46b33a6c2
 calc_custos_urbanos|function|0e60280282e1e4e4
@@ -84,4 +84,4 @@ calc_quantidade_sinistros|function|03fc3915ee616e1b
 calc_custo_total|function|cb7ee4f4e7d81828
 calc_custos_sinistros_na|function|c70116fa9b9bb862
 calc_custos_inst|function|0fc3659c4523401f
-report|stem|016dd47cc37ca6b2|738e17c32ed6efc3|18c6b186780c1f34|787668912|docs*01-introducao.qmd*02-metodologia.qmd*03-resultados.qmd*04-conclusao.qmd*05-referencias.qmd*index.qmd*_quarto.yml|t20455.6984039858s|s130958784b|130958784|file|local|vector|||42.375||
+report|stem|2c50ebc5c80a6f7e|738e17c32ed6efc3|18c6b186780c1f34|787668912|docs*01-introducao.qmd*02-metodologia.qmd*03-resultados.qmd*04-conclusao.qmd*05-referencias.qmd*index.qmd*_quarto.yml|t20455.7047663684s|s130958793b|130958793|file|local|vector|||42.187||
