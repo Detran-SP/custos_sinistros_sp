@@ -21,13 +21,13 @@ list(
         tp_sinistros,
         c("Sem vítimas", "Sinistro não fatal", "Sinistro fatal")
     ),
-    tar_target(fator_ipca_201412_202503, 7276.54 / 4028.44),
-    tar_target(fator_ipca_200304_202503, 7276.54 / 2144.49),
+    tar_target(fator_ipca_201412_atual, 7403.29 / 4028.44),
+    tar_target(fator_ipca_200304_atual, 7403.29 / 2144.49),
     tar_target(
         df_custos_pessoas,
         create_custos_pessoas(
             tp_sinistros,
-            fator_ipca_201412_202503,
+            fator_ipca_201412_atual,
             df_prop_vitimas
         )
     ),
@@ -35,18 +35,18 @@ list(
         df_custos_veiculos,
         create_custos_veiculos(
             tp_sinistros,
-            fator_ipca_201412_202503,
+            fator_ipca_201412_atual,
             df_prop_veiculos_fatais,
             df_prop_veiculos_naofatais
         )
     ),
     tar_target(
         df_custos_inst,
-        create_custos_inst(tp_sinistros, fator_ipca_201412_202503)
+        create_custos_inst(tp_sinistros, fator_ipca_201412_atual)
     ),
     tar_target(
         df_custos_urbanos,
-        create_custos_urbanos(tp_sinistros, fator_ipca_200304_202503)
+        create_custos_urbanos(tp_sinistros, fator_ipca_200304_atual)
     ),
     tar_target(
         municipios_path,
