@@ -15,8 +15,8 @@ tar_source(
 )
 
 list(
-    tar_target(date_start, "2024-01-01"),
-    tar_target(date_end, "2024-12-31"),
+    tar_target(date_start, "2021-01-01"),
+    tar_target(date_end, "2025-12-31"),
     tar_target(
         tp_sinistros,
         c("Sem vítimas", "Sinistro não fatal", "Sinistro fatal")
