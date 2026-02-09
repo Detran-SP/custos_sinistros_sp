@@ -901,14 +901,99 @@ formatar_tabela_custos_municipios <- function(df_custos) {
     return(tabela)
 }
 
-df <- df_sinistros |>
-    filter(
-        data_sinistro >= "2019-01-01",
-        data_sinistro <= "2025-12-31",
-        tipo_registro != "Notificação"
-    ) |>
-    count(tipo_via, tipo_registro, ano_sinistro) |>
-    replace_na(list(tipo_via = "Local não identificado"))
 
-ggplot(df) +
-    geom_col(aes(x = ano_sinistro, y = n))
+plot_count_sinistros_via <- function(sinistros, date_start, date_end) {
+    df <- sinistros |>
+        filter(
+            data_sinistro >= date_start,
+            data_sinistro <= date_end,
+            tipo_registro != "Notificação"
+        ) |>
+        count(tipo_via, tipo_registro, ano_sinistro) |>
+        replace_na(list(tipo_via = "Local não identificado"))
+
+    plot <- ggplot(df) +
+        geom_col(aes(x = ano_sinistro, y = n, fill = tipo_via)) +
+        theme_minimal() +
+        facet_wrap(vars(tipo_registro), nrow = 2, scales = "free_y") +
+        scale_y_continuous(
+            minor_breaks = NULL,
+            labels = scales::label_number(big.mark = ".")
+        ) +
+        scale_x_continuous(minor_breaks = NULL) +
+        labs(fill = NULL, y = NULL, x = NULL) +
+        theme(panel.grid.major.x = element_blank(), legend.position = "top") +
+        scale_fill_manual(
+            values = c(
+                ost.utils::palette_detran()$purple,
+                ost.utils::palette_detran()$grey,
+                ost.utils::palette_detran()$darkblue
+            )
+        )
+
+    return(
+        ggplotly(plot) |>
+            layout(
+                legend = list(
+                    orientation = "h",
+                    y = 1.15,
+                    x = 0.5,
+                    xanchor = "center"
+                )
+            )
+    )
+}
+
+
+plot_vitimas_gravidade <- function(sinistros, date_start, date_end, input_via) {
+    df <- sinistros |>
+        filter(
+            data_sinistro >= date_start,
+            data_sinistro <= date_end,
+            tipo_registro != "Notificação",
+            tipo_via == input_via
+        ) |>
+        group_by(ano_sinistro) |>
+        summarise(
+            `Fatal` = sum(qtd_gravidade_fatal),
+            `Grave` = sum(qtd_gravidade_grave),
+            `Leve` = sum(qtd_gravidade_leve),
+            #ileso = sum(qtd_gravidade_ileso),
+            `Não identificado` = sum(qtd_gravidade_nao_disponivel)
+        ) |>
+        pivot_longer(
+            cols = `Fatal`:`Não identificado`,
+            names_to = "gravidade",
+            values_to = "n"
+        )
+
+    plot <- df |>
+        ggplot() +
+        geom_col(aes(x = ano_sinistro, y = n, fill = gravidade)) +
+        theme_minimal() +
+        scale_y_continuous(
+            minor_breaks = NULL,
+            labels = scales::label_number(big.mark = ".")
+        ) +
+        scale_x_continuous(minor_breaks = NULL) +
+        labs(x = NULL, y = NULL, fill = NULL) +
+        theme(panel.grid.major.x = element_blank()) +
+        scale_fill_manual(
+            values = c(
+                palette_detran()$darkblue,
+                palette_detran()$blue,
+                palette_detran()$lightblue,
+                palette_detran()$grey
+            )
+        )
+
+    ggplotly(plot) |>
+        layout(
+            legend = list(
+                orientation = "h",
+                y = 1.1,
+                x = 0.5,
+                xanchor = "center"
+            )
+        )
+}
