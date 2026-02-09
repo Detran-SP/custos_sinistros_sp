@@ -900,3 +900,15 @@ formatar_tabela_custos_municipios <- function(df_custos) {
 
     return(tabela)
 }
+
+df <- df_sinistros |>
+    filter(
+        data_sinistro >= "2019-01-01",
+        data_sinistro <= "2025-12-31",
+        tipo_registro != "Notificação"
+    ) |>
+    count(tipo_via, tipo_registro, ano_sinistro) |>
+    replace_na(list(tipo_via = "Local não identificado"))
+
+ggplot(df) +
+    geom_col(aes(x = ano_sinistro, y = n))

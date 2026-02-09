@@ -15,7 +15,7 @@ tar_source(
 )
 
 list(
-    tar_target(date_start, "2021-01-01"),
+    tar_target(date_start, "2019-01-01"),
     tar_target(date_end, "2025-12-31"),
     tar_target(
         tp_sinistros,
