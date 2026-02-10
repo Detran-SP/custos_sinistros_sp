@@ -1324,3 +1324,45 @@ plot_custos_urbano <- function(sinistros_urbano, catalog_custos_urbano) {
             )
         )
 }
+
+plot_custos_na <- function(
+    df_sinistros_na,
+    df_custos_na_rodovias,
+    df_custos_na_urbano
+) {
+    tbl_custos <- df_custos_na_rodovias |>
+        bind_rows(df_custos_na_urbano) |>
+        mutate(custo_medio = custos / sinistros) |>
+        group_by(tipo_registro) |>
+        summarise(custo_medio = mean(custo_medio), .groups = "drop")
+
+    df <- df_sinistros_na |>
+        left_join(tbl_custos, by = "tipo_registro") |>
+        group_by(ano_sinistro, tipo_registro) |>
+        summarise(custos = sum(custo_medio), .groups = "drop")
+
+    plt <- ggplot(df) +
+        geom_col(aes(x = ano_sinistro, y = custos, fill = tipo_registro)) +
+        theme_minimal() +
+        scale_x_continuous(minor_breaks = NULL) +
+        scale_y_continuous(
+            minor_breaks = NULL,
+            labels = scales::dollar_format(prefix = "R$ ", big.mark = ".")
+        ) +
+        scale_fill_manual(
+            values = c(palette_detran()$darkblue, palette_detran()$lightblue)
+        ) +
+        theme(panel.grid.major.x = element_blank()) +
+        labs(x = NULL, y = NULL, fill = NULL)
+
+    ggplotly(plt) |>
+        config(locale = "pt-BR") |>
+        layout(
+            legend = list(
+                orientation = "h",
+                y = 1.1,
+                x = 0.5,
+                xanchor = "center"
+            )
+        )
+}
