@@ -1252,3 +1252,39 @@ plot_custos_veic_rodovias <- function(
             )
         )
 }
+
+plot_custos_inst_rodovias <- function(
+    sinistros_rodovias,
+    catalog_custos_inst
+) {
+    df <- sinistros_rodovias |>
+        left_join(
+            catalog_custos_inst |> select(-custos),
+            by = c("tipo_registro" = "tipo_sinistro")
+        ) |>
+        group_by(ano_sinistro, tipo_registro) |>
+        summarise(custos = sum(custos_atual))
+
+    plot <- ggplot(df) +
+        geom_col(aes(x = ano_sinistro, y = custos, fill = tipo_registro)) +
+        theme_minimal() +
+        scale_x_continuous(minor_breaks = NULL) +
+        scale_y_continuous(
+            minor_breaks = NULL,
+            labels = scales::dollar_format(prefix = "R$ ", big.mark = ".")
+        ) +
+        scale_fill_manual(
+            values = c(palette_detran()$darkblue, palette_detran()$lightblue)
+        ) +
+        labs(x = NULL, y = NULL, fill = NULL)
+
+    ggplotly(plot) |>
+        layout(
+            legend = list(
+                orientation = "h",
+                y = 1.1,
+                x = 0.5,
+                xanchor = "center"
+            )
+        )
+}
