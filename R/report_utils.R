@@ -1276,9 +1276,45 @@ plot_custos_inst_rodovias <- function(
         scale_fill_manual(
             values = c(palette_detran()$darkblue, palette_detran()$lightblue)
         ) +
+        theme(panel.grid.major.x = element_blank()) +
         labs(x = NULL, y = NULL, fill = NULL)
 
     ggplotly(plot) |>
+        layout(
+            legend = list(
+                orientation = "h",
+                y = 1.1,
+                x = 0.5,
+                xanchor = "center"
+            )
+        )
+}
+
+
+plot_custos_urbano <- function(sinistros_urbano, catalog_custos_urbano) {
+    df <- sinistros_urbano |>
+        left_join(
+            catalog_custos_urbano |> select(-custos),
+            by = c("tipo_registro" = "tipo_sinistro")
+        ) |>
+        group_by(ano_sinistro, tipo_registro) |>
+        summarise(custos = sum(custos_atual))
+
+    plt <- ggplot(df) +
+        geom_col(aes(x = ano_sinistro, y = custos, fill = tipo_registro)) +
+        theme_minimal() +
+        scale_x_continuous(minor_breaks = NULL) +
+        scale_y_continuous(
+            minor_breaks = NULL,
+            labels = scales::dollar_format(prefix = "R$ ", big.mark = ".")
+        ) +
+        scale_fill_manual(
+            values = c(palette_detran()$darkblue, palette_detran()$lightblue)
+        ) +
+        labs(x = NULL, y = NULL, fill = NULL) +
+        theme(panel.grid.major.x = element_blank())
+
+    ggplotly(plt) |>
         layout(
             legend = list(
                 orientation = "h",
