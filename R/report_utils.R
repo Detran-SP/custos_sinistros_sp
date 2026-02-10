@@ -959,10 +959,10 @@ plot_vitimas_gravidade <- function(sinistros, date_start, date_end, input_via) {
             `Grave` = sum(qtd_gravidade_grave),
             `Leve` = sum(qtd_gravidade_leve),
             #ileso = sum(qtd_gravidade_ileso),
-            `Não identificado` = sum(qtd_gravidade_nao_disponivel)
+            `Não identificada` = sum(qtd_gravidade_nao_disponivel)
         ) |>
         pivot_longer(
-            cols = `Fatal`:`Não identificado`,
+            cols = `Fatal`:`Não identificada`,
             names_to = "gravidade",
             values_to = "n"
         )
@@ -988,6 +988,261 @@ plot_vitimas_gravidade <- function(sinistros, date_start, date_end, input_via) {
         )
 
     ggplotly(plot) |>
+        layout(
+            legend = list(
+                orientation = "h",
+                y = 1.1,
+                x = 0.5,
+                xanchor = "center"
+            )
+        )
+}
+
+plot_veic_envolvido <- function(
+    sinistros,
+    date_start,
+    date_end,
+    input_registro,
+    input_via
+) {
+    if (!input_registro %in% c("Sinistro fatal", "Sinistro não fatal")) {
+        stop("Tipo de registro inválido")
+    }
+
+    if (!input_registro %in% c("Vias urbanas", "Estradas e rodovias")) {
+        stop("Tipo de via inválido")
+    }
+
+    df <- sinistros |>
+        filter(
+            data_sinistro >= date_start,
+            data_sinistro <= date_end,
+            tipo_registro != "Notificação",
+            tipo_registro == input_registro,
+            tipo_via == input_via
+        ) |>
+        group_by(ano_sinistro) |>
+        summarise(
+            `Bicicleta` = sum(qtd_bicicleta),
+            `Motocicleta` = sum(qtd_motocicleta),
+            `Automóvel` = sum(qtd_automovel),
+            `Ônibus` = sum(qtd_onibus),
+            `Caminhão` = sum(qtd_caminhao),
+            `Outros` = sum(qtd_veic_outros),
+            `Não identificado` = sum(qtd_veic_nao_disponivel),
+            .groups = "drop"
+        ) |>
+        pivot_longer(
+            `Bicicleta`:`Não identificado`,
+            names_to = "tipo_veiculo",
+            values_to = "n"
+        ) |>
+        mutate(
+            tipo_veiculo = factor(
+                tipo_veiculo,
+                levels = c(
+                    "Bicicleta",
+                    "Motocicleta",
+                    "Automóvel",
+                    "Ônibus",
+                    "Caminhão",
+                    "Outros",
+                    "Não identificado"
+                )
+            )
+        )
+
+    plot <- df |>
+        ggplot() +
+        geom_col(aes(x = ano_sinistro, y = n, fill = tipo_veiculo)) +
+        theme_minimal() +
+        scale_x_continuous(minor_breaks = NULL) +
+        scale_y_continuous(
+            minor_breaks = NULL,
+            labels = scales::label_number(big.mark = ".")
+        ) +
+        theme(panel.grid.major.x = element_blank()) +
+        labs(x = NULL, y = NULL, fill = NULL) +
+        scale_fill_manual(
+            values = c(
+                palette_detran()$blue,
+                palette_detran()$lightblue,
+                palette_detran()$darkpurple,
+                palette_detran()$purple,
+                palette_detran()$lightpurple,
+                "lightgrey",
+                palette_detran()$grey
+            )
+        )
+
+    ggplotly(plot) |>
+        layout(
+            legend = list(
+                orientation = "h",
+                y = 1.1,
+                x = 0.5,
+                xanchor = "center"
+            )
+        )
+}
+
+
+plot_custos_pessoas_rodovias <- function(
+    sinistros_rodovias,
+    catalog_custos_pessoas
+) {
+    df_custos_wide <- catalog_custos_pessoas |>
+        select(-custos) |>
+        filter(tipo_vitimas != "Ileso") |>
+        pivot_wider(
+            names_from = tipo_vitimas,
+            values_from = custos_atual,
+            names_prefix = "custos_"
+        ) |>
+        clean_names()
+
+    df <- sinistros_rodovias |>
+        left_join(
+            df_custos_wide,
+            by = c("tipo_registro" = "tp_sinistros")
+        ) |>
+        mutate(
+            custos_pessoas_leve = qtd_gravidade_leve * custos_leve,
+            custos_pessoas_grave = qtd_gravidade_grave * custos_grave,
+            custos_pessoas_fatal = qtd_gravidade_fatal * custos_fatal,
+            custos_pessoas_nao_disponivel = qtd_gravidade_nao_disponivel *
+                custos_nao_disponivel
+        ) |>
+        group_by(ano_sinistro) |>
+        summarise(
+            `Leve` = sum(custos_pessoas_leve),
+            `Grave` = sum(custos_pessoas_grave),
+            `Fatal` = sum(custos_pessoas_fatal),
+            `Não identificado` = sum(custos_pessoas_nao_disponivel)
+        ) |>
+        pivot_longer(
+            cols = `Leve`:`Não identificado`,
+            names_to = "gravidade",
+            values_to = "custos"
+        )
+
+    plot <- ggplot(df) +
+        geom_col(aes(x = ano_sinistro, y = custos, fill = gravidade)) +
+        theme_minimal() +
+        scale_y_continuous(
+            minor_breaks = NULL,
+            labels = scales::label_dollar(
+                prefix = "R$ ",
+                big.mark = ".",
+                decimal.mark = ","
+            )
+        ) +
+        scale_x_continuous(minor_breaks = NULL) +
+        labs(x = NULL, y = NULL, fill = NULL) +
+        theme(panel.grid.major.x = element_blank()) +
+        scale_fill_manual(
+            values = c(
+                palette_detran()$darkblue,
+                palette_detran()$blue,
+                palette_detran()$lightblue,
+                palette_detran()$grey
+            )
+        )
+
+    ggplotly(plot) |>
+        config(locale = "pt-BR") |>
+        layout(
+            legend = list(
+                orientation = "h",
+                y = 1.1,
+                x = 0.5,
+                xanchor = "center"
+            )
+        )
+}
+
+plot_custos_veic_rodovias <- function(
+    sinistros_rodovias,
+    catalog_custos_veiculos
+) {
+    df_wide = catalog_custos_veiculos |>
+        select(-custos) |>
+        pivot_wider(
+            names_from = tipo_veiculos,
+            values_from = custos_atual,
+            names_prefix = "custos_"
+        ) |>
+        clean_names()
+
+    df <- sinistros_rodovias |>
+        left_join(
+            df_wide,
+            by = c("tipo_registro" = "tp_sinistros")
+        ) |>
+        mutate(
+            `Bicicleta` = qtd_bicicleta * custos_bicicleta,
+            `Motocicleta` = qtd_motocicleta * custos_motocicleta,
+            `Automóvel` = qtd_automovel * custos_automovel,
+            `Caminhão` = qtd_caminhao * custos_caminhao,
+            `Ônibus` = qtd_onibus * custos_onibus,
+            `Outros` = qtd_veic_outros * custos_outros,
+            `Não identificado` = qtd_veic_nao_disponivel * custos_nao_disponivel
+        ) |>
+        group_by(ano_sinistro, tipo_registro) |>
+        summarise(
+            `Bicicleta` = sum(`Bicicleta`),
+            `Motocicleta` = sum(`Motocicleta`),
+            `Automóvel` = sum(`Automóvel`),
+            `Caminhão` = sum(`Caminhão`),
+            `Ônibus` = sum(`Ônibus`),
+            `Outros` = sum(`Outros`),
+            `Não identificado` = sum(`Não identificado`)
+        ) |>
+        pivot_longer(
+            cols = `Bicicleta`:`Não identificado`,
+            names_to = "tipo_veiculo",
+            values_to = "custos"
+        ) |>
+        mutate(
+            tipo_veiculo = factor(
+                tipo_veiculo,
+                levels = c(
+                    "Bicicleta",
+                    "Motocicleta",
+                    "Automóvel",
+                    "Ônibus",
+                    "Caminhão",
+                    "Outros",
+                    "Não identificado"
+                )
+            )
+        )
+
+    plot <- ggplot(df) +
+        geom_col(aes(x = ano_sinistro, y = custos, fill = tipo_veiculo)) +
+        theme_minimal() +
+        scale_y_continuous(
+            minor_breaks = NULL,
+            labels = scales::dollar_format(prefix = "R$ ", big.mark = ".")
+        ) +
+        scale_x_continuous(minor_breaks = NULL) +
+        scale_fill_manual(
+            values = c(
+                palette_detran()$blue,
+                palette_detran()$lightblue,
+                palette_detran()$darkpurple,
+                palette_detran()$purple,
+                palette_detran()$lightpurple,
+                "lightgrey",
+                palette_detran()$grey
+            )
+        ) +
+        theme(panel.grid.major.x = element_blank()) +
+        labs(x = NULL, y = NULL, fill = NULL) +
+        facet_wrap(vars(tipo_registro), nrow = 2)
+
+    ggplotly(plot) |>
+        config(locale = "pt-BR") |>
         layout(
             legend = list(
                 orientation = "h",
