@@ -1366,3 +1366,70 @@ plot_custos_na <- function(
             )
         )
 }
+
+plot_custos_map <- function(shapes, df_custos, var) {
+    sf <- shapes |>
+        select(code_muni) |>
+        mutate(code_muni = as.character(code_muni)) |>
+        left_join(df_custos, by = c("code_muni" = "cod_ibge")) |>
+        rename(custos = {{ var }})
+
+    bins <- unique(round(
+        quantile(
+            sf$custos,
+            probs = seq(0, 1, length.out = 9),
+            na.rm = TRUE
+        ),
+        -6
+    ))
+    bins[1] <- 0
+    bins[length(bins)] <- ceiling(max(sf$custos, na.rm = TRUE) / 1e6) * 1e6
+    pal <- colorBin("Blues", domain = sf$custos, bins = bins)
+
+    labels = sprintf(
+        "<strong>%s</strong><br/>Custos: R$ %s<br/>",
+        sf$municipio,
+        format(
+            sf$custos,
+            big.mark = ".",
+            decimal.mark = ",",
+            nsmall = 2,
+            scientific = FALSE
+        )
+    ) |>
+        lapply(htmltools::HTML)
+
+    leaflet(sf, options = leafletOptions(preferCanvas = TRUE)) |>
+        addProviderTiles(providers$CartoDB.PositronNoLabels) |>
+        addPolygons(
+            fillColor = ~ pal(custos),
+            stroke = TRUE,
+            color = "white",
+            fillOpacity = 1,
+            weight = 1,
+            label = labels,
+            labelOptions = labelOptions(
+                style = list("font-weight" = "normal"),
+                textsize = "12px",
+                direction = "auto"
+            ),
+            highlightOptions = highlightOptions(
+                color = "black",
+                weight = 3,
+                bringToFront = TRUE
+            ),
+            layerId = ~municipio
+        ) |>
+        addLegend(
+            pal = pal,
+            values = sf$custos,
+            position = "bottomleft",
+            opacity = 1,
+            title = "Custos:",
+            labFormat = labelFormat(
+                prefix = "R$ ",
+                big.mark = "."
+            )
+        ) |>
+        leaflet.extras::addFullscreenControl()
+}

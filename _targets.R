@@ -2,7 +2,17 @@ library(targets)
 library(tarchetypes)
 
 tar_option_set(
-    packages = c("tidyverse", "ost.utils", "janitor", "gt", "quarto", "plotly")
+    packages = c(
+        "tidyverse",
+        "ost.utils",
+        "janitor",
+        "gt",
+        "quarto",
+        "plotly",
+        "geobr",
+        "leaflet",
+        "leaflet.extras"
+    )
 )
 
 tar_source(
