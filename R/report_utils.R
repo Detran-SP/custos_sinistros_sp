@@ -1002,17 +1002,9 @@ plot_veic_envolvido <- function(
     sinistros,
     date_start,
     date_end,
-    input_registro,
-    input_via
+    input_registro = c("Sinistro fatal", "Sinistro não fatal"),
+    input_via = c("Estradas e rodovias", "Vias urbanas")
 ) {
-    if (!input_registro %in% c("Sinistro fatal", "Sinistro não fatal")) {
-        stop("Tipo de registro inválido")
-    }
-
-    if (!input_registro %in% c("Vias urbanas", "Estradas e rodovias")) {
-        stop("Tipo de via inválido")
-    }
-
     df <- sinistros |>
         filter(
             data_sinistro >= date_start,
