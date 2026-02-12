@@ -1142,7 +1142,7 @@ plot_custos_pessoas_rodovias <- function(
         )
 
     ggplotly(plot) |>
-        config(locale = "pt-BR") |>
+        #config(locale = "pt-BR") |>
         layout(
             legend = list(
                 orientation = "h",
@@ -1234,7 +1234,7 @@ plot_custos_veic_rodovias <- function(
         facet_wrap(vars(tipo_registro), nrow = 2)
 
     ggplotly(plot) |>
-        config(locale = "pt-BR") |>
+        #config(locale = "pt-BR") |>
         layout(
             legend = list(
                 orientation = "h",
@@ -1348,7 +1348,7 @@ plot_custos_na <- function(
         labs(x = NULL, y = NULL, fill = NULL)
 
     ggplotly(plt) |>
-        config(locale = "pt-BR") |>
+        #config(locale = "pt-BR") |>
         layout(
             legend = list(
                 orientation = "h",
