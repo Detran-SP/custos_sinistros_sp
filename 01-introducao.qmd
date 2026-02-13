@@ -1,11 +1,12 @@
 # Introdução {#sec-intro}
 
+<!--
 <style>
 .csl-entry a {
   word-break: break-all;
 }
 </style>
-
+-->
 ```{r}
 #| label: setup
 #| include: false

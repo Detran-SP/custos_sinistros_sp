@@ -50,3 +50,5 @@ rsconnect/
 
 data/dados_infosiga.zip
 /.quarto/
+
+**/*.quarto_ipynb

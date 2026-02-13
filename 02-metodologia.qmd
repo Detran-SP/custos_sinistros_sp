@@ -1,11 +1,11 @@
 # Metodologia {#sec-methods}
-
+<!--
 <style>
 .csl-entry a {
   word-break: break-all;
 }
 </style>
-
+-->
 ```{r}
 #| label: setup
 #| include: false
