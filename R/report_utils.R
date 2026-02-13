@@ -902,6 +902,18 @@ formatar_tabela_custos_municipios <- function(df_custos) {
 }
 
 
+#' Plot crash counts by road type over time
+#'
+#' Creates a stacked bar chart showing the number of crashes by road type,
+#' faceted by crash severity, over the specified date range.
+#'
+#' @param sinistros A data frame with crash records.
+#' @param date_start Start date for filtering (Date or coercible to Date).
+#' @param date_end End date for filtering (Date or coercible to Date).
+#'
+#' @return A plotly object with the stacked bar chart.
+#'
+#' @export
 plot_count_sinistros_via <- function(sinistros, date_start, date_end) {
     df <- sinistros |>
         filter(
@@ -945,6 +957,20 @@ plot_count_sinistros_via <- function(sinistros, date_start, date_end) {
 }
 
 
+#' Plot victim counts by severity over time
+#'
+#' Creates a stacked bar chart showing the number of victims by severity
+#' level (fatal, severe, minor, unidentified) for a given road type.
+#'
+#' @param sinistros A data frame with crash records.
+#' @param date_start Start date for filtering (Date or coercible to Date).
+#' @param date_end End date for filtering (Date or coercible to Date).
+#' @param input_via A character string specifying the road type to filter
+#'   (e.g., "Estradas e rodovias", "Vias urbanas").
+#'
+#' @return A plotly object with the stacked bar chart.
+#'
+#' @export
 plot_vitimas_gravidade <- function(sinistros, date_start, date_end, input_via) {
     df <- sinistros |>
         filter(
@@ -998,6 +1024,22 @@ plot_vitimas_gravidade <- function(sinistros, date_start, date_end, input_via) {
         )
 }
 
+#' Plot involved vehicles by type over time
+#'
+#' Creates a stacked bar chart showing the count of vehicles involved in
+#' crashes by vehicle type, filtered by crash severity and road type.
+#'
+#' @param sinistros A data frame with crash records.
+#' @param date_start Start date for filtering (Date or coercible to Date).
+#' @param date_end End date for filtering (Date or coercible to Date).
+#' @param input_registro A character string for crash severity type
+#'   (e.g., "Sinistro fatal", "Sinistro não fatal").
+#' @param input_via A character string for road type
+#'   (e.g., "Estradas e rodovias", "Vias urbanas").
+#'
+#' @return A plotly object with the stacked bar chart.
+#'
+#' @export
 plot_veic_envolvido <- function(
     sinistros,
     date_start,
@@ -1067,18 +1109,30 @@ plot_veic_envolvido <- function(
             )
         )
 
-    ggplotly(plot) |>
-        layout(
-            legend = list(
-                orientation = "h",
-                y = 1.1,
-                x = 0.5,
-                xanchor = "center"
-            )
-        )
+    ggplotly(plot) # |>
+    # layout(
+    #     legend = list(
+    #         orientation = "h",
+    #         y = 1.1,
+    #         x = 0.5,
+    #         xanchor = "center"
+    #     )
+    # )
 }
 
 
+#' Plot person-related costs for highways over time
+#'
+#' Creates a stacked bar chart showing person-related crash costs on highways,
+#' broken down by victim severity level, over time.
+#'
+#' @param sinistros_rodovias A data frame with highway crash records.
+#' @param catalog_custos_pessoas A data frame with the person cost catalog
+#'   containing unit costs per victim type and crash severity.
+#'
+#' @return A plotly object with the stacked bar chart.
+#'
+#' @export
 plot_custos_pessoas_rodovias <- function(
     sinistros_rodovias,
     catalog_custos_pessoas
@@ -1153,6 +1207,18 @@ plot_custos_pessoas_rodovias <- function(
         )
 }
 
+#' Plot vehicle-related costs for highways over time
+#'
+#' Creates a stacked bar chart showing vehicle-related crash costs on highways,
+#' broken down by vehicle type, faceted by crash severity.
+#'
+#' @param sinistros_rodovias A data frame with highway crash records.
+#' @param catalog_custos_veiculos A data frame with the vehicle cost catalog
+#'   containing unit costs per vehicle type and crash severity.
+#'
+#' @return A plotly object with the stacked bar chart.
+#'
+#' @export
 plot_custos_veic_rodovias <- function(
     sinistros_rodovias,
     catalog_custos_veiculos
@@ -1233,18 +1299,30 @@ plot_custos_veic_rodovias <- function(
         labs(x = NULL, y = NULL, fill = NULL) +
         facet_wrap(vars(tipo_registro), nrow = 2)
 
-    ggplotly(plot) |>
-        #config(locale = "pt-BR") |>
-        layout(
-            legend = list(
-                orientation = "h",
-                y = 1.1,
-                x = 0.5,
-                xanchor = "center"
-            )
-        )
+    ggplotly(plot) # |>
+    #config(locale = "pt-BR") |>
+    # layout(
+    #     legend = list(
+    #         orientation = "h",
+    #         y = 1.1,
+    #         x = 0.5,
+    #         xanchor = "center"
+    #     )
+    # )
 }
 
+#' Plot institutional costs for highways over time
+#'
+#' Creates a stacked bar chart showing institutional (property damage) crash
+#' costs on highways, broken down by crash severity, over time.
+#'
+#' @param sinistros_rodovias A data frame with highway crash records.
+#' @param catalog_custos_inst A data frame with the institutional cost catalog
+#'   containing unit costs per crash type.
+#'
+#' @return A plotly object with the stacked bar chart.
+#'
+#' @export
 plot_custos_inst_rodovias <- function(
     sinistros_rodovias,
     catalog_custos_inst
@@ -1283,6 +1361,18 @@ plot_custos_inst_rodovias <- function(
 }
 
 
+#' Plot urban road crash costs over time
+#'
+#' Creates a stacked bar chart showing crash costs on urban roads, broken
+#' down by crash severity, over time.
+#'
+#' @param sinistros_urbano A data frame with urban road crash records.
+#' @param catalog_custos_urbano A data frame with the urban cost catalog
+#'   containing unit costs per crash type.
+#'
+#' @return A plotly object with the stacked bar chart.
+#'
+#' @export
 plot_custos_urbano <- function(sinistros_urbano, catalog_custos_urbano) {
     df <- sinistros_urbano |>
         left_join(
@@ -1317,6 +1407,21 @@ plot_custos_urbano <- function(sinistros_urbano, catalog_custos_urbano) {
         )
 }
 
+#' Plot costs for crashes with undefined road type over time
+#'
+#' Creates a stacked bar chart showing crash costs for records with undefined
+#' road type, using average costs from highway and urban data, over time.
+#'
+#' @param df_sinistros_na A data frame with crash records where road type
+#'   is undefined.
+#' @param df_custos_na_rodovias A data frame with highway cost totals used
+#'   to compute average costs.
+#' @param df_custos_na_urbano A data frame with urban cost totals used to
+#'   compute average costs.
+#'
+#' @return A plotly object with the stacked bar chart.
+#'
+#' @export
 plot_custos_na <- function(
     df_sinistros_na,
     df_custos_na_rodovias,
@@ -1359,6 +1464,21 @@ plot_custos_na <- function(
         )
 }
 
+#' Plot choropleth map of crash costs by municipality
+#'
+#' Creates an interactive Leaflet choropleth map showing crash costs across
+#' Sao Paulo state municipalities, with quantile-based color bins.
+#'
+#' @param shapes An sf object with municipality geometries. Must contain a
+#'   `code_muni` column for joining.
+#' @param df_custos A data frame with cost data by municipality. Must contain
+#'   a `cod_ibge` column and the cost column specified in `var`.
+#' @param var An unquoted column name indicating which cost variable to map
+#'   (e.g., `custos_totais`, `custos_rodovias`).
+#'
+#' @return A leaflet map widget with a color legend.
+#'
+#' @export
 plot_custos_map <- function(shapes, df_custos, var) {
     sf <- shapes |>
         select(code_muni) |>
@@ -1423,5 +1543,8 @@ plot_custos_map <- function(shapes, df_custos, var) {
                 big.mark = "."
             )
         ) |>
-        leaflet.extras::addFullscreenControl()
+        leaflet.extras::addFullscreenControl() |>
+        htmlwidgets::prependContent(
+            htmltools::tags$style(".info.legend { text-align: left; }")
+        )
 }

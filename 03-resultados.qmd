@@ -195,6 +195,7 @@ tar_read(tbl_custos_municipio)
 ```{r}
 #| label: fig-mapa-total
 #| fig-cap: Custos dos sinistros agregados por município de ocorrência
+#| fig-align: left
 
 tar_read(map_custos_total)
 ```
@@ -204,6 +205,8 @@ tar_read(map_custos_total)
 ```{r}
 #| label: fig-mapa-rodovias
 #| fig-cap: Custos dos sinistros em estradas e rodovias, agregados por município de ocorrência
+#| fig-align: left
+
 
 tar_read(map_custos_rodovias)
 ```
@@ -213,6 +216,8 @@ tar_read(map_custos_rodovias)
 ```{r}
 #| label: fig-mapa-urbano
 #| fig-cap: Custos dos sinistros em vias urbanas, agregados por município de ocorrência
+#| fig-align: left
+
 
 tar_read(map_custos_urbanos)
 ```
@@ -222,6 +227,7 @@ tar_read(map_custos_urbanos)
 ```{r}
 #| label: fig-mapa-na
 #| fig-cap: Custos dos sinistros em vias de tipo não identificado, agregados por município de ocorrência
+#| fig-align: left
 
 tar_read(map_custos_na)
 ```
