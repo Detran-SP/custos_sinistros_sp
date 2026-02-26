@@ -17,7 +17,7 @@ load_sinistros_full <- function() {
         zip_path = "data/dados_infosiga.zip"
     )
     df_clean <- ost.utils::clean_infosiga(df, "sinistros")
-    df_clean <- df_clean |> dplyr::filter(data_sinistro <= "2025-06-30")
+    #df_clean <- df_clean |> dplyr::filter(data_sinistro <= "2025-06-30")
 
     return(df_clean)
 }
@@ -39,6 +39,7 @@ load_sinistros_full <- function() {
 #'     victim_props <- calc_prop_vitimas(crash_data)
 #' }
 calc_prop_vitimas <- function(sinistros) {
+    sinistros <- sinistros |> dplyr::filter(data_sinistro <= "2025-06-30")
     sinistros |>
         group_by(tipo_registro) |>
         summarise(
@@ -78,6 +79,7 @@ calc_prop_vitimas <- function(sinistros) {
 #'     vehicle_props <- calc_prop_veiculos(crash_data, "Sinistro fatal")
 #' }
 calc_prop_veiculos <- function(sinistros, tipo) {
+    sinistros <- sinistros |> dplyr::filter(data_sinistro <= "2025-06-30")
     sinistros |>
         group_by(tipo_registro) |>
         summarise(
