@@ -12,7 +12,7 @@ relatórios e visualizações detalhadas.
 - Funções modulares em R para cálculo de custos por tipo de vítima, tipo de
   veículo e resposta institucional.
 - Integração com o pacote `{targets}` para pipelines reprodutíveis.
-- Geração automática de relatórios em Quarto (formato livro com múltiplos capítulos).
+- Geração automática de relatórios em Quarto.
 - Suporte a ajustes por inflação utilizando o índice IPCA.
 - Tabelas e gráficos formatados para relatórios técnicos.
 
@@ -38,36 +38,20 @@ renv::restore()
 targets::tar_make()
 ```
 
-O relatório final estará disponível em `docs/index.html`.
+O relatório final estará disponível como `index.html`.
 
 ## Estrutura do projeto
 
 ```
-├── _targets.R              # Definição do pipeline
-├── _quarto.yml             # Configuração do Quarto
-├── _brand.yml              # Configuração de branding
-├── index.qmd               # Página inicial do relatório
-├── 01-introducao.qmd       # Capítulo: Introdução
-├── 02-metodologia.qmd      # Capítulo: Metodologia
-├── 03-resultados.qmd       # Capítulo: Resultados
-├── 04-conclusao.qmd        # Capítulo: Conclusão
-├── 05-referencias.qmd      # Capítulo: Referências
-├── refs.bib                # Referências bibliográficas
-├── data/                   # Bases de dados de entrada
-│   ├── dados_infosiga.zip
-│   └── divisoes_regionais_esp.csv
-├── R/                      # Funções em R
-│   ├── calculo_custos.R
-│   ├── catalogo_custos.R
-│   ├── dados_presidencia.R
-│   ├── load_municipios.R
-│   └── report_utils.R
-├── img/                    # Imagens e figuras
-├── docs/                   # Relatório HTML gerado
-├── renv/                   # Ambiente R
-├── renv.lock               # Versões dos pacotes
-├── README.md               # Documentação do projeto
-└── LICENSE                 # Licença do projeto
+├── _targets.R       # Definição do pipeline
+├── index.qmd        # Relatório em Quarto Markdown
+├── index.html       # Relatório em HTML
+├── data/            # Bases de dados de entrada
+├── R/               # Funções em R
+├── renv/            # Ambiente R
+├── renv.lock        # Versões dos pacotes
+├── README.md        # Documentação do projeto
+└── LICENSE          # Licença do projeto
 ```
 
 ## Licença
@@ -77,4 +61,4 @@ Este projeto está licenciado sob a [Licença GPL-3.0](LICENSE).
 ## Contato
 
 Divisão de Estudos para Segurança no Trânsito - DETRAN-SP  
-[estudos.transito@detran.sp.gov.br](mailto:estudos.transito@detran.sp.gov.br)
+📧 [estudos.transito@detran.sp.gov.br](mailto:estudos.transito@detran.sp.gov.br)
