@@ -31,6 +31,7 @@ tar_load(n_sinistros)
 
 ## Sinistros
 
+A @fig-count-sinistros-via apresenta a distribuição dos sinistros fatais e não fatais segundo o tipo de via. Observa-se que o maior número absoluto de sinistros não fatais ocorreu em vias urbanas, totalizando 684.922 registros, seguido por rodovias, com 152.474 casos. Os sinistros fatais foram ligeiramente mais frequentes em vias urbanas (18.774 casos) do que em rodovias (14.957 casos). Destaca-se também a presença de 2.005 sinistros fatais em locais não identificados, categoria que não apresenta registros de sinistros não fatais no período em análise.
 
 ```{r}
 #| label: fig-count-sinistros-via
@@ -39,6 +40,7 @@ tar_load(n_sinistros)
 tar_read(plt_count_sinistros_via)
 ```
 
+A @fig-vitimas-gravidade-rodovias e a @fig-vitimas-gravidade-urbano apresentam a quantidade de sinistros segundo gravidade da vítima e tipo de via. Nas estradas e rodovias, observa-se maior volume de sinistros não fatais envolvendo vítimas com gravidade leve (140.012 casos), seguido de casos graves (26.979 casos) e, na sequência, de registros com gravidade não disponível (17.683 casos). Os sinistros fatais somam 16.553 ocorrências com gravidade fatal, além de 769 registros cuja gravidade não foi informada.
 
 
 É importante ressaltar a expressiva quantidade de registros com gravidade não disponível, tanto nas rodovias quanto nas vias urbanas. Essa ausência de informação compromete a análise mais precisa dos impactos dos sinistros. Também há uma quantidade de sinistros com local não identificado, todos com vítimas fatais ou com gravidade não identificada.
@@ -119,6 +121,7 @@ tar_read(plt_custos_componentes)
 
 ```
 
+A @fig-custos-pessoas-rodovias detalha os custos relacionados às vítimas de sinistros ocorridos em rodovias. Representando 14.957 casos, os óbitos resultam em um impacto financeiro expressivo, atingindo mais de R$ 13,18 bi. O custo associado às vítimas em estado grave também contribuiu significativamente para o total, com um pouco mais de R$ 6,2 bi, mesmo sendo em menor número que os feridos leves. Estes últimos, embora menos numerosos (44.662), representaram um custo relativamente menor, de aproximadamente R$2,18 bi. No caso das vítimas com gravidade não disponível, houve 17.683 casos, com custo aproximado de R$ 582, 84 milhões. Ao todo, os custos com pessoas somaram aproximadamente R$ 22,15 bilhões no período analisado.
 
 ```{r}
 #| label: fig-custos-pessoas-rodovias
@@ -135,6 +138,7 @@ tar_read(plt_custos_pessoas_rodovias)
 tar_read(plt_custos_veic_rodovias)
 ```
 
+A @plt-custos-inst-rodovias reúne os custos institucionais e os danos patrimoniais decorrentes dos sinistros em rodovias. Embora representem uma fração menor do total, essas despesas somaram quase R$ 11,754 milhões. Os sinistros não fatais, pela quantidade expressivamente maior, responderam por cerca de R$ 94,803 milhões, enquanto os fatais geraram um custo aproximado de R$ 17,950 milhões. Esses valores englobam, por exemplo, os custos administrativos e os danos a equipamentos públicos.
 
 ```{r}
 #| label: plt-custos-inst-rodovias
@@ -146,6 +150,7 @@ tar_read(plt_custos_inst_rodovias)
 ```
 
 
+A @fig-custos-urbano mostra que os sinistros em vias urbanas geraram um custo total de aproximadamente R$ 50,65 bilhões, o maior entre os tipos de via analisados. Por sua vez, os sinistros fatais representam aproximadamente 2,7% dos registros, responderam por mais de R$ 9,3 bi, devido ao elevado custo por ocorrência. Já os sinistros não fatais, em maior volume, concentraram cerca de R$ 41,2 bilhões, refletindo o peso financeiro agregado mesmo em casos de menor gravidade individual.
 
 ```{r}
 #| label: fig-custos-urbano
@@ -166,6 +171,7 @@ tar_read(plt_custos_na)
 ## Custos por município
 
 Por fim, a @tbl-custo-municipio apresenta de forma agregada os custos dos sinistros de trânsito por município. Os custos foram somados pelo município de ocorrência do sinistro, assim, é importante observar que isso não significa  que o custo apresentado é necessariamente a despesa direta que o município teve no período analisado.
+Por fim, a @tbl-custo-municipio apresenta de forma agregada os custos dos sinistros de trânsito por município e os mapas mostram sua distribuição territorial no estado. Os custos foram somados pelo município de ocorrência do sinistro, assim, é importante observar que isso não significa  que o custo apresentado é necessariamente a despesa direta que o município teve no período analisado.
 
 ```{r}
 #| label: tbl-custo-municipio
