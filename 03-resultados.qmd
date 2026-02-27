@@ -179,7 +179,6 @@ Considerando os três tipos de via analisados, os sinistros em vias urbanas conc
 
 ## Custos por município
 
-Por fim, a @tbl-custo-municipio apresenta de forma agregada os custos dos sinistros de trânsito por município. Os custos foram somados pelo município de ocorrência do sinistro, assim, é importante observar que isso não significa  que o custo apresentado é necessariamente a despesa direta que o município teve no período analisado.
 Por fim, a @tbl-custo-municipio apresenta de forma agregada os custos dos sinistros de trânsito por município e os mapas mostram sua distribuição territorial no estado. Os custos foram somados pelo município de ocorrência do sinistro, assim, é importante observar que isso não significa  que o custo apresentado é necessariamente a despesa direta que o município teve no período analisado.
 
 ```{r}
