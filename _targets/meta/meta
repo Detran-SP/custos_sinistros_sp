@@ -1,157 +1,113 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-sf_municipios|stem|e88818a5f305028b|e7f2fa6cf05c56c3|2c530c1562a7fbd1|-433777918||t20497.5427790695s|s1407208b|1407208|rds|local|vector|||3.33||
-df_sinistros|stem|ce032adf2e71d202|4eca601bd4a5d6cf|28f8bcd0def29ca5|-2115239309||t20497.5430534908s|s53525088b|53525088|rds|local|vector|||12.966||
-fator_ipca_201412_atual|stem|8010cc7e2691ccb5|4eaab2a5a2898fd3|2c530c1562a7fbd1|179247758||t20497.5430543009s|s55b|55|rds|local|vector|||0||
-tp_sinistros|stem|eeaa5a7b92f4332a|5ac4835cec3194a0|2c530c1562a7fbd1|-84627567||t20497.5430544167s|s95b|95|rds|local|vector|||0||
-date_end|stem|5839ca8ca0930396|a1d3e11a1cbba426|2c530c1562a7fbd1|388116293||t20497.5430548796s|s63b|63|rds|local|vector|||0||
-date_start|stem|962b449abb8d4145|f2b61d024c7ee3eb|2c530c1562a7fbd1|538713725||t20497.5430549954s|s62b|62|rds|local|vector|||0||
-fator_ipca_200304_atual|stem|eebe60d412a87ccf|6cd65b31cf72b9c7|2c530c1562a7fbd1|-1792439208||t20497.5430551111s|s55b|55|rds|local|vector|||0||
-municipios_path|stem|38b41ab029f25f7e|a0e841e64b2b068f|2c530c1562a7fbd1|1910671076|data/divisoes_regionais_esp.csv|t20207.8702065782s|s73836b|73836|file|local|vector|||0||
-df_prop_veiculos_naofatais|stem|a902419ede0f1ed2|2bd19443bd6a92c1|38230ef7eef2d0c3|-947545017||t20497.5430996713s|s303b|303|rds|local|vector|||0.195||
-df_prop_vitimas|stem|11ecb06e803a0f59|cfd67740622274f8|1dd83f0e5a3b428c|-1871464812||t20497.5431478194s|s242b|242|rds|local|vector|||0.439||
-df_prop_veiculos_fatais|stem|810df093e5ae5cdc|aa96d5bd79d41d5c|38230ef7eef2d0c3|376378891||t20497.5431927268s|s303b|303|rds|local|vector|||0.401||
-df_custos_inst|stem|cfdc7fa13595f3e1|a2a9d46125ec57e0|a4c21f033591b09a|1124727624||t20497.5431929583s|s251b|251|rds|local|vector|||0||
-df_sinistros_na|stem|a11fb10508dbe8b5|6efa13bbbf4e307e|87bec968d03ff247|-978086335||t20497.5432339305s|s47511b|47511|rds|local|vector|||0.036||
-df_sinistros_rodovias|stem|043d9c434bb37751|0e671d7d026de57a|2a8b8d612e1d71fc|1929813278||t20497.5432897175s|s5887052b|5887052|rds|local|vector|||0.224||
-df_sinistros_municipios|stem|40f7ba40deb30ea0|803b574ab47ac229|2a8b8d612e1d71fc|-619242395||t20497.5437195785s|s28287715b|28287715|rds|local|vector|||0.115||
-tbl_vitimas|stem|dbb5a4b8fdafa331|b62a671bc2dd6eeb|9428fafe59daeed3|-1459871545||t20497.5439519859s|s89351827b|89351827|rds|local|vector|||0.426||
-tbl_sinistros|stem|78783462be8639b8|180fe98979b5acd6|9428fafe59daeed3|1375349614||t20497.5441816155s|s89350941b|89350941|rds|local|vector|||0.16||
-plt_count_sinistros_via|stem|12e55912068bb67b|e19e128a4c9cef33|9271ce6dca5917c6|-1260870534||t20497.5443422636s|s53898177b|53898177|rds|local|vector|||0.448|'big.mark' and 'decimal.mark' are both '.', which could be confusing. 'big.mark' and 'decimal.mark' are both '.', which could be confusing. 'big.mark' and 'decimal.mark' are both '.', which could be confusing. 'big.mark' and 'decimal.mark' are both '.', which could be confusing|
-plt_vitimas_gravidade_rodovias|stem|01a6556cbd577007|59f70a609cac92a1|a1057b70bac783a3|-536521568||t20497.5446590459s|s53862379b|53862379|rds|local|vector|||0.324|'big.mark' and 'decimal.mark' are both '.', which could be confusing|
-n_sinistros|stem|5d478b976bbf4130|209f965130348021|2d1f5b389b28b834|-39204943||t20497.5448977032s|s60b|60|rds|local|vector|||0.413||
-plt_vitimas_gravidade_urbano|stem|5e6b16537fd4b987|6eaf96524d9482d6|a1057b70bac783a3|-1839100295||t20497.54507143s|s53862460b|53862460|rds|local|vector|||0.227|'big.mark' and 'decimal.mark' are both '.', which could be confusing|
-df_custos_urbanos|stem|c0cb91c6cc85ef48|3cdba9d99664b324|79e4b65791f91301|1957110159||t20497.5450720087s|s252b|252|rds|local|vector|||0.001||
-df_municipios|stem|6f2dd11510336448|9cfce6266e932bf4|ae806cce48d09f21|-186996337||t20497.5450735134s|s7040b|7040|rds|local|vector|||0.118||
-df_custos_pessoas|stem|f11dd812726c9f32|dd4bc837ed4b9282|3737b3c22b096c7c|-856934101||t20497.5450739763s|s476b|476|rds|local|vector|||0.022||
-df_custos_veiculos|stem|0aaac8d812d93a49|894365c74d50b4a3|3d2f9b430b23caf8|554400607||t20497.5450744393s|s596b|596|rds|local|vector|||0.018||
-tbl_custos_inst|stem|9673b0c850883cbe|24b06a1f76a6a0ee|b5443eea4c676e32|-1424618867||t20497.545075018s|s97373b|97373|rds|local|vector|||0.02||
-df_custos_rodovias_inst|stem|48ef1b6508897468|3f7ad2a3333f2d17|ba92eff5bf0d08bb|1458751151||t20497.5450813837s|s6682b|6682|rds|local|vector|||0.045||
-plt_custos_inst_rodovias|stem|e155d56d7bea5733|5762e7d227486290|a96c98195bded96e|887739470||t20497.5451106661s|s6234716b|6234716|rds|local|vector|||0.19|'big.mark' and 'decimal.mark' are both '.', which could be confusing|
-df_custos_tipo_registro_inst|stem|7a60036dfd0c3932|23ac44f524e67035|ba92eff5bf0d08bb|-560700969||t20497.5451165689s|s204b|204|rds|local|vector|||0.042||
-tbl_resultados_inst|stem|c18b68453dfc0832|8cc11f482aaf82ef|abd43b1b57da1ab0|-1630642259||t20497.5451379809s|s5992084b|5992084|rds|local|vector|||0.025||
-df_custos_tipo_registro_urbano|stem|87f686d57b4dc659|9b690365e8f04c38|6fd83dc53e57fe5a|-844745833||t20497.5451671476s|s205b|205|rds|local|vector|||0.349||
-df_custos_vias_municipais|stem|56baba9c058a0e0a|744fa31c4cf2d828|6fd83dc53e57fe5a|-91893353||t20497.5451929578s|s6896b|6896|rds|local|vector|||0.149||
-tbl_custos_urbanos|stem|95c19ba3cb28a05d|60e02b5540944485|3c26de2e00c34047|-1593312718||t20497.5451935365s|s12777b|12777|rds|local|vector|||0.013||
-tbl_resultados_vias_municipais|stem|4bb37c52e70b8d3d|1567b890c32981af|b64a28950e5c9eaa|-477104982||t20497.5452860133s|s28397204b|28397204|rds|local|vector|||0.031||
-plt_custos_urbano|stem|4b3871e204db6e18|e9c43f657a7c1923|0058f6f921cfb071|289198616||t20497.5453759438s|s28630713b|28630713|rds|local|vector|||0.177|'big.mark' and 'decimal.mark' are both '.', which could be confusing|
-df_custos_rodovias_pessoas|stem|abbb3e23b2daf19f|2f655cd55e9eac7d|bc7ae4096a0a256e|886019619||t20497.5453818466s|s7268b|7268|rds|local|vector|||0.048||
-plt_custos_pessoas_rodovias|stem|34734d7f1ce1237f|8c45b307937b9355|fe468f3f067ec2d8|1702162454||t20497.5454046475s|s6236349b|6236349|rds|local|vector|||0.141||
-df_custos_tipo_registro_pessoas|stem|f860cb9d457c705c|ea0e7f461ee09384|bc7ae4096a0a256e|-803712529||t20497.5454102031s|s206b|206|rds|local|vector|||0.052||
-tbl_resultados_pessoas|stem|3755ab910b35388a|de9e1a1b51a3bc1a|bf5002b6af2e5c01|1473283136||t20497.5454310364s|s5993804b|5993804|rds|local|vector|||0.09|[1m[22mReturning more (or less) than 1 row per `summarise()` group was deprecated in dplyr 1.1.0. [36mℹ[39m Please use `reframe()` instead. [36mℹ[39m When switching from `summarise()` to `reframe()`, remember that `reframe()`   always returns an ungrouped data frame and adjust accordingly.|
-tbl_custos_pessoas|stem|13bf0ad94dcb249c|3e7fd4bb843e96de|cbbc86a80b3bb2b1|885928786||t20497.5454317309s|s98050b|98050|rds|local|vector|||0.02||
-df_custos_tipo_registro_veiculos|stem|25027845e9d17140|cdf9cc0d26553193|dd6e1279a8ae5c17|1352739074||t20497.5454370549s|s207b|207|rds|local|vector|||0.055||
-df_custos_rodovias_veiculos|stem|30fa88ebd3c74bd1|2e122df477cff4ff|dd6e1279a8ae5c17|-1023794028||t20497.5454424947s|s7291b|7291|rds|local|vector|||0.046||
-tbl_custos_veiculos|stem|8a2b8773c2f5bc53|e898ccf387913151|23db160c93e22720|1947468688||t20497.5454661058s|s98527b|98527|rds|local|vector|||0.012||
-tbl_resultados_veiculos|stem|692102cd36764e57|9c92df260d7376a6|ca8662a8c928c2d8|2063631518||t20497.5454863605s|s5995111b|5995111|rds|local|vector|||0.057||
-df_custos_na_urbano|stem|c81b8e79787c46d6|d8a10db90f4cb870|4b7c000889400f1c|-1193331061||t20497.545508004s|s236b|236|rds|local|vector|||0.013||
-df_custos_tipo_registro_rodovias|stem|fd848d0638888fba|9d0f01ad69cf4ed0|19e5501e017e8592|-61194196||t20497.5455082355s|s304b|304|rds|local|vector|||0.003||
-df_custos_rodovias|stem|0220e1539df3b7ac|c4e41e49b77dd3b0|fa6f31b4fad77ace|-441940523||t20497.5455084669s|s26844b|26844|rds|local|vector|||0.006||
-df_custos_na_rodovias|stem|533df164fd035cd2|38494355552a3d81|d96c8ab5a4482368|-1821065718||t20497.545513791s|s242b|242|rds|local|vector|||0.02||
-plt_custos_na|stem|bbcac924d9021d84|4c488191c706eaa6|46a195cdd647c907|2101890856||t20497.5455164531s|s389230b|389230|rds|local|vector|||0.076|'big.mark' and 'decimal.mark' are both '.', which could be confusing|
-df_custos_vias_na|stem|810e774f003bae7a|b78eaafa88802a38|c68bef76be06e4c3|-650389387||t20497.5455168003s|s1747b|1747|rds|local|vector|||0.01||
-df_custos_na_report|stem|ee1adba73c2cabda|68985c467c48bb89|34b18f2ebe0d70d5|1488795178||t20497.5455172632s|s248b|248|rds|local|vector|||0.012||
-tbl_custos_na|stem|3d1130af6f7d9a44|de6e1e67a0b74b37|e6b35999109ee80d|-1954764961||t20497.5455176105s|s12867b|12867|rds|local|vector|||0.008||
-df_custos_municipio|stem|436b6e093417eabc|a1baa70871406276|0361309e7fb77930|1182726384||t20497.5455178419s|s37059b|37059|rds|local|vector|||0.012||
-plt_custos_componentes|stem|4df50749324ea968|9b252752661f8aa1|a78c2e856ef98e91|-1203776648||t20497.5455185364s|s133733b|133733|rds|local|vector|||0.013||
-map_custos_rodovias|stem|0fc80d7e1f59be96|7351a0c24bfa370a|e20ed3bdc6bcf810|1981880300||t20497.545526754s|s5825002b|5825002|rds|local|vector|||0.195|'big.mark' and 'decimal.mark' are both '.', which could be confusing. 'big.mark' and 'decimal.mark' are both '.', which could be confusing. sf layer has inconsistent datum (+proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs). Need '+proj=longlat +datum=WGS84'|
-tbl_custos_municipio|stem|4a9733f9a0c5fad3|862a4558d56b5408|50951b36661ad864|374933986||t20497.5455276799s|s117755b|117755|rds|local|vector|||0.039||
-map_custos_na|stem|5aa9899ea9458b5b|fe6b9b2499febd2e|e20ed3bdc6bcf810|1280472193||t20497.5455333512s|s5818478b|5818478|rds|local|vector|||0.119|'big.mark' and 'decimal.mark' are both '.', which could be confusing. 'big.mark' and 'decimal.mark' are both '.', which could be confusing. sf layer has inconsistent datum (+proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs). Need '+proj=longlat +datum=WGS84'|
-map_custos_urbanos|stem|5ec6c3e27eadde67|07e25dcfaf1a2ec9|e20ed3bdc6bcf810|1756521174||t20497.5455394855s|s5824740b|5824740|rds|local|vector|||0.141|'big.mark' and 'decimal.mark' are both '.', which could be confusing. 'big.mark' and 'decimal.mark' are both '.', which could be confusing. sf layer has inconsistent datum (+proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs). Need '+proj=longlat +datum=WGS84'|
-custo_total|stem|18195b1c1746b344|9819d82e5754a34f|6944a974d8b7f3ad|1744079069||t20497.5455396012s|s73b|73|rds|local|vector|||0.001||
-map_custos_total|stem|2828059724c416ff|879bba875917ca98|e20ed3bdc6bcf810|-1500783127||t20497.5455444623s|s5825289b|5825289|rds|local|vector|||0.108|'big.mark' and 'decimal.mark' are both '.', which could be confusing. 'big.mark' and 'decimal.mark' are both '.', which could be confusing. sf layer has inconsistent datum (+proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs). Need '+proj=longlat +datum=WGS84'|
-report|stem|aa636da97be0c0a3|c61fb4a94ffa3d42|4035697d3eba9ef5|787668912|docs*01-introducao.qmd*02-metodologia.qmd*03-resultados.qmd*04-conclusao.qmd*05-referencias.qmd*index.qmd*_quarto.yml|t20497.6975105861s|s280563619b|280563619|file|local|vector|||118.499||
-formatar_custos_veiculos_rodovias|function|6bca5fafe38d15fc|||||||||||||||
-calc_quantidade_sinistros|function|03fc3915ee616e1b|||||||||||||||
-plot_custos_map|function|97f6a67167a93190|||||||||||||||
-plot_custos_componentes|function|02256e59ffd6c42d|||||||||||||||
-plot_count_sinistros_via|function|415606cbbdd51356|||||||||||||||
-.Random.seed|object|a1646e705b2ee500|||||||||||||||
-join_all_custos|function|5b210c8d34546b49|||||||||||||||
-plot_custos_inst_rodovias|function|0ed1c8d859779254|||||||||||||||
-create_custos_urbanos|function|4277daa01f67fa88|||||||||||||||
-plot_custos_urbano|function|61a5fb184ee47780|||||||||||||||
-formatar_tabela_custos|function|7275ba5c7a3ba230|||||||||||||||
-join_custos_rodovias|function|94ce2c4fbc160804|||||||||||||||
-formatar_custos_pessoas_rodovias|function|465106f5257a14fe|||||||||||||||
-calc_custos_sinistros_na|function|c70116fa9b9bb862|||||||||||||||
-calc_custos_na_report|function|867e371518ac6480|||||||||||||||
-plot_veic_envolvido|function|fedd14d362690e88|||||||||||||||
-create_custos_pessoas|function|5c3f2b4872f6a90e|||||||||||||||
-calc_custo_total|function|cb7ee4f4e7d81828|||||||||||||||
-join_tipo_registro_rodovias_custos|function|40d998ff7d38aa10|||||||||||||||
-calc_custos_veiculos|function|1132701401d7fea0|||||||||||||||
-extract_sinistros|function|308ad8c1f56c88e9|||||||||||||||
-plot_custos_na|function|5c77ba8aed7810b1|||||||||||||||
-plot_veiculos_sinistro|function|e65616e46b33a6c2|||||||||||||||
-calc_custos_inst|function|0fc3659c4523401f|||||||||||||||
-calc_custos_urbanos|function|0e60280282e1e4e4|||||||||||||||
-load_sinistros_full|function|f538b0a62c6ae496|||||||||||||||
-load_municipios|function|3e688c2fdb7fd150|||||||||||||||
-calc_custos_pessoas|function|a7ff9a493adfcff9|||||||||||||||
-create_custos_inst|function|3645244a2f909589|||||||||||||||
-formatar_custos_inst_rodovias|function|3a6c8195955e5e03|||||||||||||||
-formatar_custos_na|function|8b9cdaadbb2dcff3|||||||||||||||
-calc_prop_veiculos|function|c1b0889a1e092d7b|||||||||||||||
-formatar_tabela_custos_municipios|function|564434643d3d3425|||||||||||||||
-create_custos_veiculos|function|01c25635ccf2e8ae|||||||||||||||
-plot_vitimas_gravidade|function|aac41441dc810e2c|||||||||||||||
-calc_prop_vitimas|function|293dfdaa579afe5e|||||||||||||||
-formatar_tabela_sinistros|function|e0ba1685620d1070|||||||||||||||
-formatar_custos_vias_municipais|function|3a6c8195955e5e03|||||||||||||||
-plot_custos_veic_rodovias|function|03b71b3e18d660bb|||||||||||||||
-formatar_custos_urbanos|function|392e6029814e1023|||||||||||||||
-calc_custos_na|function|0ce7abd4332cad5e|||||||||||||||
+sf_municipios|stem|23d29dcad7a73c05|e7f2fa6cf05c56c3|2c530c1562a7fbd1|-433777918||t20511.7436809486s|s1407208b|1407208|rds|local|vector|||3.55|pacote ‘tidyverse’ foi compilado no R versão 4.5.2. pacote ‘lubridate’ foi compilado no R versão 4.5.2. pacote ‘leaflet’ foi compilado no R versão 4.5.2|
+fator_ipca_201412_atual|stem|befe57e2c994edbd|4eaab2a5a2898fd3|2c530c1562a7fbd1|179247758||t20511.7440220398s|s55b|55|rds|local|vector|||0||
+tp_sinistros|stem|225390b16bb625cb|5ac4835cec3194a0|2c530c1562a7fbd1|-84627567||t20511.7440223323s|s95b|95|rds|local|vector|||0||
+date_end|stem|96afae34f1ec5759|a1d3e11a1cbba426|2c530c1562a7fbd1|388116293||t20511.7440227351s|s63b|63|rds|local|vector|||0||
+date_start|stem|7ecd9656f9eca014|f2b61d024c7ee3eb|2c530c1562a7fbd1|538713725||t20511.7440230394s|s62b|62|rds|local|vector|||0||
+fator_ipca_200304_atual|stem|0bf9994e3e8d2e9d|6cd65b31cf72b9c7|2c530c1562a7fbd1|-1792439208||t20511.7440232828s|s55b|55|rds|local|vector|||0||
+municipios_path|stem|38b41ab029f25f7e|a0e841e64b2b068f|2c530c1562a7fbd1|1910671076|data/divisoes_regionais_esp.csv|t20507.562415011s|s73836b|73836|file|local|vector|||0||
+df_prop_veiculos_naofatais|stem|ef309f207a1c2f86|2bd19443bd6a92c1|faec01569860ea9f|-947545017||t20511.7440700314s|s303b|303|rds|local|vector|||0.26||
+df_prop_vitimas|stem|3e7888323bbc2bc0|cfd67740622274f8|5fa68860c0b28e64|-1871464812||t20511.7441155173s|s242b|242|rds|local|vector|||0.52||
+df_prop_veiculos_fatais|stem|941b71457cdc7876|aa96d5bd79d41d5c|faec01569860ea9f|376378891||t20511.7441588163s|s303b|303|rds|local|vector|||0.27||
+df_custos_inst|stem|0956d2426f9f6753|a2a9d46125ec57e0|69d3de8b4013ba2e|1124727624||t20511.7441591535s|s251b|251|rds|local|vector|||0||
+df_sinistros_rodovias|stem|1f2f79fc394f6045|0e671d7d026de57a|dc94f81122e6a114|1929813278||t20511.7442513692s|s5864892b|5864892|rds|local|vector|||0.3||
+plt_veic_envolvido_fatal_urbano|stem|7f671a50f8b914a4|4ad11652de3e5a7b|86ef2e45c703a330|1073721432||t20511.7444182497s|s53520500b|53520500|rds|local|vector|||0.19|'big.mark' e 'decimal.mark' são ambos '.', o que pode ser confuso|
+plt_veic_envolvido_nao_fatal_urbano|stem|968fae3b07cf011c|18b03ffe694245c7|86ef2e45c703a330|1580367588||t20511.7446017435s|s53524446b|53524446|rds|local|vector|||0.69|'big.mark' e 'decimal.mark' são ambos '.', o que pode ser confuso|
+df_sinistros_municipios|stem|5c312ccb1e078bfc|803b574ab47ac229|dc94f81122e6a114|-619242395||t20511.7447652338s|s28090929b|28090929|rds|local|vector|||0.19||
+tbl_vitimas|stem|f8e66d018afd4265|b62a671bc2dd6eeb|948aecf2b79c6d76|-1459871545||t20511.745101495s|s88771550b|88771550|rds|local|vector|||0.95||
+tbl_sinistros|stem|ddf9f882abb65ec8|180fe98979b5acd6|948aecf2b79c6d76|1375349614||t20511.7454329849s|s88771396b|88771396|rds|local|vector|||0.32||
+plt_count_sinistros_via|stem|e2b9fc8ca9dbb8df|e19e128a4c9cef33|1c65cc4ab163781e|-1260870534||t20511.7456521212s|s53547597b|53547597|rds|local|vector|||0.79|'big.mark' e 'decimal.mark' são ambos '.', o que pode ser confuso. 'big.mark' e 'decimal.mark' são ambos '.', o que pode ser confuso. 'big.mark' e 'decimal.mark' são ambos '.', o que pode ser confuso. 'big.mark' e 'decimal.mark' são ambos '.', o que pode ser confuso|
+plt_veic_envolvido_nao_fatal_rodovia|stem|441c823be34a0da8|9320bfe24cefb921|86ef2e45c703a330|-429062534||t20511.7458413037s|s53524961b|53524961|rds|local|vector|||0.17|'big.mark' e 'decimal.mark' são ambos '.', o que pode ser confuso|
+plt_vitimas_gravidade_rodovias|stem|245ce17d48eb35a2|59f70a609cac92a1|0d0ed60c09c41d88|-536521568||t20511.7460320422s|s53520576b|53520576|rds|local|vector|||0.44|'big.mark' e 'decimal.mark' são ambos '.', o que pode ser confuso|
+plt_veic_envolvido_fatal_rodovias|stem|5336f22688e9fcaf|5b3e2ea780c01d9c|86ef2e45c703a330|-84157624||t20511.7462415353s|s53524413b|53524413|rds|local|vector|||0.14|'big.mark' e 'decimal.mark' são ambos '.', o que pode ser confuso|
+n_sinistros|stem|fc3597fa2198af7e|209f965130348021|96ae4afe2b6279db|-39204943||t20511.7462973545s|s60b|60|rds|local|vector|||0.47||
+plt_vitimas_gravidade_urbano|stem|b8252c827f6e58de|6eaf96524d9482d6|0d0ed60c09c41d88|-1839100295||t20511.7464762925s|s53520822b|53520822|rds|local|vector|||0.53|'big.mark' e 'decimal.mark' são ambos '.', o que pode ser confuso|
+df_custos_urbanos|stem|6ad8b55f9e7ba837|3cdba9d99664b324|e550e87a2eb7bd0e|1957110159||t20511.7464783536s|s252b|252|rds|local|vector|||0||
+df_municipios|stem|5a3bbbb16ecff8c7|9cfce6266e932bf4|ae806cce48d09f21|-186996337||t20511.7464802446s|s7040b|7040|rds|local|vector|||0.14||
+df_custos_pessoas|stem|b3317d246b0df491|dd4bc837ed4b9282|83acc4bf54f0b91a|-856934101||t20511.7464812323s|s476b|476|rds|local|vector|||0.04||
+df_custos_veiculos|stem|99ec3e3d15fc87ce|894365c74d50b4a3|8c26d3289a03bc1a|554400607||t20511.7464817316s|s596b|596|rds|local|vector|||0.01||
+tbl_custos_inst|stem|68cccef731d9d978|24b06a1f76a6a0ee|e8bfe2a8433a7f6d|-1424618867||t20511.7464826821s|s112606b|112606|rds|local|vector|||0.02||
+df_custos_rodovias_inst|stem|4f6bdb398da2e580|3f7ad2a3333f2d17|66a6e4bc378f49b2|1458751151||t20511.7464888537s|s6708b|6708|rds|local|vector|||0.05||
+plt_custos_inst_rodovias|stem|660b740b281e81b5|5762e7d227486290|13e15de3a0ca90fb|887739470||t20511.7465122911s|s6219352b|6219352|rds|local|vector|||0.15|'big.mark' e 'decimal.mark' são ambos '.', o que pode ser confuso|
+df_custos_tipo_registro_inst|stem|4aed4a3d5572a312|23ac44f524e67035|66a6e4bc378f49b2|-560700969||t20511.746520957s|s204b|204|rds|local|vector|||0.23||
+tbl_resultados_inst|stem|522028495d66e225|8cc11f482aaf82ef|9af9d4f15d47cf1c|-1630642259||t20511.7465417544s|s5989829b|5989829|rds|local|vector|||0.03||
+df_custos_vias_municipais|stem|76a488d2b49be57c|744fa31c4cf2d828|06c08560a40e151b|-91893353||t20511.7465910707s|s6849b|6849|rds|local|vector|||0.19||
+tbl_custos_urbanos|stem|a8eb33992af5d2fe|60e02b5540944485|472c5da02513226d|-1593312718||t20511.746591594s|s24146b|24146|rds|local|vector|||0.01||
+tbl_resultados_vias_municipais|stem|405e0aacb7d16630|1567b890c32981af|110cd1b4cb4d4e8c|-477104982||t20511.7466783002s|s28214653b|28214653|rds|local|vector|||0.05||
+plt_custos_urbano|stem|8667d32f6df6274f|e9c43f657a7c1923|82a7f08524e5f272|289198616||t20511.7467723545s|s28434380b|28434380|rds|local|vector|||0.29|'big.mark' e 'decimal.mark' são ambos '.', o que pode ser confuso|
+df_custos_rodovias_pessoas|stem|293acb23d7759232|2f655cd55e9eac7d|7d31b41700d3628a|886019619||t20511.7467791434s|s7260b|7260|rds|local|vector|||0.05||
+plt_custos_pessoas_rodovias|stem|1c995c5410d516d5|8c45b307937b9355|55537d71f44efd56|1702162454||t20511.7468026912s|s6220753b|6220753|rds|local|vector|||0.21||
+df_custos_tipo_registro_pessoas|stem|2ddffb4f61bea682|ea0e7f461ee09384|7d31b41700d3628a|-803712529||t20511.746810494s|s206b|206|rds|local|vector|||0.06||
+tbl_resultados_pessoas|stem|6862e5c91cc8552b|de9e1a1b51a3bc1a|b6bc9e73bdf5c44b|1473283136||t20511.7468325545s|s5993039b|5993039|rds|local|vector|||0.08|[38;5;232mReturning more (or less) than 1 row per `summarise()` group was deprecated in dplyr 1.1.0. [36mℹ[38;5;232m Please use `reframe()` instead. [36mℹ[38;5;232m When switching from `summarise()` to `reframe()`, remember that `reframe()` always returns an ungrouped   data frame and adjust accordingly. [90mCall `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.[38;5;232m[39m|
+tbl_custos_pessoas|stem|c0d2629a6703dc05|3e7fd4bb843e96de|df1e8d42f3ec5d93|885928786||t20511.7468339988s|s113498b|113498|rds|local|vector|||0.04||
+df_custos_tipo_registro_veiculos|stem|0b71b5ac546f6e96|cdf9cc0d26553193|8941357dad9bcb82|1352739074||t20511.7468396642s|s207b|207|rds|local|vector|||0.08||
+df_custos_rodovias_veiculos|stem|61748062ecc16760|2e122df477cff4ff|8941357dad9bcb82|-1023794028||t20511.7468456961s|s7299b|7299|rds|local|vector|||0.08||
+plt_custos_veic_rodovias|stem|b302a5193835e0bb|ca89f379e4b4b60b|4f01c82489fd4864|-1009913665||t20511.7468711272s|s6263339b|6263339|rds|local|vector|||0.22|'big.mark' e 'decimal.mark' são ambos '.', o que pode ser confuso. 'big.mark' e 'decimal.mark' são ambos '.', o que pode ser confuso|
+tbl_custos_veiculos|stem|caf1af61e9568bdd|e898ccf387913151|7091093b851f3ad3|1947468688||t20511.7468726646s|s114076b|114076|rds|local|vector|||0.03||
+tbl_resultados_veiculos|stem|0c53d6a1692d7ece|9c92df260d7376a6|937fe592682aba81|2063631518||t20511.7468944726s|s5996323b|5996323|rds|local|vector|||0.07||
+df_custos_na_urbano|stem|c885ffa41ade7bd6|d8a10db90f4cb870|1786656e166413b7|-1193331061||t20511.746918307s|s236b|236|rds|local|vector|||0.02||
+df_custos_rodovias|stem|cec8189782aaf5cf|c4e41e49b77dd3b0|bdae2fa13fbe58cd|-441940523||t20511.746919436s|s26867b|26867|rds|local|vector|||0.01||
+df_custos_na_rodovias|stem|e6fd95d4631e2259|38494355552a3d81|d9af71b18eb4d516|-1821065718||t20511.7469257448s|s243b|243|rds|local|vector|||0.02||
+plt_custos_na|stem|cc63d91c30407d1f|4c488191c706eaa6|17d60311668efdc1|2101890856||t20511.7469284289s|s391727b|391727|rds|local|vector|||0.09|'big.mark' e 'decimal.mark' são ambos '.', o que pode ser confuso|
+df_custos_vias_na|stem|1f0a9e0ccfe99eae|b78eaafa88802a38|ad5ccd9f95bbcfd3|-650389387||t20511.7469295549s|s1743b|1743|rds|local|vector|||0.02||
+df_custos_na_report|stem|ac8c21f43e208db8|68985c467c48bb89|86fe52ac01b8f6ae|1488795178||t20511.7469300122s|s247b|247|rds|local|vector|||0||
+tbl_custos_na|stem|6568855a8c9247fb|de6e1e67a0b74b37|120faa22e71e992f|-1954764961||t20511.7469304574s|s24276b|24276|rds|local|vector|||0||
+plt_custos_componentes|stem|029fdf4685772c4a|9b252752661f8aa1|eafc7d20b1c37eaa|-1203776648||t20511.7469318048s|s137154b|137154|rds|local|vector|||0.02||
+map_custos_rodovias|stem|708bbf2f870409b9|7351a0c24bfa370a|4e6263860610ce1b|1981880300||t20511.7469388171s|s5818451b|5818451|rds|local|vector|||0.26|'big.mark' e 'decimal.mark' são ambos '.', o que pode ser confuso. 'big.mark' e 'decimal.mark' são ambos '.', o que pode ser confuso. sf layer has inconsistent datum (+proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs). Need '+proj=longlat +datum=WGS84'|
+tbl_custos_municipio|stem|1c9b75fafe251989|862a4558d56b5408|57a352ecad6db737|374933986||t20511.7469416483s|s128166b|128166|rds|local|vector|||0.05||
+map_custos_na|stem|b3e98d9f8e389f20|fe6b9b2499febd2e|4e6263860610ce1b|1280472193||t20511.7469476414s|s5812528b|5812528|rds|local|vector|||0.17|'big.mark' e 'decimal.mark' são ambos '.', o que pode ser confuso. 'big.mark' e 'decimal.mark' são ambos '.', o que pode ser confuso. sf layer has inconsistent datum (+proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs). Need '+proj=longlat +datum=WGS84'|
+map_custos_urbanos|stem|54f0b313f8a5cc55|07e25dcfaf1a2ec9|4e6263860610ce1b|1756521174||t20511.7469545611s|s5818166b|5818166|rds|local|vector|||0.12|'big.mark' e 'decimal.mark' são ambos '.', o que pode ser confuso. 'big.mark' e 'decimal.mark' são ambos '.', o que pode ser confuso. sf layer has inconsistent datum (+proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs). Need '+proj=longlat +datum=WGS84'|
+custo_total|stem|1203eb8cf9224f51|9819d82e5754a34f|8d1e0950e66d007d|1744079069||t20511.7469569857s|s73b|73|rds|local|vector|||0||
+map_custos_total|stem|6ac07eb6d4a17777|879bba875917ca98|4e6263860610ce1b|-1500783127||t20511.7469629625s|s5818772b|5818772|rds|local|vector|||0.17|'big.mark' e 'decimal.mark' são ambos '.', o que pode ser confuso. 'big.mark' e 'decimal.mark' são ambos '.', o que pode ser confuso. sf layer has inconsistent datum (+proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs). Need '+proj=longlat +datum=WGS84'|
+plot_custos_map|function|77ea28eb54b68fe7|||||||||||||||
 extract_sinistros_tipo_via_na|function|39f4a08e38d5c95f|||||||||||||||
 plot_custos_pessoas_rodovias|function|e86b705d0caaba0b|||||||||||||||
-plt_veic_envolvido_fatal_urbano|stem|03cfad9084d15430|4ad11652de3e5a7b|24df576385b2db91|1073721432||t20497.7037523666s|s53864522b|53864522|rds|local|vector|||0.354|'big.mark' and 'decimal.mark' are both '.', which could be confusing|
-plt_veic_envolvido_nao_fatal_urbano|stem|feafd497bd248d78|18b03ffe694245c7|24df576385b2db91|1580367588||t20497.7039139407s|s53865172b|53865172|rds|local|vector|||0.523|'big.mark' and 'decimal.mark' are both '.', which could be confusing|
-plt_veic_envolvido_nao_fatal_rodovia|stem|b2126a964e8a014d|9320bfe24cefb921|24df576385b2db91|-429062534||t20497.7040666027s|s53864946b|53864946|rds|local|vector|||0.157|'big.mark' and 'decimal.mark' are both '.', which could be confusing|
-plt_veic_envolvido_fatal_rodovias|stem|14ae55fd39a1b117|5b3e2ea780c01d9c|24df576385b2db91|-84157624||t20497.7042188017s|s53864572b|53864572|rds|local|vector|||0.098|'big.mark' and 'decimal.mark' are both '.', which could be confusing|
-plt_custos_veic_rodovias|stem|201903919943e0d2|ca89f379e4b4b60b|017d32c726327fa2|-1009913665||t20497.7042417184s|s6279659b|6279659|rds|local|vector|||0.216|'big.mark' and 'decimal.mark' are both '.', which could be confusing. 'big.mark' and 'decimal.mark' are both '.', which could be confusing|
-formatar_custos_veiculos_rodovias|function|6bca5fafe38d15fc
-calc_quantidade_sinistros|function|03fc3915ee616e1b
-plot_custos_map|function|77ea28eb54b68fe7
-plot_custos_componentes|function|02256e59ffd6c42d
-plot_count_sinistros_via|function|415606cbbdd51356
-.Random.seed|object|cefbbc968cefb275
-join_all_custos|function|5b210c8d34546b49
-plot_custos_inst_rodovias|function|0ed1c8d859779254
-create_custos_urbanos|function|4277daa01f67fa88
-plot_custos_urbano|function|61a5fb184ee47780
-formatar_tabela_custos|function|7275ba5c7a3ba230
-join_custos_rodovias|function|94ce2c4fbc160804
-formatar_custos_pessoas_rodovias|function|465106f5257a14fe
-calc_custos_sinistros_na|function|c70116fa9b9bb862
-calc_custos_na_report|function|867e371518ac6480
-plot_veic_envolvido|function|fedd14d362690e88
-create_custos_pessoas|function|5c3f2b4872f6a90e
-calc_custo_total|function|cb7ee4f4e7d81828
-join_tipo_registro_rodovias_custos|function|40d998ff7d38aa10
-calc_custos_veiculos|function|1132701401d7fea0
-extract_sinistros|function|308ad8c1f56c88e9
-plot_custos_na|function|5c77ba8aed7810b1
-plot_veiculos_sinistro|function|e65616e46b33a6c2
-calc_custos_inst|function|0fc3659c4523401f
-calc_custos_urbanos|function|0e60280282e1e4e4
-load_sinistros_full|function|f538b0a62c6ae496
-load_municipios|function|3e688c2fdb7fd150
-calc_custos_pessoas|function|a7ff9a493adfcff9
-create_custos_inst|function|3645244a2f909589
-formatar_custos_inst_rodovias|function|3a6c8195955e5e03
-formatar_custos_na|function|8b9cdaadbb2dcff3
-calc_prop_veiculos|function|c1b0889a1e092d7b
-formatar_tabela_custos_municipios|function|564434643d3d3425
-create_custos_veiculos|function|01c25635ccf2e8ae
-plot_vitimas_gravidade|function|aac41441dc810e2c
-calc_prop_vitimas|function|293dfdaa579afe5e
-formatar_tabela_sinistros|function|e0ba1685620d1070
-formatar_custos_vias_municipais|function|3a6c8195955e5e03
-plot_custos_veic_rodovias|function|03b71b3e18d660bb
-formatar_custos_urbanos|function|392e6029814e1023
-calc_custos_na|function|0ce7abd4332cad5e
-extract_sinistros_tipo_via_na|function|39f4a08e38d5c95f
-plot_custos_pessoas_rodovias|function|e86b705d0caaba0b
-map_custos_rodovias|stem|364b86050c317d39|7351a0c24bfa370a|96f610d81655e63a|1981880300||t20497.7322722659s|s5825194b|5825194|rds|local|vector|||0.221|'big.mark' and 'decimal.mark' are both '.', which could be confusing. 'big.mark' and 'decimal.mark' are both '.', which could be confusing. sf layer has inconsistent datum (+proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs). Need '+proj=longlat +datum=WGS84'|
-map_custos_na|stem|2a413495ab08e703|fe6b9b2499febd2e|96f610d81655e63a|1280472193||t20497.7322772427s|s5818667b|5818667|rds|local|vector|||0.09|'big.mark' and 'decimal.mark' are both '.', which could be confusing. 'big.mark' and 'decimal.mark' are both '.', which could be confusing. sf layer has inconsistent datum (+proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs). Need '+proj=longlat +datum=WGS84'|
-map_custos_urbanos|stem|395974c0bcc9d5c1|07e25dcfaf1a2ec9|96f610d81655e63a|1756521174||t20497.7322819881s|s5824929b|5824929|rds|local|vector|||0.089|'big.mark' and 'decimal.mark' are both '.', which could be confusing. 'big.mark' and 'decimal.mark' are both '.', which could be confusing. sf layer has inconsistent datum (+proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs). Need '+proj=longlat +datum=WGS84'|
-map_custos_total|stem|8cc0a240411806ad|879bba875917ca98|96f610d81655e63a|-1500783127||t20497.7322867335s|s5825482b|5825482|rds|local|vector|||0.097|'big.mark' and 'decimal.mark' are both '.', which could be confusing. 'big.mark' and 'decimal.mark' are both '.', which could be confusing. sf layer has inconsistent datum (+proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs). Need '+proj=longlat +datum=WGS84'|
+formatar_tabela_custos_municipios|function|564434643d3d3425|||||||||||||||
+df_sinistros|object|e8302d018c6de8bd|||||||||||||||
+formatar_tabela_custos|function|7275ba5c7a3ba230|||||||||||||||
+create_custos_pessoas|function|5c3f2b4872f6a90e|||||||||||||||
+create_custos_urbanos|function|4277daa01f67fa88|||||||||||||||
+calc_custos_inst|function|0fc3659c4523401f|||||||||||||||
+formatar_custos_urbanos|function|392e6029814e1023|||||||||||||||
+plot_custos_veic_rodovias|function|03b71b3e18d660bb|||||||||||||||
+load_municipios|function|3e688c2fdb7fd150|||||||||||||||
+join_tipo_registro_rodovias_custos|function|40d998ff7d38aa10|||||||||||||||
+join_all_custos|function|5b210c8d34546b49|||||||||||||||
+plot_custos_componentes|function|02256e59ffd6c42d|||||||||||||||
+df_sinistros_na|object|81113900e1992c98|||||||||||||||
+formatar_tabela_sinistros|function|e0ba1685620d1070|||||||||||||||
+calc_custos_urbanos|function|0e60280282e1e4e4|||||||||||||||
+df_sinistro_por_tipo|object|ec4cb2f86060d212|||||||||||||||
+plot_custos_na|function|5c77ba8aed7810b1|||||||||||||||
+calc_custos_pessoas|function|a7ff9a493adfcff9|||||||||||||||
+plot_veiculos_sinistro|function|e65616e46b33a6c2|||||||||||||||
+plot_vitimas_gravidade|function|aac41441dc810e2c|||||||||||||||
+calc_custos_sinistros_na|function|c70116fa9b9bb862|||||||||||||||
+plot_veic_envolvido|function|fedd14d362690e88|||||||||||||||
+df_custos_tipo_registro_rodovias|object|c6ccc4fe2b24462f|||||||||||||||
+calc_quantidade_sinistros|function|03fc3915ee616e1b|||||||||||||||
+load_sinistros_full|function|ba0055409626aafe|||||||||||||||
+df_custos_geral|object|ded895cf37aa2e89|||||||||||||||
+formatar_custos_na|function|8b9cdaadbb2dcff3|||||||||||||||
+plot_custos_urbano|function|61a5fb184ee47780|||||||||||||||
+formatar_custos_inst_rodovias|function|3a6c8195955e5e03|||||||||||||||
+calc_custos_veiculos|function|1132701401d7fea0|||||||||||||||
+join_custos_rodovias|function|94ce2c4fbc160804|||||||||||||||
+formatar_custos_pessoas_rodovias|function|465106f5257a14fe|||||||||||||||
+df_custos_tipo_registro_na|object|62d79760548b30b1|||||||||||||||
+df_custos_tipo_registro_urbano|object|2bdcba7fe16450cd|||||||||||||||
+calc_prop_veiculos|function|c1b0889a1e092d7b|||||||||||||||
+formatar_custos_vias_municipais|function|3a6c8195955e5e03|||||||||||||||
+calc_prop_vitimas|function|293dfdaa579afe5e|||||||||||||||
+create_custos_veiculos|function|01c25635ccf2e8ae|||||||||||||||
+plot_custos_inst_rodovias|function|0ed1c8d859779254|||||||||||||||
+calc_custos_na|function|0ce7abd4332cad5e|||||||||||||||
+create_custos_inst|function|3645244a2f909589|||||||||||||||
+calc_custos_na_report|function|867e371518ac6480|||||||||||||||
+plot_count_sinistros_via|function|415606cbbdd51356|||||||||||||||
+formatar_custos_veiculos_rodovias|function|6bca5fafe38d15fc|||||||||||||||
+extract_sinistros|function|308ad8c1f56c88e9|||||||||||||||
+calc_custo_total|function|cb7ee4f4e7d81828|||||||||||||||
+df_custos_municipio|object|aed9af957f1c5753|||||||||||||||
+.Random.seed|object|de1e7029d61253f8
+report|stem|abe4560d5fb499b2|c61fb4a94ffa3d42|2c530c1562a7fbd1|787668912|docs*01-introducao.qmd*02-metodologia.qmd*03-resultados.qmd*04-conclusao.qmd*05-referencias.qmd*index.qmd*_quarto.yml|t20515.603756726s|s280597536b|280597536|file|local|vector|||144.12||

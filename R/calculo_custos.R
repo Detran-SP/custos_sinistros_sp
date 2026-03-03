@@ -12,12 +12,14 @@
 #'     crash_data <- load_sinistros_full()
 #' }
 load_sinistros_full <- function() {
+    
     df <- ost.utils::load_infosiga(
         "sinistros",
-        zip_path = "data/dados_infosiga.zip"
+        path = "data/dados_infosiga.zip"
     )
+    df <- janitor::clean_names(df)
     df_clean <- ost.utils::clean_infosiga(df, "sinistros")
-    #df_clean <- df_clean |> dplyr::filter(data_sinistro <= "2025-06-30")
+    # df_clean <- df_clean |> dplyr::filter(data_sinistro <= "2025-06-30")
 
     return(df_clean)
 }
