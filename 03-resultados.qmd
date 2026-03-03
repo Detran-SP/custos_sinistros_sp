@@ -32,7 +32,7 @@ O custo total dos sinistros de trânsito no estado de São Paulo, considerando o
 
 ## Sinistros
 
-A @fig-count-sinistros-via apresenta a distribuição dos sinistros fatais e não fatais segundo o tipo de via. Observa-se que o maior número absoluto de sinistros não fatais ocorreu em vias urbanas, totalizando 684.922 registros, seguido por rodovias, com 152.474 casos. Os sinistros fatais foram ligeiramente mais frequentes em vias urbanas (18.774 casos) do que em rodovias (14.957 casos). Destaca-se também a presença de 2.005 sinistros fatais em locais não identificados, categoria que não apresenta registros de sinistros não fatais no período em análise.
+A @fig-count-sinistros-via apresenta a distribuição dos sinistros fatais e não fatais segundo o tipo de via por ano. Ao todo, Observa-se que o maior número absoluto de sinistros não fatais ocorreu em vias urbanas, totalizando 684.922 registros, seguido por rodovias, com 152.474 casos. Os sinistros fatais foram ligeiramente mais frequentes em vias urbanas (18.774 casos) do que em rodovias (14.957 casos). Destaca-se também a presença de 2.005 sinistros fatais em locais não identificados, categoria que não apresenta registros de sinistros não fatais no período em análise.
 
 ```{r}
 #| label: fig-count-sinistros-via
@@ -41,7 +41,7 @@ A @fig-count-sinistros-via apresenta a distribuição dos sinistros fatais e nã
 tar_read(plt_count_sinistros_via)
 ```
 
-A @fig-vitimas-gravidade-rodovias e a @fig-vitimas-gravidade-urbano apresentam a quantidade de sinistros segundo gravidade da vítima e tipo de via. Nas estradas e rodovias, observa-se maior volume de sinistros não fatais envolvendo vítimas com gravidade leve (140.012 casos), seguido de casos graves (26.979 casos) e, na sequência, de registros com gravidade não disponível (17.683 casos). Os sinistros fatais somam 16.553 ocorrências com gravidade fatal, além de 769 registros cuja gravidade não foi informada.
+A @fig-vitimas-gravidade-rodovias e a @fig-vitimas-gravidade-urbano apresentam a quantidade de vítimas segunda gravidade e tipo de via. Nas estradas e rodovias, observa-se maior volume de sinistros não fatais envolvendo vítimas com gravidade leve (140.012 casos), seguido de casos graves (26.979 casos) e, na sequência, de registros com gravidade não disponível (17.683 casos). Os sinistros fatais somam 16.553 ocorrências com gravidade fatal, além de 769 registros cuja gravidade não foi informada.
 
 Nas vias urbanas, a distribuição apresenta padrão semelhante quanto à predominância de casos leves (638.995 casos). Em seguida aparecem os registros com gravidade não disponível (121.811 casos) e os casos graves (121.811), os sinistros fatais totalizam 18.708 dos casos.
 
