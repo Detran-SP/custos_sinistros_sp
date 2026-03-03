@@ -28,7 +28,7 @@ tar_load(custo_total)
 tar_load(n_sinistros)
 ```
 
-O custo total dos sinistros de trânsito no estado de São Paulo, considerando o período entre 2019-01-01 e 2025-12-31, resultou em aproximadamente 12,2 bilhões de reais (`{r} custo_total`), considerando as `{r} n_sinistros` ocorrências nesse período. As seções a seguir apresentam um detalhamento dos sinistros ocorridos e dos custos.
+O custo total dos sinistros de trânsito no estado de São Paulo, considerando o período entre 2019-01-01 e 2025-12-31, resultou em aproximadamente 82,44 bilhões de reais (`{r} custo_total`), considerando as `{r} n_sinistros` ocorrências nesse período. As seções a seguir apresentam um detalhamento dos sinistros ocorridos e dos custos.
 
 ## Sinistros
 
@@ -71,7 +71,7 @@ tar_read(plt_vitimas_gravidade_urbano)
 
 A @fig-vitimas-gravidade-rodovias e a @fig-vitimas-gravidade-urbano apresentam a quantidade de veículos envolvidos em sinistros, segundo o tipo de via, o tipo de veículo envolvido e a gravidade do evento. Em vias urbanas, os veículos mais frequentemente associados a sinistros não fatais são os automóveis (501.885 casos) e motocicletas (446.276 casos). Já entre os sinistros fatais, as motocicletas aparecem com destaque (10.943 casos), seguidas pelos automóveis (8.362 casos).
 
-Nas rodovias, o padrão é semelhante. Os sinistros não fatais incluem majoritariamente automóveis (116.865 casos) e motocicletas 81.356 casos). Entre os sinistros fatais, os automóveis lideram com 10.783registros, seguidos por motocicletas (6.039) e caminhões (4.707). Em ambos os tipos de via, observa-se que as motocicletas concentram uma proporção expressiva dos sinistros fatais.
+Nas rodovias, o padrão é semelhante. Os sinistros não fatais incluem majoritariamente automóveis (116.865 casos) e motocicletas 81.356 casos). Entre os sinistros fatais, os automóveis lideram com 10.783 registros, seguidos por motocicletas (6.039) e caminhões (4.707). Em ambos os tipos de via, observa-se que as motocicletas concentram uma proporção expressiva dos sinistros fatais.
 
 
 ::: {.panel-tabset}
@@ -116,7 +116,7 @@ tar_read(plt_veic_envolvido_nao_fatal_urbano)
 
 ## Custos
 
-Conforme mostrado na @fig-custos, os custos com sinistros em vias urbanas ultrapassam R$ 50,65 bilhões, concentrando a maior parte das perdas. Já nas rodovias, os danos relacionados a vítimas representaram mais de R$ 22,23 bilhões, seguidos pelos custos relacionados aos veículos (R$ 8,04 bilhões) e por infraestrutura e patrimônio (R$ 112.754 milhões). Houve ainda R$ 215 milhões registrados em locais não identificados.
+Conforme mostrado na @fig-custos, os custos com sinistros em vias urbanas ultrapassam R$ 50,65 bilhões, concentrando a maior parte das perdas. Já nas rodovias, os danos relacionados a vítimas representaram mais de R$ 22,23 bilhões, seguidos pelos custos relacionados aos veículos (R$ 8,04 bilhões) e por infraestrutura e patrimônio (R$ 112.75 milhões). Houve ainda R$ 215 milhões registrados em locais não identificados.
 
 ```{r}
 #| label: fig-custos
@@ -126,7 +126,7 @@ tar_read(plt_custos_componentes)
 
 ```
 
-A @fig-custos-pessoas-rodovias detalha os custos relacionados às vítimas de sinistros ocorridos em rodovias. Representando 14.957 casos, os óbitos resultam em um impacto financeiro expressivo, atingindo mais de R$ 13,18 bi. O custo associado às vítimas em estado grave também contribuiu significativamente para o total, com um pouco mais de R$ 6,2 bi, mesmo sendo em menor número que os feridos leves. Estes últimos, embora menos numerosos (44.662), representaram um custo relativamente menor, de aproximadamente R$2,18 bi. No caso das vítimas com gravidade não disponível, houve 17.683 casos, com custo aproximado de R$ 582, 84 milhões. Ao todo, os custos com pessoas somaram aproximadamente R$ 22,15 bilhões no período analisado.
+A @fig-custos-pessoas-rodovias detalha os custos relacionados às vítimas de sinistros ocorridos em rodovias. Representando 14.957 casos, os óbitos resultam em um impacto financeiro expressivo, atingindo mais de R$ 13,18 bi. O custo associado às vítimas em estado grave também contribuiu significativamente para o total, com um pouco mais de R$ 6,2 bi, mesmo sendo em menor número que os feridos leves. Estes últimos, embora menos numerosos (44.662), representaram um custo relativamente menor, de aproximadamente R$ 2,18 bilhões.No caso das vítimas com gravidade não disponível, houve 17.683 casos, com custo aproximado de R$ 582,84 milhões. Ao todo, os custos com pessoas somaram aproximadamente R$ 22,15 bilhões no período analisado.
 
 ```{r}
 #| label: fig-custos-pessoas-rodovias
@@ -144,10 +144,10 @@ Na @fig-custos-veic-rodovias, observam-se os custos associados aos veículos env
 tar_read(plt_custos_veic_rodovias)
 ```
 
-A @plt-custos-inst-rodovias reúne os custos institucionais e os danos patrimoniais decorrentes dos sinistros em rodovias. Embora representem uma fração menor do total, essas despesas somaram quase R$ 11,754 milhões. Os sinistros não fatais, pela quantidade expressivamente maior, responderam por cerca de R$ 94,803 milhões, enquanto os fatais geraram um custo aproximado de R$ 17,950 milhões. Esses valores englobam, por exemplo, os custos administrativos e os danos a equipamentos públicos.
+A @fig-custos-inst-rodovias reúne os custos institucionais e os danos patrimoniais decorrentes dos sinistros em rodovias. Embora representem uma fração menor do total, essas despesas somaram quase R$ 11,75 milhões. Os sinistros não fatais, pela quantidade expressivamente maior, responderam por cerca de R$ 94,80 milhões, enquanto os fatais geraram um custo aproximado de R$ 17,95 milhões. Esses valores englobam, por exemplo, os custos administrativos e os danos a equipamentos públicos.
 
 ```{r}
-#| label: plt-custos-inst-rodovias
+#| label: fig-custos-inst-rodovias
 #| fig-cap: Custos institucionais e danos patrimoniais em rodovias por tipo de sinistro
 
 tar_read(plt_custos_inst_rodovias)
@@ -166,7 +166,7 @@ A @fig-custos-urbano mostra que os sinistros em vias urbanas geraram um custo to
 tar_read(plt_custos_urbano)
 ```
 
-Ainda que com menor representatividade no total de registros, os sinistros em locais não identificados somaram 2.005 casos fatais, com um custo médio superior a R$ 735, 5 mil por ocorrência. O impacto financeiro estimado para essa categoria ultrapassa os R$ 1,47 bi, valor que reforça a importância de aprimorar a identificação espacial dos registros para qualificar a análise e o direcionamento de políticas públicas.
+Ainda que com menor representatividade no total de registros, os sinistros em locais não identificados somaram 2.005 casos fatais, com um custo médio superior a R$ 735,5 mil por ocorrência. O impacto financeiro estimado para essa categoria ultrapassa os R$ 1,47 bi, valor que reforça a importância de aprimorar a identificação espacial dos registros para qualificar a análise e o direcionamento de políticas públicas.
 
 ```{r}
 #| label: fig-custos-na
@@ -179,7 +179,7 @@ Considerando os três tipos de via analisados, os sinistros em vias urbanas conc
 
 ## Custos por município
 
-Por fim, a @tbl-custo-municipio apresenta de forma agregada os custos dos sinistros de trânsito por município e os mapas mostram sua distribuição territorial no estado. Os custos foram somados pelo município de ocorrência do sinistro, assim, é importante observar que isso não significa  que o custo apresentado é necessariamente a despesa direta que o município teve no período analisado.
+Por fim, a @tbl-custo-municipio apresenta de forma agregada os custos dos sinistros de trânsito por município, enquanto os mapas demonstram sua distribuição territorial pelo estado. Os custos foram somados pelo município de ocorrência do sinistro, assim, é importante observar que isso não significa  que o custo apresentado é necessariamente a despesa direta que o município teve no período analisado.
 
 ```{r}
 #| label: tbl-custo-municipio
