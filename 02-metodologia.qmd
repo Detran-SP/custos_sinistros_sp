@@ -143,3 +143,4 @@ A @tbl-custos-na apresenta os custos médios para cada tipo de sinistro em locai
 tar_read(tbl_custos_na)
 ```
 
+
