@@ -21,7 +21,6 @@ theme_set(theme_bw(base_family = "monospace", base_size = 8))
 
 Todo o processo apresentado nessa nota técnica foi desenvolvido com base na linguagem de programação R [@rcoreteam2021]. O código-fonte pode ser acessado no [repositório](https://github.com/detran-sp/custos_sinistros_sp).
 
-O cálculo dos custos foi elaborado com base nos dados abertos de sinistros disponibilizados no Infosiga [@detran-spInfosigaSPDadosAbertos2025], considerando os último ano completo até da data de elaboração deste trabalho (2019-01-01 a 2025-12-31). Para a análise, foram considerados os registros classificados como "Sinistro fatal" e "Sinistro não fatal", desconsiderando assim os registros classificados como "Notificação", os quais possuem informações menos completas.
 
 O cálculo dos custos foi elaborado com base nos dados abertos de sinistros disponibilizados no Infosiga [@detran-spInfosigaSPDadosAbertos2025], considerando a série histórica desde o ano de 2019, em que houve a inclusão dos sinistros não fatais. Para a análise, foram considerados os registros classificados como "Sinistro fatal" e "Sinistro não fatal", desconsiderando assim os registros classificados como "Notificação", os quais possuem informações menos completas.
 
@@ -38,7 +37,6 @@ O @ipeaCUSTOSDOSACIDENTES2020 estabelece um método de cálculo apenas para as r
 
 As seções a seguir apresentam os custos dos sinistros para cada tipo de via. Os valores apresentados dos componentes de custos foram atualizados, considerando a inflação até o mês de dezembro/2025. O cálculo da inflação foi realizado com base no Índice Nacional de Preços ao Consumidor Amplo (IPCA). A @eq-ipca apresenta o processo de atualização para o custo $c$ no período $j$, que se baseia na razão dos valores de IPCA para o período $j$ e um período anterior ao período base $k$ ($k-1$) do custo que se quer atualizar ($c_k$), considerando que $j$ é mais recente que $k$ e que esses períodos são valores mensais. O IPCA no $k-1$ é necessário pois seu valor é sempre para o último dia do mês. Assim, para atualização dos custos é necessário pegar o IPCA do último dia do mês anterior ao mês que se quer atualizar.
 
-As seções a seguir apresentam os custos dos sinistros para cada tipo de via. Os valores apresentados dos componentes de custos foram atualizados, considerando a inflação até o mês de janeiro de 2026. O cálculo da inflação foi realizado com base no Índice Nacional de Preços ao Consumidor Amplo (IPCA). A @eq-ipca apresenta o processo de atualização para o custo $c$ no período $j$, que se baseia na razão dos valores de IPCA para o período $j$ e um período anterior ao período base $k$ ($k-1$) do custo que se quer atualizar ($c_k$), considerando que $j$ é mais recente que $k$ e que esses períodos são valores mensais. O IPCA no $k-1$ é necessário pois seu valor é sempre para o último dia do mês. Assim, para atualização dos custos é necessário pegar o IPCA do último dia do mês anterior ao mês que se quer atualizar.
 
 
 $$
