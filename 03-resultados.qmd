@@ -116,7 +116,7 @@ tar_read(plt_veic_envolvido_nao_fatal_urbano)
 
 ## Custos
 
-Conforme mostrado na @fig-custos, os custos com sinistros em vias urbanas ultrapassam R$ 50,65 bi, concentrando a maior parte das perdas. Já nas rodovias, os danos relacionados a vítimas representaram mais de R$ 22,23 bi, seguidos pelos custos relacionados aos veículos (R$ 8,04 bi) e por infraestrutura e patrimônio (R$ 112.75 mi). Houve ainda R$ 215 mi registrados em locais não identificados.
+Conforme mostrado na @fig-custos, os custos com sinistros em vias urbanas ultrapassam R$ 50,65 bi, concentrando a maior parte das perdas. Já nas rodovias, os danos relacionados a vítimas representaram mais de R$ 22,23 bi, seguidos pelos custos relacionados aos veículos (R$ 8,04 bi) e por infraestrutura e patrimônio (R$ 112,75 mi). Houve ainda R$ 215 mi registrados em locais não identificados.
 
 ```{r}
 #| label: fig-custos
@@ -181,9 +181,6 @@ Considerando os três tipos de via analisados, os sinistros em vias urbanas conc
 
 Por fim, a @tbl-custo-municipio apresenta de forma agregada os custos dos sinistros de trânsito por município, enquanto os mapas demonstram sua distribuição territorial pelo estado. Os custos foram somados pelo município de ocorrência do sinistro, assim, é importante observar que isso não significa  que o custo apresentado é necessariamente a despesa direta que o município teve no período analisado.
 
-Os mapas a seguir (@fig-mapa-total, @fig-mapa-rodovias, @fig-mapa-urbano e @fig-mapa-na ) complementam essa análise ao evidenciar a distribuição espacial dos custos estimados em todo o território paulista. A representação cartográfica permite identificar padrões espaciais de concentração dos impactos econômicos dos sinistros, destacando municípios e regiões onde as perdas estimadas são mais elevadas. Para fins analíticos, são apresentados mapas para o custo total agregado, bem como para cada tipo de via analisado — estradas e rodovias, vias urbanas e registros com tipo de via não identificado.
-
-Em conjunto, os resultados apresentados neste capítulo evidenciam a magnitude dos impactos econômicos associados aos sinistros de trânsito no estado de São Paulo. A análise integrada dos registros de sinistros, das características das vítimas e veículos envolvidos, bem como da distribuição territorial dos custos estimados, permite compreender de forma mais abrangente os padrões e a dimensão das perdas associadas à sinistralidade viária. 
 
 
 ```{r}
@@ -194,6 +191,9 @@ tar_read(tbl_custos_municipio)
 ```
 
 ::: {.panel-tabset}
+
+Os mapas a seguir (@fig-mapa-total, @fig-mapa-rodovias, @fig-mapa-urbano e @fig-mapa-na ) complementam essa análise ao evidenciar a distribuição espacial dos custos estimados em todo o território paulista. A representação cartográfica permite identificar padrões espaciais de concentração dos impactos econômicos dos sinistros, destacando municípios e regiões onde as perdas estimadas são mais elevadas. Para fins analíticos, são apresentados mapas para o custo total agregado, bem como para cada tipo de via analisado — estradas e rodovias, vias urbanas e registros com tipo de via não identificado.
+
 
 ## Total
 
@@ -236,5 +236,8 @@ tar_read(map_custos_urbanos)
 
 tar_read(map_custos_na)
 ```
+
+Em conjunto, os resultados apresentados neste capítulo evidenciam a magnitude dos impactos econômicos associados aos sinistros de trânsito no estado de São Paulo. A análise integrada dos registros de sinistros, das características das vítimas e veículos envolvidos, bem como da distribuição territorial dos custos estimados, permite compreender de forma mais abrangente os padrões e a dimensão das perdas associadas à sinistralidade viária. 
+
 
 :::
