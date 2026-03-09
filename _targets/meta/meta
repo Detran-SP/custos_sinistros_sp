@@ -53,19 +53,20 @@ df_custos_na_report|stem|ee1adba73c2cabda|68985c467c48bb89|34b18f2ebe0d70d5|1488
 tbl_custos_na|stem|3d1130af6f7d9a44|de6e1e67a0b74b37|e6b35999109ee80d|-1954764961||t20497.5455176105s|s12867b|12867|rds|local|vector|||0.008||
 df_custos_municipio|stem|436b6e093417eabc|a1baa70871406276|0361309e7fb77930|1182726384||t20497.5455178419s|s37059b|37059|rds|local|vector|||0.012||
 plt_custos_componentes|stem|4df50749324ea968|9b252752661f8aa1|a78c2e856ef98e91|-1203776648||t20497.5455185364s|s133733b|133733|rds|local|vector|||0.013||
-map_custos_rodovias|stem|0fc80d7e1f59be96|7351a0c24bfa370a|e20ed3bdc6bcf810|1981880300||t20497.545526754s|s5825002b|5825002|rds|local|vector|||0.195|'big.mark' and 'decimal.mark' are both '.', which could be confusing. 'big.mark' and 'decimal.mark' are both '.', which could be confusing. sf layer has inconsistent datum (+proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs). Need '+proj=longlat +datum=WGS84'|
 tbl_custos_municipio|stem|4a9733f9a0c5fad3|862a4558d56b5408|50951b36661ad864|374933986||t20497.5455276799s|s117755b|117755|rds|local|vector|||0.039||
-map_custos_na|stem|5aa9899ea9458b5b|fe6b9b2499febd2e|e20ed3bdc6bcf810|1280472193||t20497.5455333512s|s5818478b|5818478|rds|local|vector|||0.119|'big.mark' and 'decimal.mark' are both '.', which could be confusing. 'big.mark' and 'decimal.mark' are both '.', which could be confusing. sf layer has inconsistent datum (+proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs). Need '+proj=longlat +datum=WGS84'|
-map_custos_urbanos|stem|5ec6c3e27eadde67|07e25dcfaf1a2ec9|e20ed3bdc6bcf810|1756521174||t20497.5455394855s|s5824740b|5824740|rds|local|vector|||0.141|'big.mark' and 'decimal.mark' are both '.', which could be confusing. 'big.mark' and 'decimal.mark' are both '.', which could be confusing. sf layer has inconsistent datum (+proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs). Need '+proj=longlat +datum=WGS84'|
 custo_total|stem|18195b1c1746b344|9819d82e5754a34f|6944a974d8b7f3ad|1744079069||t20497.5455396012s|s73b|73|rds|local|vector|||0.001||
-map_custos_total|stem|2828059724c416ff|879bba875917ca98|e20ed3bdc6bcf810|-1500783127||t20497.5455444623s|s5825289b|5825289|rds|local|vector|||0.108|'big.mark' and 'decimal.mark' are both '.', which could be confusing. 'big.mark' and 'decimal.mark' are both '.', which could be confusing. sf layer has inconsistent datum (+proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs). Need '+proj=longlat +datum=WGS84'|
 report|stem|aa636da97be0c0a3|c61fb4a94ffa3d42|4035697d3eba9ef5|787668912|docs*01-introducao.qmd*02-metodologia.qmd*03-resultados.qmd*04-conclusao.qmd*05-referencias.qmd*index.qmd*_quarto.yml|t20497.6975105861s|s280563619b|280563619|file|local|vector|||118.499||
+plt_veic_envolvido_fatal_urbano|stem|03cfad9084d15430|4ad11652de3e5a7b|24df576385b2db91|1073721432||t20497.7037523666s|s53864522b|53864522|rds|local|vector|||0.354|'big.mark' and 'decimal.mark' are both '.', which could be confusing|
+plt_veic_envolvido_nao_fatal_urbano|stem|feafd497bd248d78|18b03ffe694245c7|24df576385b2db91|1580367588||t20497.7039139407s|s53865172b|53865172|rds|local|vector|||0.523|'big.mark' and 'decimal.mark' are both '.', which could be confusing|
+plt_veic_envolvido_nao_fatal_rodovia|stem|b2126a964e8a014d|9320bfe24cefb921|24df576385b2db91|-429062534||t20497.7040666027s|s53864946b|53864946|rds|local|vector|||0.157|'big.mark' and 'decimal.mark' are both '.', which could be confusing|
+plt_veic_envolvido_fatal_rodovias|stem|14ae55fd39a1b117|5b3e2ea780c01d9c|24df576385b2db91|-84157624||t20497.7042188017s|s53864572b|53864572|rds|local|vector|||0.098|'big.mark' and 'decimal.mark' are both '.', which could be confusing|
+plt_custos_veic_rodovias|stem|201903919943e0d2|ca89f379e4b4b60b|017d32c726327fa2|-1009913665||t20497.7042417184s|s6279659b|6279659|rds|local|vector|||0.216|'big.mark' and 'decimal.mark' are both '.', which could be confusing. 'big.mark' and 'decimal.mark' are both '.', which could be confusing|
 formatar_custos_veiculos_rodovias|function|6bca5fafe38d15fc|||||||||||||||
 calc_quantidade_sinistros|function|03fc3915ee616e1b|||||||||||||||
-plot_custos_map|function|97f6a67167a93190|||||||||||||||
+plot_custos_map|function|77ea28eb54b68fe7|||||||||||||||
 plot_custos_componentes|function|02256e59ffd6c42d|||||||||||||||
 plot_count_sinistros_via|function|415606cbbdd51356|||||||||||||||
-.Random.seed|object|a1646e705b2ee500|||||||||||||||
+.Random.seed|object|cefbbc968cefb275|||||||||||||||
 join_all_custos|function|5b210c8d34546b49|||||||||||||||
 plot_custos_inst_rodovias|function|0ed1c8d859779254|||||||||||||||
 create_custos_urbanos|function|4277daa01f67fa88|||||||||||||||
@@ -103,17 +104,16 @@ formatar_custos_urbanos|function|392e6029814e1023|||||||||||||||
 calc_custos_na|function|0ce7abd4332cad5e|||||||||||||||
 extract_sinistros_tipo_via_na|function|39f4a08e38d5c95f|||||||||||||||
 plot_custos_pessoas_rodovias|function|e86b705d0caaba0b|||||||||||||||
-plt_veic_envolvido_fatal_urbano|stem|03cfad9084d15430|4ad11652de3e5a7b|24df576385b2db91|1073721432||t20497.7037523666s|s53864522b|53864522|rds|local|vector|||0.354|'big.mark' and 'decimal.mark' are both '.', which could be confusing|
-plt_veic_envolvido_nao_fatal_urbano|stem|feafd497bd248d78|18b03ffe694245c7|24df576385b2db91|1580367588||t20497.7039139407s|s53865172b|53865172|rds|local|vector|||0.523|'big.mark' and 'decimal.mark' are both '.', which could be confusing|
-plt_veic_envolvido_nao_fatal_rodovia|stem|b2126a964e8a014d|9320bfe24cefb921|24df576385b2db91|-429062534||t20497.7040666027s|s53864946b|53864946|rds|local|vector|||0.157|'big.mark' and 'decimal.mark' are both '.', which could be confusing|
-plt_veic_envolvido_fatal_rodovias|stem|14ae55fd39a1b117|5b3e2ea780c01d9c|24df576385b2db91|-84157624||t20497.7042188017s|s53864572b|53864572|rds|local|vector|||0.098|'big.mark' and 'decimal.mark' are both '.', which could be confusing|
-plt_custos_veic_rodovias|stem|201903919943e0d2|ca89f379e4b4b60b|017d32c726327fa2|-1009913665||t20497.7042417184s|s6279659b|6279659|rds|local|vector|||0.216|'big.mark' and 'decimal.mark' are both '.', which could be confusing. 'big.mark' and 'decimal.mark' are both '.', which could be confusing|
+map_custos_rodovias|stem|364b86050c317d39|7351a0c24bfa370a|96f610d81655e63a|1981880300||t20497.7322722659s|s5825194b|5825194|rds|local|vector|||0.221|'big.mark' and 'decimal.mark' are both '.', which could be confusing. 'big.mark' and 'decimal.mark' are both '.', which could be confusing. sf layer has inconsistent datum (+proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs). Need '+proj=longlat +datum=WGS84'|
+map_custos_na|stem|2a413495ab08e703|fe6b9b2499febd2e|96f610d81655e63a|1280472193||t20497.7322772427s|s5818667b|5818667|rds|local|vector|||0.09|'big.mark' and 'decimal.mark' are both '.', which could be confusing. 'big.mark' and 'decimal.mark' are both '.', which could be confusing. sf layer has inconsistent datum (+proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs). Need '+proj=longlat +datum=WGS84'|
+map_custos_urbanos|stem|395974c0bcc9d5c1|07e25dcfaf1a2ec9|96f610d81655e63a|1756521174||t20497.7322819881s|s5824929b|5824929|rds|local|vector|||0.089|'big.mark' and 'decimal.mark' are both '.', which could be confusing. 'big.mark' and 'decimal.mark' are both '.', which could be confusing. sf layer has inconsistent datum (+proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs). Need '+proj=longlat +datum=WGS84'|
+map_custos_total|stem|8cc0a240411806ad|879bba875917ca98|96f610d81655e63a|-1500783127||t20497.7322867335s|s5825482b|5825482|rds|local|vector|||0.097|'big.mark' and 'decimal.mark' are both '.', which could be confusing. 'big.mark' and 'decimal.mark' are both '.', which could be confusing. sf layer has inconsistent datum (+proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs). Need '+proj=longlat +datum=WGS84'|
 formatar_custos_veiculos_rodovias|function|6bca5fafe38d15fc
 calc_quantidade_sinistros|function|03fc3915ee616e1b
 plot_custos_map|function|77ea28eb54b68fe7
 plot_custos_componentes|function|02256e59ffd6c42d
 plot_count_sinistros_via|function|415606cbbdd51356
-.Random.seed|object|cefbbc968cefb275
+.Random.seed|object|63388897df5acf49
 join_all_custos|function|5b210c8d34546b49
 plot_custos_inst_rodovias|function|0ed1c8d859779254
 create_custos_urbanos|function|4277daa01f67fa88
@@ -146,12 +146,10 @@ plot_vitimas_gravidade|function|aac41441dc810e2c
 calc_prop_vitimas|function|293dfdaa579afe5e
 formatar_tabela_sinistros|function|e0ba1685620d1070
 formatar_custos_vias_municipais|function|3a6c8195955e5e03
-plot_custos_veic_rodovias|function|03b71b3e18d660bb
+plot_custos_veic_rodovias|function|73d5684c2bcf369c
 formatar_custos_urbanos|function|392e6029814e1023
 calc_custos_na|function|0ce7abd4332cad5e
 extract_sinistros_tipo_via_na|function|39f4a08e38d5c95f
 plot_custos_pessoas_rodovias|function|e86b705d0caaba0b
-map_custos_rodovias|stem|364b86050c317d39|7351a0c24bfa370a|96f610d81655e63a|1981880300||t20497.7322722659s|s5825194b|5825194|rds|local|vector|||0.221|'big.mark' and 'decimal.mark' are both '.', which could be confusing. 'big.mark' and 'decimal.mark' are both '.', which could be confusing. sf layer has inconsistent datum (+proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs). Need '+proj=longlat +datum=WGS84'|
-map_custos_na|stem|2a413495ab08e703|fe6b9b2499febd2e|96f610d81655e63a|1280472193||t20497.7322772427s|s5818667b|5818667|rds|local|vector|||0.09|'big.mark' and 'decimal.mark' are both '.', which could be confusing. 'big.mark' and 'decimal.mark' are both '.', which could be confusing. sf layer has inconsistent datum (+proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs). Need '+proj=longlat +datum=WGS84'|
-map_custos_urbanos|stem|395974c0bcc9d5c1|07e25dcfaf1a2ec9|96f610d81655e63a|1756521174||t20497.7322819881s|s5824929b|5824929|rds|local|vector|||0.089|'big.mark' and 'decimal.mark' are both '.', which could be confusing. 'big.mark' and 'decimal.mark' are both '.', which could be confusing. sf layer has inconsistent datum (+proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs). Need '+proj=longlat +datum=WGS84'|
-map_custos_total|stem|8cc0a240411806ad|879bba875917ca98|96f610d81655e63a|-1500783127||t20497.7322867335s|s5825482b|5825482|rds|local|vector|||0.097|'big.mark' and 'decimal.mark' are both '.', which could be confusing. 'big.mark' and 'decimal.mark' are both '.', which could be confusing. sf layer has inconsistent datum (+proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs). Need '+proj=longlat +datum=WGS84'|
+municipios_path|stem|38b41ab029f25f7e|a0e841e64b2b068f|2c530c1562a7fbd1|1910671076|data/divisoes_regionais_esp.csv|t20510.7289510482s|s73836b|73836|file|local|vector|||0||
+plt_custos_veic_rodovias|stem|eb1572949ed939aa|ca89f379e4b4b60b|a75e073927164904|-1009913665||t20521.8652455786s|s6289975b|6289975|rds|local|vector|||0.703|'big.mark' and 'decimal.mark' are both '.', which could be confusing. 'big.mark' and 'decimal.mark' are both '.', which could be confusing. 'big.mark' and 'decimal.mark' are both '.', which could be confusing. 'big.mark' and 'decimal.mark' are both '.', which could be confusing|

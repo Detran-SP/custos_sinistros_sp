@@ -1297,7 +1297,7 @@ plot_custos_veic_rodovias <- function(
         ) +
         theme(panel.grid.major.x = element_blank()) +
         labs(x = NULL, y = NULL, fill = NULL) +
-        facet_wrap(vars(tipo_registro), nrow = 2)
+        facet_wrap(vars(tipo_registro), nrow = 2, scales = "free_y")
 
     ggplotly(plot) # |>
     #config(locale = "pt-BR") |>
