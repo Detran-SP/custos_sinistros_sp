@@ -71,7 +71,7 @@ tar_read(plt_vitimas_gravidade_urbano)
 
 A @fig-veic-fatal-rodovias , @fig-veic-fatal-urbano, @fig-veic-nao-fatal-rodovias e a @fig-vitimas-gravidade-urbano apresentam a quantidade de veículos envolvidos em sinistros, segundo o tipo de via, o tipo de veículo envolvido e a gravidade do evento. Em vias urbanas, os veículos mais frequentemente associados a sinistros não fatais são os automóveis (501.885 casos) e motocicletas (446.276 casos). Já entre os sinistros fatais, as motocicletas aparecem com destaque (10.943 casos), seguidas pelos automóveis (8.362 casos).
 
-Nas rodovias, o padrão é semelhante. Os sinistros não fatais incluem majoritariamente automóveis (116.865 casos) e motocicletas 81.356 casos). Entre os sinistros fatais, os automóveis lideram com 10.783 registros, seguidos por motocicletas (6.039) e caminhões (4.707). Em ambos os tipos de via, observa-se que as motocicletas concentram uma proporção expressiva dos sinistros fatais.
+Nas rodovias, o padrão é semelhante. Os sinistros não fatais incluem majoritariamente automóveis (116.865 casos) e motocicletas 81.356 casos). Entre os sinistros fatais, os automóveis lideram com 10.783 registros, seguidos por motocicletas (6.039) e caminhões (4.707). Em ambos os tipos de via, observa-se que as motocicletas concentram uma proporção expressiva dos sinistros fatais. 
 
 
 ::: {.panel-tabset}
@@ -196,6 +196,9 @@ tar_read(tbl_custos_municipio)
 
 Os mapas a seguir (@fig-mapa-total, @fig-mapa-rodovias, @fig-mapa-urbano e @fig-mapa-na ) complementam essa análise ao evidenciar a distribuição espacial dos custos estimados em todo o território paulista. A representação cartográfica permite identificar padrões espaciais de concentração dos impactos econômicos dos sinistros, destacando municípios e regiões onde as perdas estimadas são mais elevadas. Para fins analíticos, são apresentados mapas para o custo total agregado, bem como para cada tipo de via analisado — estradas e rodovias, vias urbanas e registros com tipo de via não identificado.
 
+Em conjunto, os resultados apresentados neste capítulo evidenciam a magnitude dos impactos econômicos associados aos sinistros de trânsito no estado de São Paulo. A análise integrada dos registros de sinistros, das características das vítimas e veículos envolvidos, bem como da distribuição territorial dos custos estimados, permite compreender de forma mais abrangente os padrões e a dimensão das perdas associadas à sinistralidade viária. 
+
+
 ::: {.panel-tabset}
 
 ## Total
@@ -242,6 +245,5 @@ tar_read(map_custos_na)
 
 
 
-Em conjunto, os resultados apresentados neste capítulo evidenciam a magnitude dos impactos econômicos associados aos sinistros de trânsito no estado de São Paulo. A análise integrada dos registros de sinistros, das características das vítimas e veículos envolvidos, bem como da distribuição territorial dos custos estimados, permite compreender de forma mais abrangente os padrões e a dimensão das perdas associadas à sinistralidade viária. 
 
 :::

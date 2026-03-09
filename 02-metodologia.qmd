@@ -51,7 +51,7 @@ $$
 C_r = C_p + C_v + C_i
 $$ {#eq-custo-rodovias}
 
-A @tbl-custos-pessoas apresenta os componentes de custos associados às pessoas, com valores atualizados para dezembro/2025. Os valores até a @tbl-custos-inst foram baseados em @ipeaEstimativaDosCustos2015a, que apresentava valores de dezembro/2014. Assim, aplicou-se a @eq-ipca, baseando-se no valor do IPCA de dezembro/2025 (7.276,54) e o valor do IPCA de novembro/2014 (4.028,44), resultando em uma taxa de correção de 1,8063 [@ibgeIPCAIndiceNacional2025].
+A @tbl-custos-pessoas apresenta os componentes de custos associados às pessoas, com valores atualizados para dezembro/2025. Os valores até a @tbl-custos-inst foram baseados em @ipeaEstimativaDosCustos2015a, que apresentava valores de dezembro/2014. Assim, aplicou-se a @eq-ipca, baseando-se no valor do IPCA de dezembro/2025 (7.403,29) e o valor do IPCA de novembro/2014 (4.028,44), resultando em uma taxa de correção de 1,8063 [@ibgeIPCAIndiceNacional2025].
 
 Até o momento de publicação desse trabalho, os sinistros fatais no Infosiga não possuem a informação de gravidade das outras vítimas não fatais que estavam envolvidas (aparecem como "gravidade não disponível"). Ainda, nos sinistros não fatais também há registros de vítimas com a gravidade não disponível. Como o @ipeaEstimativaDosCustos2015a não fornece custos para gravidade "não disponível", foi necessário fazer uma estimativa com base nos custos disponíveis das gravidades "Leve" e "Grave".
 

@@ -19,7 +19,27 @@ ul.task-list li input[type="checkbox"] {
 width: 0.8em;
 margin: 0 0.8em 0.2em -1em;  vertical-align: middle;
 }
-</style>
+
+div.csl-bib-body { }
+div.csl-entry {
+clear: both;
+margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+margin-left:2em;
+text-indent:-2em;
+}
+div.csl-left-margin {
+min-width:2em;
+float:left;
+}
+div.csl-right-inline {
+margin-left:2em;
+padding-left:1em;
+}
+div.csl-indent {
+margin-left: 2em;
+}</style>
 
 
 <script>const headroomChanged = new CustomEvent("quarto-hrChanged", {
@@ -6851,11 +6871,11 @@ z-index: 1000;
 }
 </style>
 -->
-<p>O debate contemporâneo sobre segurança viária tem mostrado, de forma consistente, que os sinistros de trânsito, além do custo humano incalculável, impõem perdas econômicas relevantes à sociedade, pressionando redes de saúde, orçamentos públicos e a produtividade. No Brasil, o Instituto de Pesquisa Econômica Aplicada (IPEA) contribui desde 2003 com metodologias que distinguem custos por gravidade das vítimas, tipos de veículos e tipologias de via (aglomerados urbanos; rodovias federais e estaduais ou municipais), com resultados atualizados e consolidados em estudos subsequentes (2006; 2015; 2020). A mensuração confiável desses custos é condição necessária para orientar a alocação de recursos e a priorização de políticas públicas de enfrentamento a sinistralidade.</p>
+<p>O debate contemporâneo sobre segurança viária tem mostrado, de forma consistente, que os sinistros de trânsito, além do custo humano incalculável, impõem perdas econômicas relevantes à sociedade, pressionando redes de saúde, orçamentos públicos e a produtividade. No Brasil, o Instituto de Pesquisa Econômica Aplicada (IPEA) contribui desde 2003 com metodologias que distinguem custos por gravidade das vítimas, tipos de veículos e tipologias de via (aglomerados urbanos; rodovias federais e estaduais ou municipais), com resultados atualizados e consolidados em estudos subsequentes (<span class="citation" data-cites="ipeaImpactosSociaisEconomicos2003">IPEA e ANTP (<a href="05-referencias.html#ref-ipeaImpactosSociaisEconomicos2003" role="doc-biblioref">2003</a>)</span>; <span class="citation" data-cites="ipeaImpactosSociaisEconomicos2006">IPEA, DENATRAN, e ANTP (<a href="05-referencias.html#ref-ipeaImpactosSociaisEconomicos2006" role="doc-biblioref">2006</a>)</span>; <span class="citation" data-cites="ipeaEstimativaDosCustos2015a">IPEA (<a href="05-referencias.html#ref-ipeaEstimativaDosCustos2015a" role="doc-biblioref">2015</a>)</span>; <span class="citation" data-cites="ipeaCUSTOSDOSACIDENTES2020">IPEA (<a href="05-referencias.html#ref-ipeaCUSTOSDOSACIDENTES2020" role="doc-biblioref">2020</a>)</span>). A mensuração confiável desses custos é condição necessária para orientar a alocação de recursos e a priorização de políticas públicas de enfrentamento à sinistralidade.</p>
 <p>Esta nota técnica atualiza e replica, para o Estado de São Paulo, um método de estimativa de custos inspirado nas contribuições do IPEA, utilizando a base do Sistema de Informações Gerenciais de Sinistros de Trânsito (Infosiga) referente ao período entre 2019 e 2025. São apresentados resultados em nível estadual, com atualização monetária pelo Índice Nacional de Preços ao Consumidor Amplo (IPCA) e tratamento explícito de lacunas informacionais, de modo a produzir estimativas comparáveis, transparentes e úteis para a formulação e o monitoramento de políticas de segurança viária</p>
 <section id="revisão-bibliográfica" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="revisão-bibliográfica"><span class="header-section-number">1.1</span> Revisão bibliográfica</h2>
-<p>A análise dos custos decorrentes dos sinistros de trânsito no Brasil tem sido objeto de esforços contínuos por parte do IPEA, com marcos metodológicos importantes ao longo dos últimos anos (<a href="#fig-timeline" class="quarto-xref">Figura&nbsp;<span>1.1</span></a>). O relatório de 2003 quantificou, pela primeira vez, custos diretos em aglomerações urbanas, incluindo despesas médico-hospitalares, resgate, danos a veículos, danos a equipamentos urbanos e à sinalização, remoção, atendimento policial, processos judiciais, previdência, e custos indiretos, notadamente a perda de produção potencial e os congestionamentos (IPEA; ANTP, 2003, p.&nbsp;4-6). Em 2006, o estudo voltado às rodovias, com dados da Polícia Rodoviária Federal (PRF) e de sete polícias estaduais, refinou a granularidade ao diferenciar a gravidade das vítimas e os tipos de veículos, e estruturou a decomposição dos custos em quatro grupos: associados às pessoas, aos veículos, à via e às naturezas institucionais e patrimoniais. Nessa abordagem, custos institucionais correspondem às despesas incorridas por órgãos públicos na resposta e no processamento do evento, como policiamento, perícia, gestão do tráfego e trâmites legais, ao passo que custos patrimoniais se referem aos danos materiais a bens públicos e privados presentes na infraestrutura viária e em seu entorno imediato (IPEA; DENATRAN; ANTP, 2006, p.&nbsp;29, 68-70, 131, 220).</p>
+<p>A análise dos custos decorrentes dos sinistros de trânsito no Brasil tem sido objeto de esforços contínuos por parte do IPEA, com marcos metodológicos importantes ao longo dos últimos anos (<a href="#fig-timeline" class="quarto-xref">Figura&nbsp;<span>1.1</span></a>). O relatório de 2003 quantificou, pela primeira vez, custos diretos em aglomerações urbanas, incluindo despesas médico-hospitalares, resgate, danos a veículos, danos a equipamentos urbanos e à sinalização, remoção, atendimento policial, processos judiciais, previdência, e custos indiretos, notadamente a perda de produção potencial e os congestionamentos (<span class="citation" data-cites="ipeaImpactosSociaisEconomicos2003">IPEA e ANTP (<a href="05-referencias.html#ref-ipeaImpactosSociaisEconomicos2003" role="doc-biblioref">2003</a>)</span>, p.&nbsp;4-6). Em 2006, o estudo voltado às rodovias, com dados da Polícia Rodoviária Federal (PRF) e de sete polícias estaduais, refinou a granularidade ao diferenciar a gravidade das vítimas e os tipos de veículos, e estruturou a decomposição dos custos em quatro grupos: associados às pessoas, aos veículos, à via e às naturezas institucionais e patrimoniais. Nessa abordagem, custos institucionais correspondem às despesas incorridas por órgãos públicos na resposta e no processamento do evento, como policiamento, perícia, gestão do tráfego e trâmites legais, ao passo que custos patrimoniais se referem aos danos materiais a bens públicos e privados presentes na infraestrutura viária e em seu entorno imediato (<span class="citation" data-cites="ipeaImpactosSociaisEconomicos2006">IPEA, DENATRAN, e ANTP (<a href="05-referencias.html#ref-ipeaImpactosSociaisEconomicos2006" role="doc-biblioref">2006</a>)</span>, p.&nbsp;29, 68-70, 131, 220).</p>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
 <div id="fig-timeline" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -6876,11 +6896,25 @@ Figura&nbsp;1.1: Evolução dos trabalhos do IPEA
 </div>
 </div>
 </div>
-<p>A atualização metodológica conduzida pelo IPEA em 2015 ampliou o escopo para todos os tipos de via e explicitou dois recortes analíticos complementares: rodovias (com ênfase nas federais) e aglomerações urbanas. Para as rodovias federais, manteve-se a estrutura de componentes de custo por vítimas, veículos e itens institucionais, enquanto para rodovias estaduais ou municipais e para o meio urbano adotaram-se procedimentos de atualização específicos, em razão da disponibilidade de dados. Essa diferenciação territorial e de método está descrita na introdução e no detalhamento metodológico do relatório, com a orientação de não somar diretamente os recortes para evitar dupla contagem de eventos que atravessam áreas urbanas (IPEA, 2015, p.&nbsp;7-9).</p>
-<p>Por fim, em 2020, o texto para discussão do IPEA retomou e atualizou, de forma simplificada, as pesquisas anteriores, reafirmando os dois recortes (rodovias e aglomerados urbanos), descrevendo a atualização monetária pelo IPCA, o uso da base de sinistros de trânsito da PRF para as federais e procedimentos de expansão para estaduais ou municipais e urbanas, novamente com a ressalva sobre a não aditividade entre recortes (Carvalho, 2020, p.&nbsp;7-11). O documento também reconhece explicitamente que, além do custo econômico-financeiro estimável, existem perdas humanas e efeitos psíquicos e traumáticos não mensuráveis nas contas, situando o foco do cálculo no que é quantificável para fins de política pública (Carvalho, 2020, p.&nbsp;7-8).</p>
+<p>A atualização metodológica conduzida pelo IPEA em 2015 ampliou o escopo para todos os tipos de via e explicitou dois recortes analíticos complementares: rodovias (com ênfase nas federais) e aglomerações urbanas. Para as rodovias federais, manteve-se a estrutura de componentes de custo por vítimas, veículos e itens institucionais, enquanto para rodovias estaduais ou municipais e para o meio urbano adotaram-se procedimentos de atualização específicos, em razão da disponibilidade de dados. Essa diferenciação territorial e de método está descrita na introdução e no detalhamento metodológico do relatório, com a orientação de não somar diretamente os recortes para evitar dupla contagem de eventos que atravessam áreas urbanas (<span class="citation" data-cites="ipeaEstimativaDosCustos2015a">IPEA (<a href="05-referencias.html#ref-ipeaEstimativaDosCustos2015a" role="doc-biblioref">2015</a>)</span>, p.&nbsp;7-9).</p>
+<p>Por fim, em 2020, o texto para discussão do IPEA retomou e atualizou, de forma simplificada, as pesquisas anteriores, reafirmando os dois recortes (rodovias e aglomerados urbanos), descrevendo a atualização monetária pelo IPCA, o uso da base de sinistros de trânsito da PRF para as federais e procedimentos de expansão para estaduais ou municipais e urbanas, novamente com a ressalva sobre a não aditividade entre recortes (<span class="citation" data-cites="ipeaCUSTOSDOSACIDENTES2020">IPEA (<a href="05-referencias.html#ref-ipeaCUSTOSDOSACIDENTES2020" role="doc-biblioref">2020</a>)</span>, p.&nbsp;7-11). O documento também reconhece explicitamente que, além do custo econômico-financeiro estimável, existem perdas humanas e efeitos psíquicos e traumáticos não mensuráveis nas contas, situando o foco do cálculo no que é quantificável para fins de política pública (<span class="citation" data-cites="ipeaCUSTOSDOSACIDENTES2020">IPEA (<a href="05-referencias.html#ref-ipeaCUSTOSDOSACIDENTES2020" role="doc-biblioref">2020</a>)</span>, p.&nbsp;7-8).</p>
 <p>Neste contexto, esta nota técnica apresenta um método de cálculo da estimativa dos custos de sinistros de trânsito no Estado de São Paulo, buscando sintetizar e adaptar as abordagens descritas pelo IPEA. Considerou-se os dados de sinistros entre 2019 e 2025 disponíveis no Infosiga (01/01/2019 a 31/12/2025) para calcular o custo deste período no estado e em cada município, garantindo a aplicabilidade regional das premissas nacionais.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-ipeaEstimativaDosCustos2015a" class="csl-entry" role="listitem">
+IPEA. 2015. <span>“Estimativa Dos <span>Custos</span> Dos <span>Acidentes</span> de <span>Trânsito</span> No <span>Brasil</span> Com <span>Base</span> Na <span>Atualização Simplificada</span> Das <span>Pesquisas Anteriores</span> Do <span>Ipea</span> - <span>Relatório</span> de <span>Pesquisa</span>”</span>. Brasília: Instituto de Pesquisa Econômica Aplicada. <a href="https://repositorio.ipea.gov.br/bitstream/11058/7456/1/RP_Estimativa_2015.pdf">https://repositorio.ipea.gov.br/bitstream/11058/7456/1/RP_Estimativa_2015.pdf</a>.
+</div>
+<div id="ref-ipeaCUSTOSDOSACIDENTES2020" class="csl-entry" role="listitem">
+———. 2020. <span>“<span>CUSTOS DOS ACIDENTES DE TRÂNSITO NO BRASIL</span>: <span>ESTIMATIVA SIMPLIFICADA COM BASE NA ATUALIZAÇÃO DAS PESQUISAS DO IPEA SOBRE CUSTOS DE ACIDENTES NOS AGLOMERADOS URBANOS E RODOVIAS</span> - <span>TEXTO PARA DISCUSSÃO</span>”</span>. Brasília: Instituto de Pesquisa Econômica Aplicada. <a href="https://www.ipea.gov.br/atlasviolencia/arquivos/artigos/7018-td2565.pdf">https://www.ipea.gov.br/atlasviolencia/arquivos/artigos/7018-td2565.pdf</a>.
+</div>
+<div id="ref-ipeaImpactosSociaisEconomicos2003" class="csl-entry" role="listitem">
+IPEA, e ANTP. 2003. <span>“Impactos Sociais e Econômicos Dos Acidentes de Trânsito Nas Aglomerações Urbanas Brasileiras - <span>Relatório Executivo</span>”</span>. Brasília: Instituto de Pesquisa Econômica Aplicada. <a href="https://www.almg.gov.br/export/sites/default/acompanhe/eventos/hotsites/2012/ciclo_transito/docs/relatorio_acidentes_ipea.pdf">https://www.almg.gov.br/export/sites/default/acompanhe/eventos/hotsites/2012/ciclo_transito/docs/relatorio_acidentes_ipea.pdf</a>.
+</div>
+<div id="ref-ipeaImpactosSociaisEconomicos2006" class="csl-entry" role="listitem">
+IPEA, DENATRAN, e ANTP. 2006. <span>“Impactos Sociais e Econômicos Dos Acidentes de Trânsito Nas Rodovias Brasileiras – <span>Relatório Final</span>”</span>. Brasília: Instituto de Pesquisa Econômica Aplicada. <a href="https://repositorio.ipea.gov.br/bitstream/11058/16059/1/impactos_sociais_e_economicos_dos_acidentes_de_transito_relatorio_final.pdf">https://repositorio.ipea.gov.br/bitstream/11058/16059/1/impactos_sociais_e_economicos_dos_acidentes_de_transito_relatorio_final.pdf</a>.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->
