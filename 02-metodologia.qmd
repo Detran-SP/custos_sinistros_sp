@@ -21,7 +21,6 @@ theme_set(theme_bw(base_family = "monospace", base_size = 8))
 
 Todo o processo apresentado nessa nota técnica foi desenvolvido com base na linguagem de programação R [@rcoreteam2021]. O código-fonte pode ser acessado no [repositório](https://github.com/detran-sp/custos_sinistros_sp).
 
-
 O cálculo dos custos foi elaborado com base nos dados abertos de sinistros disponibilizados no Infosiga [@detran-spInfosigaSPDadosAbertos2025], considerando a série histórica desde o ano de 2019, em que houve a inclusão dos sinistros não fatais. Para a análise, foram considerados os registros classificados como "Sinistro fatal" e "Sinistro não fatal", desconsiderando assim os registros classificados como "Notificação", os quais possuem informações menos completas.
 
 Os dados foram filtrados pelas datas e separados pelo tipo de via: **Estradas e rodovias** e **Vias urbanas**. A base do Infosiga também possui alguns registros em que não há o tipo de via registrado.
@@ -43,9 +42,9 @@ $$
 c_{j} = \frac{\text{IPCA}_j}{\text{IPCA}_{k-1}} \times c_{k}, \quad \forall j > k
 $$ {#eq-ipca}
 
-## Rodovias
+## Estradas e rodovias
 
-De acordo com @ipeaEstimativaDosCustos2015a, os custos de sinistros em rodovias federais podem ser calculados com base na @eq-custo-rodovias, decompondo em custos relacionados às pessoas ($C_r$), custos relacionados aos veículos ($C_v$) e custos institucionais e danos patrimoniais ($C_i$).
+De acordo com @ipeaEstimativaDosCustos2015a, os custos de sinistros em rodovias federais podem ser calculados com base na @eq-custo-rodovias, decompondo em custos relacionados às pessoas ($C_p$), custos relacionados aos veículos ($C_v$) e custos institucionais e danos patrimoniais ($C_i$).
 
 $$
 C_r = C_p + C_v + C_i
