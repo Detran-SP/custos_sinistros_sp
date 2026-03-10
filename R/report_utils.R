@@ -991,7 +991,8 @@ plot_vitimas_gravidade <- function(sinistros, date_start, date_end, input_via) {
             cols = `Fatal`:`Não identificada`,
             names_to = "gravidade",
             values_to = "n"
-        )
+        ) |>
+        mutate(ano_sinistro = as.factor(ano_sinistro))
 
     plot <- df |>
         ggplot() +
@@ -1001,7 +1002,7 @@ plot_vitimas_gravidade <- function(sinistros, date_start, date_end, input_via) {
             minor_breaks = NULL,
             labels = scales::label_number(big.mark = ".")
         ) +
-        scale_x_continuous(minor_breaks = NULL) +
+        scale_x_discrete(minor_breaks = NULL) +
         labs(x = NULL, y = NULL, fill = NULL) +
         theme(panel.grid.major.x = element_blank()) +
         scale_fill_manual(

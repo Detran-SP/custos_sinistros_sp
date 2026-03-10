@@ -251,13 +251,13 @@ list(
     #     )
     # ),
     #tar_target(fig_custos, plot_custos_componentes(df_custos_municipio)),
-    tar_target(
-        tbl_resultados_pessoas,
-        formatar_custos_pessoas_rodovias(
-            df_sinistros_rodovias,
-            df_custos_pessoas
-        )
-    ),
+    # tar_target(
+    #     tbl_resultados_pessoas,
+    #     formatar_custos_pessoas_rodovias(
+    #         df_sinistros_rodovias,
+    #         df_custos_pessoas
+    #     )
+    # ),
     tar_target(
         tbl_resultados_veiculos,
         formatar_custos_veiculos_rodovias(
