@@ -109,5 +109,5 @@ formatar_custos_veiculos_rodovias|function|6bca5fafe38d15fc|||||||||||||||
 extract_sinistros|function|308ad8c1f56c88e9|||||||||||||||
 calc_custo_total|function|cb7ee4f4e7d81828|||||||||||||||
 df_custos_municipio|object|aed9af957f1c5753|||||||||||||||
-.Random.seed|object|62f4b9181f79c5ea
-report|stem|80cfb82870ea83cc|c61fb4a94ffa3d42|2c530c1562a7fbd1|787668912|docs*01-introducao.qmd*02-metodologia.qmd*03-resultados.qmd*04-conclusao.qmd*05-referencias.qmd*index.qmd*_quarto.yml|t20521.7737355183s|s280634221b|280634221|file|local|vector|||151.47||
+.Random.seed|object|9d4c67c496f8f14a
+report|stem|59682301b7684f35|c61fb4a94ffa3d42|2c530c1562a7fbd1|787668912|docs*01-introducao.qmd*02-metodologia.qmd*03-resultados.qmd*04-conclusao.qmd*05-referencias.qmd*index.qmd*_quarto.yml|t20522.6982517158s|s280637419b|280637419|file|local|vector|||152.27||
