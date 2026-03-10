@@ -495,7 +495,14 @@ plot_custos_componentes <- function(df_custos) {
                 "custos_urbanos" ~ "Vias urbanas",
                 "custos_na" ~ "Locais não identificados"
             ),
-            valor_formatado = valor / 1e9
+            valor_formatado = valor / 1e9,
+            texto_hover = scales::dollar(
+                valor,
+                accuracy = 0.01,
+                prefix = "R$ ",
+                decimal.mark = ",",
+                big.mark = "."
+            )
         )
 
     grafico <- plotly::plot_ly(
@@ -504,7 +511,9 @@ plot_custos_componentes <- function(df_custos) {
         x = ~valor_formatado,
         type = "bar",
         orientation = "h",
-        marker = list(color = ost.utils::palette_detran()$blue)
+        marker = list(color = ost.utils::palette_detran()$blue),
+        text = ~texto_hover,
+        hovertemplate = "%{y}<br>%{text}<extra></extra>"
     ) |>
         layout(
             xaxis = list(
@@ -1171,10 +1180,33 @@ plot_custos_pessoas_rodovias <- function(
             cols = `Leve`:`Não identificado`,
             names_to = "gravidade",
             values_to = "custos"
+        ) |>
+        mutate(
+            texto_hover = paste0(
+                "Ano: ",
+                ano_sinistro,
+                "<br>",
+                "Gravidade: ",
+                gravidade,
+                "<br>",
+                "Custo: ",
+                scales::dollar(
+                    custos,
+                    accuracy = 0.01,
+                    prefix = "R$ ",
+                    decimal.mark = ",",
+                    big.mark = "."
+                )
+            )
         )
 
     plot <- ggplot(df) +
-        geom_col(aes(x = ano_sinistro, y = custos, fill = gravidade)) +
+        geom_col(aes(
+            x = ano_sinistro,
+            y = custos,
+            fill = gravidade,
+            text = texto_hover
+        )) +
         theme_minimal() +
         scale_y_continuous(
             minor_breaks = NULL,
@@ -1196,7 +1228,7 @@ plot_custos_pessoas_rodovias <- function(
             )
         )
 
-    ggplotly(plot) |>
+    ggplotly(plot, tooltip = "text") |>
         #config(locale = "pt-BR") |>
         layout(
             legend = list(
@@ -1275,10 +1307,36 @@ plot_custos_veic_rodovias <- function(
                     "Não identificado"
                 )
             )
+        ) |>
+        mutate(
+            texto_hover = paste0(
+                "Ano: ",
+                ano_sinistro,
+                "<br>",
+                "Tipo de veículo: ",
+                tipo_veiculo,
+                "<br>",
+                "Tipo de sinistro: ",
+                tipo_registro,
+                "<br>",
+                "Custo: ",
+                scales::dollar(
+                    custos,
+                    accuracy = 0.01,
+                    prefix = "R$ ",
+                    decimal.mark = ",",
+                    big.mark = "."
+                )
+            )
         )
 
     plot <- ggplot(df) +
-        geom_col(aes(x = ano_sinistro, y = custos, fill = tipo_veiculo)) +
+        geom_col(aes(
+            x = ano_sinistro,
+            y = custos,
+            fill = tipo_veiculo,
+            text = texto_hover
+        )) +
         theme_minimal() +
         scale_y_continuous(
             minor_breaks = NULL,
@@ -1300,7 +1358,7 @@ plot_custos_veic_rodovias <- function(
         labs(x = NULL, y = NULL, fill = NULL) +
         facet_wrap(vars(tipo_registro), nrow = 2, scales = "free_y")
 
-    ggplotly(plot) # |>
+    ggplotly(plot, tooltip = "text") # |>
     #config(locale = "pt-BR") |>
     # layout(
     #     legend = list(
@@ -1334,10 +1392,33 @@ plot_custos_inst_rodovias <- function(
             by = c("tipo_registro" = "tipo_sinistro")
         ) |>
         group_by(ano_sinistro, tipo_registro) |>
-        summarise(custos = sum(custos_atual))
+        summarise(custos = sum(custos_atual)) |>
+        mutate(
+            texto_hover = paste0(
+                "Ano: ",
+                ano_sinistro,
+                "<br>",
+                "Tipo de sinistro: ",
+                tipo_registro,
+                "<br>",
+                "Custo: ",
+                scales::dollar(
+                    custos,
+                    accuracy = 0.01,
+                    prefix = "R$ ",
+                    decimal.mark = ",",
+                    big.mark = "."
+                )
+            )
+        )
 
     plot <- ggplot(df) +
-        geom_col(aes(x = ano_sinistro, y = custos, fill = tipo_registro)) +
+        geom_col(aes(
+            x = ano_sinistro,
+            y = custos,
+            fill = tipo_registro,
+            text = texto_hover
+        )) +
         theme_minimal() +
         scale_x_continuous(minor_breaks = NULL) +
         scale_y_continuous(
@@ -1350,7 +1431,7 @@ plot_custos_inst_rodovias <- function(
         theme(panel.grid.major.x = element_blank()) +
         labs(x = NULL, y = NULL, fill = NULL)
 
-    ggplotly(plot) |>
+    ggplotly(plot, tooltip = "text") |>
         layout(
             legend = list(
                 orientation = "h",
@@ -1381,10 +1462,33 @@ plot_custos_urbano <- function(sinistros_urbano, catalog_custos_urbano) {
             by = c("tipo_registro" = "tipo_sinistro")
         ) |>
         group_by(ano_sinistro, tipo_registro) |>
-        summarise(custos = sum(custos_atual))
+        summarise(custos = sum(custos_atual)) |>
+        mutate(
+            texto_hover = paste0(
+                "Ano: ",
+                ano_sinistro,
+                "<br>",
+                "Tipo de sinistro: ",
+                tipo_registro,
+                "<br>",
+                "Custo: ",
+                scales::dollar(
+                    custos,
+                    accuracy = 0.01,
+                    prefix = "R$ ",
+                    decimal.mark = ",",
+                    big.mark = "."
+                )
+            )
+        )
 
     plt <- ggplot(df) +
-        geom_col(aes(x = ano_sinistro, y = custos, fill = tipo_registro)) +
+        geom_col(aes(
+            x = ano_sinistro,
+            y = custos,
+            fill = tipo_registro,
+            text = texto_hover
+        )) +
         theme_minimal() +
         scale_x_continuous(minor_breaks = NULL) +
         scale_y_continuous(
@@ -1397,7 +1501,7 @@ plot_custos_urbano <- function(sinistros_urbano, catalog_custos_urbano) {
         labs(x = NULL, y = NULL, fill = NULL) +
         theme(panel.grid.major.x = element_blank())
 
-    ggplotly(plt) |>
+    ggplotly(plt, tooltip = "text") |>
         layout(
             legend = list(
                 orientation = "h",
@@ -1437,10 +1541,33 @@ plot_custos_na <- function(
     df <- df_sinistros_na |>
         left_join(tbl_custos, by = "tipo_registro") |>
         group_by(ano_sinistro, tipo_registro) |>
-        summarise(custos = sum(custo_medio), .groups = "drop")
+        summarise(custos = sum(custo_medio), .groups = "drop") |>
+        mutate(
+            texto_hover = paste0(
+                "Ano: ",
+                ano_sinistro,
+                "<br>",
+                "Tipo de sinistro: ",
+                tipo_registro,
+                "<br>",
+                "Custo: ",
+                scales::dollar(
+                    custos,
+                    accuracy = 0.01,
+                    prefix = "R$ ",
+                    decimal.mark = ",",
+                    big.mark = "."
+                )
+            )
+        )
 
     plt <- ggplot(df) +
-        geom_col(aes(x = ano_sinistro, y = custos, fill = tipo_registro)) +
+        geom_col(aes(
+            x = ano_sinistro,
+            y = custos,
+            fill = tipo_registro,
+            text = texto_hover
+        )) +
         theme_minimal() +
         scale_x_continuous(minor_breaks = NULL) +
         scale_y_continuous(
@@ -1453,7 +1580,7 @@ plot_custos_na <- function(
         theme(panel.grid.major.x = element_blank()) +
         labs(x = NULL, y = NULL, fill = NULL)
 
-    ggplotly(plt) |>
+    ggplotly(plt, tooltip = "text") |>
         #config(locale = "pt-BR") |>
         layout(
             legend = list(

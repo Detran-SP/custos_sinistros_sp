@@ -258,27 +258,27 @@ list(
     #         df_custos_pessoas
     #     )
     # ),
-    tar_target(
-        tbl_resultados_veiculos,
-        formatar_custos_veiculos_rodovias(
-            df_sinistros_rodovias,
-            df_custos_veiculos
-        )
-    ),
-    tar_target(
-        tbl_resultados_inst,
-        formatar_custos_inst_rodovias(
-            df_sinistros_rodovias,
-            df_custos_inst
-        )
-    ),
-    tar_target(
-        tbl_resultados_vias_municipais,
-        formatar_custos_vias_municipais(
-            df_sinistros_municipios,
-            df_custos_urbanos
-        )
-    ),
+    # tar_target(
+    #     tbl_resultados_veiculos,
+    #     formatar_custos_veiculos_rodovias(
+    #         df_sinistros_rodovias,
+    #         df_custos_veiculos
+    #     )
+    # ),
+    # tar_target(
+    #     tbl_resultados_inst,
+    #     formatar_custos_inst_rodovias(
+    #         df_sinistros_rodovias,
+    #         df_custos_inst
+    #     )
+    # ),
+    # tar_target(
+    #     tbl_resultados_vias_municipais,
+    #     formatar_custos_vias_municipais(
+    #         df_sinistros_municipios,
+    #         df_custos_urbanos
+    #     )
+    # ),
     tar_target(
         df_custos_na_report,
         calc_custos_na_report(
