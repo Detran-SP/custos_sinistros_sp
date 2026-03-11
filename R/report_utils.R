@@ -469,7 +469,7 @@ plot_veiculos_sinistro <- function(df, date_start, date_end, via) {
 #' }
 plot_custos_componentes <- function(df_custos) {
     custos <- df_custos |>
-        select(-cod_ibge, -municipio, -custos_rodovias, -custos_totais) |>
+        select(-cod_ibge, -municipio, -ano_sinistro, -custos_rodovias, -custos_totais) |>
         colSums()
 
     df_componentes <- tibble(
@@ -931,7 +931,8 @@ plot_count_sinistros_via <- function(sinistros, date_start, date_end) {
             tipo_registro != "Notificação"
         ) |>
         count(tipo_via, tipo_registro, ano_sinistro) |>
-        replace_na(list(tipo_via = "Local não identificado"))
+        replace_na(list(tipo_via = "Local não identificado")) |>
+        mutate(ano_sinistro = as.character(ano_sinistro))
 
     plot <- ggplot(df) +
         geom_col(aes(x = ano_sinistro, y = n, fill = tipo_via)) +
@@ -941,7 +942,7 @@ plot_count_sinistros_via <- function(sinistros, date_start, date_end) {
             minor_breaks = NULL,
             labels = scales::label_number(big.mark = ".")
         ) +
-        scale_x_continuous(minor_breaks = NULL) +
+        scale_x_discrete() +
         labs(fill = NULL, y = NULL, x = NULL) +
         theme(panel.grid.major.x = element_blank(), legend.position = "top") +
         scale_fill_manual(
@@ -1001,7 +1002,7 @@ plot_vitimas_gravidade <- function(sinistros, date_start, date_end, input_via) {
             names_to = "gravidade",
             values_to = "n"
         ) |>
-        mutate(ano_sinistro = as.factor(ano_sinistro))
+        mutate(ano_sinistro = as.character(ano_sinistro))
 
     plot <- df |>
         ggplot() +
@@ -1082,6 +1083,7 @@ plot_veic_envolvido <- function(
             values_to = "n"
         ) |>
         mutate(
+            ano_sinistro = as.character(ano_sinistro),
             tipo_veiculo = factor(
                 tipo_veiculo,
                 levels = c(
@@ -1100,7 +1102,7 @@ plot_veic_envolvido <- function(
         ggplot() +
         geom_col(aes(x = ano_sinistro, y = n, fill = tipo_veiculo)) +
         theme_minimal() +
-        scale_x_continuous(minor_breaks = NULL) +
+        scale_x_discrete() +
         scale_y_continuous(
             minor_breaks = NULL,
             labels = scales::label_number(big.mark = ".")
@@ -1182,6 +1184,7 @@ plot_custos_pessoas_rodovias <- function(
             values_to = "custos"
         ) |>
         mutate(
+            ano_sinistro = as.character(ano_sinistro),
             texto_hover = paste0(
                 "Ano: ",
                 ano_sinistro,
@@ -1216,7 +1219,7 @@ plot_custos_pessoas_rodovias <- function(
                 decimal.mark = ","
             )
         ) +
-        scale_x_continuous(minor_breaks = NULL) +
+        scale_x_discrete() +
         labs(x = NULL, y = NULL, fill = NULL) +
         theme(panel.grid.major.x = element_blank()) +
         scale_fill_manual(
@@ -1309,6 +1312,7 @@ plot_custos_veic_rodovias <- function(
             )
         ) |>
         mutate(
+            ano_sinistro = as.character(ano_sinistro),
             texto_hover = paste0(
                 "Ano: ",
                 ano_sinistro,
@@ -1342,7 +1346,7 @@ plot_custos_veic_rodovias <- function(
             minor_breaks = NULL,
             labels = scales::dollar_format(prefix = "R$ ", big.mark = ".")
         ) +
-        scale_x_continuous(minor_breaks = NULL) +
+        scale_x_discrete() +
         scale_fill_manual(
             values = c(
                 palette_detran()$blue,
@@ -1394,6 +1398,7 @@ plot_custos_inst_rodovias <- function(
         group_by(ano_sinistro, tipo_registro) |>
         summarise(custos = sum(custos_atual)) |>
         mutate(
+            ano_sinistro = as.character(ano_sinistro),
             texto_hover = paste0(
                 "Ano: ",
                 ano_sinistro,
@@ -1420,7 +1425,7 @@ plot_custos_inst_rodovias <- function(
             text = texto_hover
         )) +
         theme_minimal() +
-        scale_x_continuous(minor_breaks = NULL) +
+        scale_x_discrete() +
         scale_y_continuous(
             minor_breaks = NULL,
             labels = scales::dollar_format(prefix = "R$ ", big.mark = ".")
@@ -1464,6 +1469,7 @@ plot_custos_urbano <- function(sinistros_urbano, catalog_custos_urbano) {
         group_by(ano_sinistro, tipo_registro) |>
         summarise(custos = sum(custos_atual)) |>
         mutate(
+            ano_sinistro = as.character(ano_sinistro),
             texto_hover = paste0(
                 "Ano: ",
                 ano_sinistro,
@@ -1490,7 +1496,7 @@ plot_custos_urbano <- function(sinistros_urbano, catalog_custos_urbano) {
             text = texto_hover
         )) +
         theme_minimal() +
-        scale_x_continuous(minor_breaks = NULL) +
+        scale_x_discrete() +
         scale_y_continuous(
             minor_breaks = NULL,
             labels = scales::dollar_format(prefix = "R$ ", big.mark = ".")
@@ -1543,6 +1549,7 @@ plot_custos_na <- function(
         group_by(ano_sinistro, tipo_registro) |>
         summarise(custos = sum(custo_medio), .groups = "drop") |>
         mutate(
+            ano_sinistro = as.character(ano_sinistro),
             texto_hover = paste0(
                 "Ano: ",
                 ano_sinistro,
@@ -1569,7 +1576,7 @@ plot_custos_na <- function(
             text = texto_hover
         )) +
         theme_minimal() +
-        scale_x_continuous(minor_breaks = NULL) +
+        scale_x_discrete() +
         scale_y_continuous(
             minor_breaks = NULL,
             labels = scales::dollar_format(prefix = "R$ ", big.mark = ".")
