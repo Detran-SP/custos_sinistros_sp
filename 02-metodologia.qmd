@@ -114,11 +114,11 @@ tar_read(tbl_custos_inst)
 
 Na @tbl-custos-urbanos estão apresentados os custos médios dos sinistros ocorridos em aglomerações urbanas com os valores de dezembro/2025, atualizados a partir de @ipeaImpactosSociaisEconomicos2003. O método original apresentado pelos autores não inclui um detalhamento sobre o custo de cada componente, como foi elaborado para as rodovias.
 
-Para a atualização dos valores, baseou-se novamente na @eq-ipca, considerando agora uma atualização dos valores de abril/2003 (IPCA = 2.144,49) [@ibgeIPCAIndiceNacional2025], o que resultou em uma taxa de correção de 3,393.
+Para a atualização dos valores, baseou-se novamente na @eq-ipca, considerando agora uma atualização dos valores de abril/2003 (IPCA = 2.144,49) [@ibgeIPCAIndiceNacional2025], o que resultou em uma taxa de correção de 3,452.
 
 ```{r}
 #| label: tbl-custos-urbanos
-#| tbl-cap: Custos médios de sinistros em vias urbanas
+#| tbl-cap: Custos médios de sinistros em vias urbanas (valores de dezembro/2025)
 
 tar_read(tbl_custos_urbanos)
 ```

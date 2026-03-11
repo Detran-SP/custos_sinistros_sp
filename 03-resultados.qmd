@@ -30,20 +30,20 @@ tar_load(n_sinistros)
 
 O custo total dos sinistros de trânsito no estado de São Paulo, considerando o período entre 2019-01-01 e 2025-12-31, resultou em aproximadamente R$ 82,44 bi de reais (`{r} custo_total`), considerando as `{r} n_sinistros` ocorrências nesse período. Apenas no último ano (2025), o impacto econômico foi cerca de R$ 10,60 bi, correspondente a 102.084 sinistros. 
 
-As seções a seguir apresentam um detalhamento dos sinistros ocorridos e dos custos. As seções a seguir apresentam um detalhamento dos sinistros ocorridos e dos custos.
+As seções a seguir apresentam um detalhamento dos sinistros ocorridos e dos custos.
 
 ## Sinistros
 
-A @fig-count-sinistros-via apresenta a distribuição dos sinistros fatais e não fatais segundo o tipo de via por ano. Ao todo, Observa-se que o maior número absoluto de sinistros não fatais ocorreu em vias urbanas, totalizando 684.922 registros, seguido por rodovias, com 152.474 casos. Os sinistros fatais foram ligeiramente mais frequentes em vias urbanas (18.774 casos) do que em rodovias (14.957 casos). Destaca-se também a presença de 2.005 sinistros fatais em locais não identificados, categoria que não apresenta registros de sinistros não fatais no período em análise.
+A @fig-count-sinistros-via apresenta a distribuição dos sinistros fatais e não fatais segundo o tipo de via por ano. Ao todo, observa-se que o maior número absoluto de sinistros não fatais ocorreu em vias urbanas, totalizando 684.922 registros, seguido por rodovias, com 152.474 casos. Os sinistros fatais foram ligeiramente mais frequentes em vias urbanas (18.774 casos) do que em rodovias (14.957 casos). Destaca-se também a presença de 2.005 sinistros fatais em locais não identificados, categoria que não apresenta registros de sinistros não fatais no período em análise.
 
 ```{r}
 #| label: fig-count-sinistros-via
-#| fig-cap: Quantidade de sinistros por tipo de via e tipo de sinistro
+#| fig-cap: Quantidade de sinistros por tipo de via e tipo de sinistro no estado de São Paulo por ano
 
 tar_read(plt_count_sinistros_via)
 ```
 
-A @fig-vitimas-gravidade-rodovias e a @fig-vitimas-gravidade-urbano apresentam a quantidade de vítimas segunda gravidade e tipo de via. Nas estradas e rodovias, observa-se maior volume de sinistros não fatais envolvendo vítimas com gravidade leve (140.012 casos), seguido de casos graves (26.979 casos) e, na sequência, de registros com gravidade não disponível (17.683 casos). Os sinistros fatais somam 16.553 ocorrências com gravidade fatal, além de 769 registros cuja gravidade não foi informada.
+A @fig-vitimas-gravidade-rodovias e a @fig-vitimas-gravidade-urbano apresentam a quantidade de vítimas segundo a gravidade e tipo de via. Nas estradas e rodovias, observa-se maior volume de sinistros não fatais envolvendo vítimas com gravidade leve (140.012 casos), seguido de casos graves (26.979 casos) e, na sequência, de registros com gravidade não disponível (17.683 casos). Os sinistros fatais somam 16.553 ocorrências com gravidade fatal, além de 769 registros cuja gravidade não foi informada.
 
 Nas vias urbanas, a distribuição apresenta padrão semelhante quanto à predominância de casos leves (638.995 casos). Em seguida aparecem os registros com gravidade não disponível (121.811 casos) e os casos graves (121.811), os sinistros fatais totalizam 18.708 dos casos.
 
@@ -55,7 +55,7 @@ Nas vias urbanas, a distribuição apresenta padrão semelhante quanto à predom
 
 ```{r}
 #| label: fig-vitimas-gravidade-rodovias
-#| fig-cap: Vítimas envolvidas nos sinistros em estradas e rodovias por gravidade
+#| fig-cap: Vítimas envolvidas nos sinistros em estradas e rodovias por gravidade no estado de São Paulo por ano
 
 tar_read(plt_vitimas_gravidade_rodovias)
 ```
@@ -64,14 +64,14 @@ tar_read(plt_vitimas_gravidade_rodovias)
 
 ```{r}
 #| label: fig-vitimas-gravidade-urbano
-#| fig-cap: Vítimas envolvidas nos sinistros em vias urbanas por gravidade
+#| fig-cap: Vítimas envolvidas nos sinistros em vias urbanas por gravidade no estado de São Paulo por ano
 
 tar_read(plt_vitimas_gravidade_urbano)
 ```
 
 :::
 
-A @fig-veic-fatal-rodovias , @fig-veic-fatal-urbano, @fig-veic-nao-fatal-rodovias e a @fig-vitimas-gravidade-urbano apresentam a quantidade de veículos envolvidos em sinistros, segundo o tipo de via, o tipo de veículo envolvido e a gravidade do evento. Em vias urbanas, os veículos mais frequentemente associados a sinistros não fatais são os automóveis (501.885 casos) e motocicletas (446.276 casos). Já entre os sinistros fatais, as motocicletas aparecem com destaque (10.943 casos), seguidas pelos automóveis (8.362 casos).
+A @fig-veic-fatal-rodovias , @fig-veic-fatal-urbano, @fig-veic-nao-fatal-rodovias e a @fig-veic-nao-fatal-urbano apresentam a quantidade de veículos envolvidos em sinistros, segundo o tipo de via, o tipo de veículo envolvido e a gravidade do evento. Em vias urbanas, os veículos mais frequentemente associados a sinistros não fatais são os automóveis (501.885 casos) e motocicletas (446.276 casos). Já entre os sinistros fatais, as motocicletas aparecem com destaque (10.943 casos), seguidas pelos automóveis (8.362 casos).
 
 Nas rodovias, o padrão é semelhante. Os sinistros não fatais incluem majoritariamente automóveis (116.865 casos) e motocicletas (81.356 casos). Entre os sinistros fatais, os automóveis lideram com 10.783 registros, seguidos por motocicletas (6.039) e caminhões (4.707). Em ambos os tipos de via, observa-se que as motocicletas concentram uma proporção expressiva dos sinistros fatais.
 
@@ -82,7 +82,7 @@ Nas rodovias, o padrão é semelhante. Os sinistros não fatais incluem majorita
 
 ```{r}
 #| label: fig-veic-fatal-rodovias
-#| fig-cap: Veículos envolvidos em sinistros fatais em estradas e rodovias
+#| fig-cap: Veículos envolvidos em sinistros fatais em estradas e rodovias no estado de São Paulo por ano
 
 tar_read(plt_veic_envolvido_fatal_rodovias)
 ```
@@ -91,7 +91,7 @@ tar_read(plt_veic_envolvido_fatal_rodovias)
 
 ```{r}
 #| label: fig-veic-fatal-urbano
-#| fig-cap: Veículos envolvidos em sinistros fatais em vias urbanas
+#| fig-cap: Veículos envolvidos em sinistros fatais em vias urbanas no estado de São Paulo por ano
 
 tar_read(plt_veic_envolvido_fatal_urbano)
 ```
@@ -100,7 +100,7 @@ tar_read(plt_veic_envolvido_fatal_urbano)
 
 ```{r}
 #| label: fig-veic-nao-fatal-rodovias
-#| fig-cap: Veículos envolvidos em sinistros não fatais em estradas e rodovias
+#| fig-cap: Veículos envolvidos em sinistros não fatais em estradas e rodovias no estado de São Paulo por ano
 
 tar_read(plt_veic_envolvido_nao_fatal_rodovia)
 ```
@@ -109,7 +109,7 @@ tar_read(plt_veic_envolvido_nao_fatal_rodovia)
 
 ```{r}
 #| label: fig-veic-nao-fatal-urbano
-#| fig-cap: Veículos envolvidos em sinistros não fatais em vias urbanas
+#| fig-cap: Veículos envolvidos em sinistros não fatais em vias urbanas no estado de São Paulo por ano 
 
 tar_read(plt_veic_envolvido_nao_fatal_urbano)
 ```
@@ -118,11 +118,11 @@ tar_read(plt_veic_envolvido_nao_fatal_urbano)
 
 ## Custos
 
-Conforme mostrado na @fig-custos, os custos com sinistros em vias urbanas ultrapassam R$ 50,65 bi, concentrando a maior parte das perdas. Já nas rodovias, os danos relacionados a vítimas representaram mais de R$ 22,23 bi, seguidos pelos custos relacionados aos veículos (R$ 8,04 bi) e por infraestrutura e patrimônio (R$ 112,75 mi). Houve ainda R$ 215 mi registrados em locais não identificados.
+Conforme mostrado na @fig-custos, entre 2019 e 2025, os custos com sinistros em vias urbanas ultrapassam R$ 50,65 bi, concentrando a maior parte das perdas. Já nas rodovias, os danos relacionados a vítimas representaram mais de R$ 22,23 bi, seguidos pelos custos relacionados aos veículos (R$ 8,04 bi) e  pelos custos em locais não identificados (R$ 1,48 bi). 
 
 ```{r}
 #| label: fig-custos
-#| fig-cap: Custos dos sinistros de trânsito no estado de São Paulo - Componentes por tipo de via (valores de abril/2025)
+#| fig-cap: Custos dos sinistros de trânsito por tipo de via no estado de São Paulo entre 2019 e 2025 (valores de dezembro/2025)
 
 tar_read(plt_custos_componentes)
 
@@ -132,7 +132,7 @@ A @fig-custos-pessoas-rodovias detalha os custos relacionados às vítimas de si
 
 ```{r}
 #| label: fig-custos-pessoas-rodovias
-#| fig-cap: Custos totais relacionados às pessoas em rodovias por gravidade da vítima
+#| fig-cap: Custos totais relacionados às pessoas em rodovias por gravidade da vítima no estado de São Paulo por ano (Valores de dezembro/2025)
 
 tar_read(plt_custos_pessoas_rodovias)
 ```
@@ -141,7 +141,7 @@ Na @fig-custos-veic-rodovias, observam-se os custos associados aos veículos env
 
 ```{r}
 #| label: fig-custos-veic-rodovias
-#| fig-cap: Custos totais relacionados aos veículos em rodovias por tipo de veículo e tipo de sinistro
+#| fig-cap: Custos totais relacionados aos veículos em rodovias por tipo de veículo e tipo de sinistro no estado de São Paulo por ano (Valores de dezembro/2025)
 
 tar_read(plt_custos_veic_rodovias)
 ```
@@ -150,7 +150,7 @@ A @fig-custos-inst-rodovias reúne os custos institucionais e os danos patrimoni
 
 ```{r}
 #| label: fig-custos-inst-rodovias
-#| fig-cap: Custos institucionais e danos patrimoniais em rodovias por tipo de sinistro
+#| fig-cap: Custos institucionais e danos patrimoniais em rodovias por tipo de sinistro no estado de São Paulo por ano (Valores de dezembro/2025)
 
 tar_read(plt_custos_inst_rodovias)
 
@@ -163,7 +163,7 @@ A @fig-custos-urbano mostra que os sinistros em vias urbanas geraram um custo to
 
 ```{r}
 #| label: fig-custos-urbano
-#| fig-cap: Custos totais dos sinistros em vias urbanas por tipo de sinistro
+#| fig-cap: Custos totais dos sinistros em vias urbanas por tipo de sinistro no estado de São Paulo por ano (Valores de dezembro/2025)
 
 tar_read(plt_custos_urbano)
 ```
@@ -172,12 +172,12 @@ Ainda que com menor representatividade no total de registros, os sinistros em lo
 
 ```{r}
 #| label: fig-custos-na
-#| fig-cap: Custos totais dos sinistros em vias de tipo não identificado, por tipo de sinistro
+#| fig-cap: Custos totais dos sinistros em vias de tipo não identificado por tipo de sinistro no estado de São Paulo por ano (Valores de dezembro/2025)
 
 tar_read(plt_custos_na)
 ```
 
-Considerando os três tipos de via analisados, os sinistros em vias urbanas concentram o maior volume de custos, totalizando cerca de R$ 50,65 bi, impulsionados principalmente pelos sinistros não fatais. Nas rodovias, o impacto foi de aproximadamente R$ 33,60 bi, distribuídos entre custos com vítimas, veículos e danos institucionais. Já os registros em locais não identificados, apesar de menos numerosos, somaram R$ 1,47 bi exclusivamente em sinistros fatais. Esses números evidenciam tanto a magnitude dos prejuízos econômicos quanto a necessidade de qualificar os dados geográficos para aprimorar a gestão da segurança viária.
+Considerando os três tipos de via analisados, os sinistros em vias urbanas concentram o maior volume de custos, **totalizando cerca de R$ 50,65 bi**, impulsionados principalmente pelos sinistros não fatais. Nas rodovias, o impacto foi de aproximadamente R$ 33,60 bi, distribuídos entre custos com vítimas, veículos e danos institucionais. Já os registros em locais não identificados, apesar de menos numerosos, somaram R$ 1,47 bi exclusivamente em sinistros fatais. Esses números evidenciam tanto a magnitude dos prejuízos econômicos quanto a necessidade de qualificar os dados geográficos para aprimorar a gestão da segurança viária.
 
 ## Custos por município
 
@@ -191,7 +191,7 @@ Os mapas a seguir (@fig-mapa-total, @fig-mapa-rodovias, @fig-mapa-urbano e @fig-
 
 ```{r}
 #| label: fig-mapa-total
-#| fig-cap: Custos dos sinistros agregados por município de ocorrência
+#| fig-cap: Custos dos sinistros agregados por município de ocorrência entre 2019 e 2025 (Valores de dezembro/2025)
 #| fig-align: left
 
 tar_read(map_custos_total)
@@ -201,7 +201,7 @@ tar_read(map_custos_total)
 
 ```{r}
 #| label: fig-mapa-rodovias
-#| fig-cap: Custos dos sinistros em estradas e rodovias, agregados por município de ocorrência
+#| fig-cap: Custos dos sinistros em estradas e rodovias por município de ocorrência entre 2019 e 2025 (Valores de dezembro/2025)
 #| fig-align: left
 
 
@@ -212,7 +212,7 @@ tar_read(map_custos_rodovias)
 
 ```{r}
 #| label: fig-mapa-urbano
-#| fig-cap: Custos dos sinistros em vias urbanas, agregados por município de ocorrência
+#| fig-cap: Custos dos sinistros em vias urbanas por município de ocorrência entre 2019 e 2025 (Valores de dezembro/2025)
 #| fig-align: left
 
 
@@ -223,7 +223,7 @@ tar_read(map_custos_urbanos)
 
 ```{r}
 #| label: fig-mapa-na
-#| fig-cap: Custos dos sinistros em vias de tipo não identificado, agregados por município de ocorrência
+#| fig-cap: Custos dos sinistros em vias de tipo não identificado por município de ocorrência entre 2019 e 2025 (Valores de dezembro/2025)
 #| fig-align: left
 
 tar_read(map_custos_na)
@@ -236,7 +236,7 @@ Por fim, a @tbl-custo-municipio apresenta de forma agregada os custos dos sinist
 
 ```{r}
 #| label: tbl-custo-municipio
-#| tbl-cap: Custo dos sinistros de trânsito agregados por município da ocorrência (Valores de dezembro/2025)
+#| tbl-cap: Custo dos sinistros de trânsito por município da ocorrência entre 2019 e 2025 (Valores de dezembro/2025)
 
 tar_read(tbl_custos_municipio)
 ```
