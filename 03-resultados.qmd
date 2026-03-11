@@ -183,7 +183,7 @@ Por fim, a @tbl-custo-municipio apresenta de forma agregada os custos dos sinist
 
 ```{r}
 #| label: tbl-custo-municipio
-#| tbl-cap: Custo dos sinistros de trânsito agregados por município da ocorrência (Valores de abril/2025)
+#| tbl-cap: Custo dos sinistros de trânsito agregados por município da ocorrência (Valores de dezembro/2025)
 
 tar_read(tbl_custos_municipio)
 ```
@@ -194,7 +194,7 @@ tar_read(tbl_custos_municipio)
 
 ```{r}
 #| label: fig-mapa-total
-#| fig-cap: Custos dos sinistros agregados por município de ocorrência
+#| fig-cap: Custos dos sinistros agregados por município de ocorrência, em 2025 (valores de dezembro/2025)
 #| fig-align: left
 
 tar_read(map_custos_total)
@@ -204,7 +204,7 @@ tar_read(map_custos_total)
 
 ```{r}
 #| label: fig-mapa-rodovias
-#| fig-cap: Custos dos sinistros em estradas e rodovias, agregados por município de ocorrência
+#| fig-cap: Custos dos sinistros em estradas e rodovias, agregados por município de ocorrência, em 2025 (valores de dezembro/2025)
 #| fig-align: left
 
 
@@ -215,7 +215,7 @@ tar_read(map_custos_rodovias)
 
 ```{r}
 #| label: fig-mapa-urbano
-#| fig-cap: Custos dos sinistros em vias urbanas, agregados por município de ocorrência
+#| fig-cap: Custos dos sinistros em vias urbanas, agregados por município de ocorrência, em 2025 (valores de dezembro/2025)
 #| fig-align: left
 
 
@@ -226,7 +226,7 @@ tar_read(map_custos_urbanos)
 
 ```{r}
 #| label: fig-mapa-na
-#| fig-cap: Custos dos sinistros em vias de tipo não identificado, agregados por município de ocorrência
+#| fig-cap: Custos dos sinistros em vias de tipo não identificado, agregados por município de ocorrência, em 2025 (valores de dezembro/2025)
 #| fig-align: left
 
 tar_read(map_custos_na)
