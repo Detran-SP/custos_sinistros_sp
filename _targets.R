@@ -83,7 +83,8 @@ list(
         calc_custos_pessoas(
             df_sinistros_rodovias,
             df_custos_pessoas,
-            group = cod_ibge
+            cod_ibge,
+            ano_sinistro
         )
     ),
     tar_target(
@@ -91,12 +92,18 @@ list(
         calc_custos_veiculos(
             df_sinistros_rodovias,
             df_custos_veiculos,
-            cod_ibge
+            cod_ibge,
+            ano_sinistro
         )
     ),
     tar_target(
         df_custos_rodovias_inst,
-        calc_custos_inst(df_sinistros_rodovias, df_custos_inst, cod_ibge)
+        calc_custos_inst(
+            df_sinistros_rodovias,
+            df_custos_inst,
+            cod_ibge,
+            ano_sinistro
+        )
     ),
     tar_target(
         df_custos_rodovias,
@@ -112,7 +119,8 @@ list(
         calc_custos_urbanos(
             df_sinistros_municipios,
             df_custos_urbanos,
-            cod_ibge
+            cod_ibge,
+            ano_sinistro
         )
     ),
     tar_target(
@@ -193,6 +201,17 @@ list(
         )
     ),
     tar_target(
+        df_custos_municipio_2025,
+        df_municipios |>
+            left_join(
+                df_custos_municipio |>
+                    filter(ano_sinistro == 2025) |>
+                    select(-municipio),
+                by = "cod_ibge"
+            ) |>
+            mutate(across(starts_with("custos"), ~ replace_na(.x, 0)))
+    ),
+    tar_target(
         tbl_custos_veiculos,
         formatar_tabela_custos(
             df_custos_veiculos,
@@ -251,34 +270,34 @@ list(
     #     )
     # ),
     #tar_target(fig_custos, plot_custos_componentes(df_custos_municipio)),
-    tar_target(
-        tbl_resultados_pessoas,
-        formatar_custos_pessoas_rodovias(
-            df_sinistros_rodovias,
-            df_custos_pessoas
-        )
-    ),
-    tar_target(
-        tbl_resultados_veiculos,
-        formatar_custos_veiculos_rodovias(
-            df_sinistros_rodovias,
-            df_custos_veiculos
-        )
-    ),
-    tar_target(
-        tbl_resultados_inst,
-        formatar_custos_inst_rodovias(
-            df_sinistros_rodovias,
-            df_custos_inst
-        )
-    ),
-    tar_target(
-        tbl_resultados_vias_municipais,
-        formatar_custos_vias_municipais(
-            df_sinistros_municipios,
-            df_custos_urbanos
-        )
-    ),
+    # tar_target(
+    #     tbl_resultados_pessoas,
+    #     formatar_custos_pessoas_rodovias(
+    #         df_sinistros_rodovias,
+    #         df_custos_pessoas
+    #     )
+    # ),
+    # tar_target(
+    #     tbl_resultados_veiculos,
+    #     formatar_custos_veiculos_rodovias(
+    #         df_sinistros_rodovias,
+    #         df_custos_veiculos
+    #     )
+    # ),
+    # tar_target(
+    #     tbl_resultados_inst,
+    #     formatar_custos_inst_rodovias(
+    #         df_sinistros_rodovias,
+    #         df_custos_inst
+    #     )
+    # ),
+    # tar_target(
+    #     tbl_resultados_vias_municipais,
+    #     formatar_custos_vias_municipais(
+    #         df_sinistros_municipios,
+    #         df_custos_urbanos
+    #     )
+    # ),
     tar_target(
         df_custos_na_report,
         calc_custos_na_report(
@@ -289,7 +308,7 @@ list(
     ),
     tar_target(
         tbl_custos_municipio,
-        formatar_tabela_custos_municipios(df_custos_municipio)
+        formatar_tabela_custos_municipios(df_custos_municipio_2025)
     ),
     tar_target(
         df_prop_vitimas,
@@ -397,19 +416,19 @@ list(
     ),
     tar_target(
         map_custos_total,
-        plot_custos_map(sf_municipios, df_custos_municipio, "custos_totais")
+        plot_custos_map(sf_municipios, df_custos_municipio_2025, "custos_totais")
     ),
     tar_target(
         map_custos_urbanos,
-        plot_custos_map(sf_municipios, df_custos_municipio, "custos_urbanos")
+        plot_custos_map(sf_municipios, df_custos_municipio_2025, "custos_urbanos")
     ),
     tar_target(
         map_custos_rodovias,
-        plot_custos_map(sf_municipios, df_custos_municipio, "custos_rodovias")
+        plot_custos_map(sf_municipios, df_custos_municipio_2025, "custos_rodovias")
     ),
     tar_target(
         map_custos_na,
-        plot_custos_map(sf_municipios, df_custos_municipio, "custos_na")
+        plot_custos_map(sf_municipios, df_custos_municipio_2025, "custos_na")
     ),
     tar_target(sf_municipios, geobr::read_municipality(code_muni = "SP")),
     tar_target(

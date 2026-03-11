@@ -167,7 +167,7 @@ extract_sinistros <- function(
 calc_custos_pessoas <- function(
     df_sinistros,
     df_custos,
-    group = c(cod_ibge, tipo_registro)
+    ...
 ) {
     df_wide = df_custos |>
         select(-custos) |>
@@ -191,8 +191,8 @@ calc_custos_pessoas <- function(
                 qtd_gravidade_fatal * custos_fatal +
                 qtd_gravidade_nao_disponivel * custos_nao_disponivel
         ) |>
-        group_by({{ group }}) |>
-        summarise(custos_pessoas = sum(custos_pessoas))
+        group_by(...) |>
+        summarise(custos_pessoas = sum(custos_pessoas), .groups = "drop")
 }
 
 #' Calculate vehicle-related crash costs
@@ -217,7 +217,7 @@ calc_custos_pessoas <- function(
 calc_custos_veiculos = function(
     df_sinistros,
     df_custos,
-    group = c(cod_ibge, tipo_registro)
+    ...
 ) {
     df_wide = df_custos |>
         select(-custos) |>
@@ -243,8 +243,8 @@ calc_custos_veiculos = function(
                 qtd_veic_outros * custos_outros +
                 qtd_veic_nao_disponivel * custos_nao_disponivel
         ) |>
-        group_by({{ group }}) |>
-        summarise(custos_veiculos = sum(custos_veiculos))
+        group_by(...) |>
+        summarise(custos_veiculos = sum(custos_veiculos), .groups = "drop")
 }
 
 #' Calculate institutional crash costs
@@ -269,15 +269,15 @@ calc_custos_veiculos = function(
 calc_custos_inst = function(
     df_sinistros,
     df_custos,
-    group = c(cod_ibge, tipo_registro)
+    ...
 ) {
     df_sinistros |>
         left_join(
             df_custos |> select(-custos),
             by = c("tipo_registro" = "tipo_sinistro")
         ) |>
-        group_by({{ group }}) |>
-        summarise(custos_inst = sum(custos_atual))
+        group_by(...) |>
+        summarise(custos_inst = sum(custos_atual), .groups = "drop")
 }
 
 
@@ -303,15 +303,15 @@ calc_custos_inst = function(
 calc_custos_urbanos = function(
     df_sinistros,
     df_custos,
-    group = c(cod_ibge, tipo_registro)
+    ...
 ) {
     df_sinistros |>
         left_join(
             df_custos |> select(-custos),
             by = c("tipo_registro" = "tipo_sinistro")
         ) |>
-        group_by({{ group }}) |>
-        summarise(custos_urbanos = sum(custos_atual))
+        group_by(...) |>
+        summarise(custos_urbanos = sum(custos_atual), .groups = "drop")
 }
 
 #' Join highway cost components
@@ -342,10 +342,10 @@ join_custos_rodovias = function(
     custos_veiculos,
     custos_inst
 ) {
-    df_municipios |>
-        left_join(custos_pessoas, by = "cod_ibge") |>
-        left_join(custos_veiculos, by = "cod_ibge") |>
-        left_join(custos_inst, by = "cod_ibge") |>
+    custos_pessoas |>
+        full_join(custos_veiculos, by = c("cod_ibge", "ano_sinistro")) |>
+        full_join(custos_inst, by = c("cod_ibge", "ano_sinistro")) |>
+        left_join(df_municipios, by = "cod_ibge") |>
         mutate(
             across(starts_with("custos"), ~ if_else(is.na(.x), 0, .x)),
             custos_rodovias = custos_pessoas + custos_veiculos + custos_inst
@@ -380,10 +380,11 @@ join_all_custos <- function(
     custos_urbanos,
     custos_vias_na
 ) {
-    df_municipios |>
-        left_join(custos_rodovias |> select(-municipio), by = "cod_ibge") |>
-        left_join(custos_urbanos, by = "cod_ibge") |>
-        left_join(custos_vias_na, by = "cod_ibge") |>
+    custos_rodovias |>
+        select(-municipio) |>
+        full_join(custos_urbanos, by = c("cod_ibge", "ano_sinistro")) |>
+        full_join(custos_vias_na, by = c("cod_ibge", "ano_sinistro")) |>
+        left_join(df_municipios, by = "cod_ibge") |>
         mutate(
             across(starts_with("custos"), ~ if_else(is.na(.x), 0, .x)),
             custos_totais = custos_rodovias + custos_urbanos + custos_na
@@ -524,6 +525,6 @@ calc_custos_sinistros_na <- function(
 
     df_sinistros_na |>
         left_join(df_custos, by = "tipo_registro") |>
-        group_by(cod_ibge) |>
-        summarise(custos_na = sum(custo_medio))
+        group_by(cod_ibge, ano_sinistro) |>
+        summarise(custos_na = sum(custo_medio), .groups = "drop")
 }
