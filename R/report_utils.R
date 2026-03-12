@@ -469,7 +469,13 @@ plot_veiculos_sinistro <- function(df, date_start, date_end, via) {
 #' }
 plot_custos_componentes <- function(df_custos) {
     custos <- df_custos |>
-        select(-cod_ibge, -municipio, -ano_sinistro, -custos_rodovias, -custos_totais) |>
+        select(
+            -cod_ibge,
+            -municipio,
+            -ano_sinistro,
+            -custos_rodovias,
+            -custos_totais
+        ) |>
         colSums()
 
     df_componentes <- tibble(
@@ -1012,7 +1018,7 @@ plot_vitimas_gravidade <- function(sinistros, date_start, date_end, input_via) {
             minor_breaks = NULL,
             labels = scales::label_number(big.mark = ".")
         ) +
-        scale_x_discrete(minor_breaks = NULL) +
+        scale_x_discrete() +
         labs(x = NULL, y = NULL, fill = NULL) +
         theme(panel.grid.major.x = element_blank()) +
         scale_fill_manual(
