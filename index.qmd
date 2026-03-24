@@ -2,24 +2,41 @@
 
 ## Resumo
 
-A estimativa monetária dos sinistros de trânsito é uma dimensão estratégica para a gestão da segurança viária, pois permite traduzir perdas humanas e materiais em métricas comparáveis para priorização de políticas e investimentos. Contudo, no Brasil, as metodologias de valoração ainda dependem, em grande medida, de parâmetros nacionais e de bases administrativas com limitações de cobertura e detalhamento, o que dificulta a produção de estimativas consistentes em escala subnacional. Esta nota técnica tem como objetivo apresentar uma metodologia de cálculo para estimar os custos dos sinistros de trânsito no estado de São Paulo, adaptando e sintetizando abordagens desenvolvidas pelo IPEA, com aplicação aos registros do Infosiga referentes ao período entre 2019 e 2025. A metodologia foi implementada em R e utiliza dados de sinistros fatais e não fatais, classificados por tipo de via (rodovias, vias urbanas e local não identificado), combinando: (i) custos de pessoas, veículos e danos institucionais/patrimoniais em rodovias (base IPEA 2015), (ii) custos médios em vias urbanas (base IPEA/ANTP 2003), e (iii) média entre ambos para locais não identificados; todos os componentes foram atualizados para Dezembro/2025 via IPCA e, para categorias “não disponível”, aplicou-se média ponderada com proporções empíricas do Infosiga. Os resultados indicam um custo total estimado de aproximadamente R$ 82,52 bilhões associados aos sinistros de trânsito no estado de São Paulo entre 2019 e 2025, considerando 870.406 ocorrências registradas no período. As perdas concentram-se principalmente em vias urbanas, que somaram cerca de R$ 50,65 bilhões, enquanto as rodovias responderam por aproximadamente R$ 30,39 bilhões. Os registros em locais não identificados, embora menos numerosos, totalizaram cerca de R$ 1,47 bilhão em custos. Destacam-se os impactos associados às vítimas fatais, que representaram mais de R$ 9,30 bilhões em vias urbanas e cerca de R$ 13,18 bilhões em rodovias, evidenciando o elevado custo econômico das ocorrências de maior gravidade. Conclui-se que o método fornece uma base replicável para monitoramento e comparação territorial, mas permanece sensível a lacunas de dados e ao uso de parâmetros nacionais, sugerindo como agenda futura a calibração de custos específicos para São Paulo e o aprimoramento da qualificação dos registros.
+A estimativa monetária dos sinistros de trânsito é uma dimensão estratégica para a gestão da segurança viária, pois permite traduzir perdas humanas e materiais em métricas comparáveis para priorização de políticas e investimentos. Contudo, no Brasil, as metodologias de valoração ainda dependem, em grande medida, de parâmetros nacionais e de bases administrativas com limitações de cobertura e detalhamento, o que dificulta a produção de estimativas consistentes em escala subnacional. 
+
+Esta nota técnica tem como objetivo apresentar uma metodologia de cálculo para estimar os custos dos sinistros de trânsito no estado de São Paulo, adaptando e sintetizando abordagens desenvolvidas pelo IPEA, com aplicação aos registros do Infosiga referentes ao período entre 2019 e 2025. 
+
+A metodologia foi implementada em R e utiliza dados de sinistros fatais e não fatais, classificados por tipo de via (rodovias, vias urbanas e local não identificado), combinando: (i) custos de pessoas, veículos e danos institucionais/patrimoniais em rodovias (base IPEA 2015), (ii) custos médios em vias urbanas (base IPEA/ANTP 2003), e (iii) média entre ambos para locais não identificados; todos os componentes foram atualizados para Dezembro/2025 via IPCA e, para categorias “não disponível”, aplicou-se média ponderada com proporções empíricas do Infosiga. 
+
+Os resultados indicam um custo total estimado de aproximadamente R$ 82,52 bilhões associados aos sinistros de trânsito no estado de São Paulo entre 2019 e 2025, considerando 870.406 ocorrências registradas no período. As perdas concentram-se principalmente em vias urbanas, que somaram cerca de R$ 50,65 bilhões, enquanto as rodovias responderam por aproximadamente R$ 30,39 bilhões. Os registros em locais não identificados, embora menos numerosos, totalizaram cerca de R$ 1,47 bilhão em custos. Destacam-se os impactos associados às vítimas fatais, que representaram mais de R$ 9,30 bilhões em vias urbanas e cerca de R$ 13,18 bilhões em rodovias, evidenciando o elevado custo econômico das ocorrências de maior gravidade. 
+
+Conclui-se que o método fornece uma base replicável para monitoramento e comparação territorial, mas permanece sensível a lacunas de dados e ao uso de parâmetros nacionais, sugerindo como agenda futura a calibração de custos específicos para São Paulo e o aprimoramento da qualificação dos registros.
 
 ## Ficha técnica
+
 **Instituição/Organização Responsável**
+
 Coordenadoria Geral de Segurança Viária – DSV/CGSV | DETRAN-SP
 
 **Autores**
+
 Pedro Augusto Borges dos Santos | DETRAN-SP
+
 André Victor Igarashi | DETRAN-SP
+
 Aline Conceição Abrantes da Silva | DETRAN-SP
+
 Bruno Santana do Nascimento | DETRAN-SP
 
 **Licença/Direitos Autorais**
+
 2025 – Departamento Estadual de Trânsito de São Paulo (DETRAN-SP). Todos os direitos reservados.
 
 **Local e Ano de Publicação**
+
 São Paulo, 2026.
 
 ## Como citar
+
 DEPARTAMENTO ESTADUAL DE TRÂNSITO DE SÃO PAULO (Detran-SP). Nota Técnica 02: Estimativa do custo dos sinistros de trânsito no estado de São Paulo - Metodologia de cálculo. São Paulo, 2025. Disponível em: https://detran-sp.github.io/custos_sinistros_sp/. Acesso em: dd mmm. aaaa." Em que "dd" é o número do dia com 2 algarismos, "mmm" é o mês abreviado por 3 letras minúsculas seguidas por "." e "aaaa" é o número do ano com 4 algarismos.
 
