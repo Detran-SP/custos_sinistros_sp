@@ -30,7 +30,7 @@ renv::restore()
 
 ## Uso
 
-1. **Baixe os dados do Infosiga**: Acesse os [dados abertos do Infosiga](https://infosiga.detran.sp.gov.br/rest/painel/download/file/dados_infosiga.zip) e insira o arquivo `dados_infosiga.zip` na pasta `data/`.
+1. **Baixe os dados do Infosiga**: Acesse os [dados abertos do Infosiga (dados divulgados em Janeiro/2026)](https://drive.google.com/file/d/177B3Mds3R5O8X5RXZa0kZ-wTgzEbJWC9/view) e insira o arquivo `dados_infosiga.zip` na pasta `data/`.
 
 2. **Configure os parâmetros**: Edite o arquivo `_targets.R` caso necessário (datas de início/fim e fatores IPCA).
 
