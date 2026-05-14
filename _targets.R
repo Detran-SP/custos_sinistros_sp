@@ -25,7 +25,7 @@ tar_source(
 )
 
 list(
-    tar_target(date_start, "2019-01-01"),
+    tar_target(date_start, "2025-01-01"),
     tar_target(date_end, "2025-12-31"),
     tar_target(
         tp_sinistros,
@@ -270,34 +270,34 @@ list(
     #     )
     # ),
     #tar_target(fig_custos, plot_custos_componentes(df_custos_municipio)),
-    # tar_target(
-    #     tbl_resultados_pessoas,
-    #     formatar_custos_pessoas_rodovias(
-    #         df_sinistros_rodovias,
-    #         df_custos_pessoas
-    #     )
-    # ),
-    # tar_target(
-    #     tbl_resultados_veiculos,
-    #     formatar_custos_veiculos_rodovias(
-    #         df_sinistros_rodovias,
-    #         df_custos_veiculos
-    #     )
-    # ),
-    # tar_target(
-    #     tbl_resultados_inst,
-    #     formatar_custos_inst_rodovias(
-    #         df_sinistros_rodovias,
-    #         df_custos_inst
-    #     )
-    # ),
-    # tar_target(
-    #     tbl_resultados_vias_municipais,
-    #     formatar_custos_vias_municipais(
-    #         df_sinistros_municipios,
-    #         df_custos_urbanos
-    #     )
-    # ),
+    tar_target(
+        tbl_resultados_pessoas,
+        formatar_custos_pessoas_rodovias(
+            df_sinistros_rodovias,
+            df_custos_pessoas
+        )
+    ),
+    tar_target(
+        tbl_resultados_veiculos,
+        formatar_custos_veiculos_rodovias(
+            df_sinistros_rodovias,
+            df_custos_veiculos
+        )
+    ),
+    tar_target(
+        tbl_resultados_inst,
+        formatar_custos_inst_rodovias(
+            df_sinistros_rodovias,
+            df_custos_inst
+        )
+    ),
+    tar_target(
+        tbl_resultados_vias_municipais,
+        formatar_custos_vias_municipais(
+            df_sinistros_municipios,
+            df_custos_urbanos
+        )
+    ),
     tar_target(
         df_custos_na_report,
         calc_custos_na_report(
@@ -328,92 +328,92 @@ list(
             "Sinistro não fatal"
         )
     ),
-    tar_target(
-        plt_count_sinistros_via,
-        plot_count_sinistros_via(df_sinistros, date_start, date_end)
-    ),
-    tar_target(
-        plt_vitimas_gravidade_urbano,
-        plot_vitimas_gravidade(
-            df_sinistros,
-            date_start,
-            date_end,
-            "Vias urbanas"
-        )
-    ),
-    tar_target(
-        plt_vitimas_gravidade_rodovias,
-        plot_vitimas_gravidade(
-            df_sinistros,
-            date_start,
-            date_end,
-            "Estradas e rodovias"
-        )
-    ),
-    tar_target(
-        plt_veic_envolvido_fatal_rodovias,
-        plot_veic_envolvido(
-            df_sinistros,
-            date_start,
-            date_end,
-            "Sinistro fatal",
-            "Estradas e rodovias"
-        )
-    ),
-    tar_target(
-        plt_veic_envolvido_fatal_urbano,
-        plot_veic_envolvido(
-            df_sinistros,
-            date_start,
-            date_end,
-            "Sinistro fatal",
-            "Vias urbanas"
-        )
-    ),
-    tar_target(
-        plt_veic_envolvido_nao_fatal_rodovia,
-        plot_veic_envolvido(
-            df_sinistros,
-            date_start,
-            date_end,
-            "Sinistro não fatal",
-            "Estradas e rodovias"
-        )
-    ),
-    tar_target(
-        plt_veic_envolvido_nao_fatal_urbano,
-        plot_veic_envolvido(
-            df_sinistros,
-            date_start,
-            date_end,
-            "Sinistro não fatal",
-            "Vias urbanas"
-        )
-    ),
-    tar_target(
-        plt_custos_pessoas_rodovias,
-        plot_custos_pessoas_rodovias(df_sinistros_rodovias, df_custos_pessoas)
-    ),
-    tar_target(
-        plt_custos_veic_rodovias,
-        plot_custos_veic_rodovias(df_sinistros_rodovias, df_custos_veiculos)
-    ),
-    tar_target(
-        plt_custos_inst_rodovias,
-        plot_custos_inst_rodovias(df_sinistros_rodovias, df_custos_inst)
-    ),
-    tar_target(
-        plt_custos_urbano,
-        plot_custos_urbano(df_sinistros_municipios, df_custos_urbanos)
-    ),
-    tar_target(
-        plt_custos_na,
-        plot_custos_na(
-            df_sinistros_na,
-            df_custos_na_rodovias,
-            df_custos_na_urbano
-        )
-    ),
+    # tar_target(
+    #     plt_count_sinistros_via,
+    #     plot_count_sinistros_via(df_sinistros, date_start, date_end)
+    # ),
+    # tar_target(
+    #     plt_vitimas_gravidade_urbano,
+    #     plot_vitimas_gravidade(
+    #         df_sinistros,
+    #         date_start,
+    #         date_end,
+    #         "Vias urbanas"
+    #     )
+    # ),
+    # tar_target(
+    #     plt_vitimas_gravidade_rodovias,
+    #     plot_vitimas_gravidade(
+    #         df_sinistros,
+    #         date_start,
+    #         date_end,
+    #         "Estradas e rodovias"
+    #     )
+    # ),
+    # tar_target(
+    #     plt_veic_envolvido_fatal_rodovias,
+    #     plot_veic_envolvido(
+    #         df_sinistros,
+    #         date_start,
+    #         date_end,
+    #         "Sinistro fatal",
+    #         "Estradas e rodovias"
+    #     )
+    # ),
+    # tar_target(
+    #     plt_veic_envolvido_fatal_urbano,
+    #     plot_veic_envolvido(
+    #         df_sinistros,
+    #         date_start,
+    #         date_end,
+    #         "Sinistro fatal",
+    #         "Vias urbanas"
+    #     )
+    # ),
+    # tar_target(
+    #     plt_veic_envolvido_nao_fatal_rodovia,
+    #     plot_veic_envolvido(
+    #         df_sinistros,
+    #         date_start,
+    #         date_end,
+    #         "Sinistro não fatal",
+    #         "Estradas e rodovias"
+    #     )
+    # ),
+    # tar_target(
+    #     plt_veic_envolvido_nao_fatal_urbano,
+    #     plot_veic_envolvido(
+    #         df_sinistros,
+    #         date_start,
+    #         date_end,
+    #         "Sinistro não fatal",
+    #         "Vias urbanas"
+    #     )
+    # ),
+    # tar_target(
+    #     plt_custos_pessoas_rodovias,
+    #     plot_custos_pessoas_rodovias(df_sinistros_rodovias, df_custos_pessoas)
+    # ),
+    # tar_target(
+    #     plt_custos_veic_rodovias,
+    #     plot_custos_veic_rodovias(df_sinistros_rodovias, df_custos_veiculos)
+    # ),
+    # tar_target(
+    #     plt_custos_inst_rodovias,
+    #     plot_custos_inst_rodovias(df_sinistros_rodovias, df_custos_inst)
+    # ),
+    # tar_target(
+    #     plt_custos_urbano,
+    #     plot_custos_urbano(df_sinistros_municipios, df_custos_urbanos)
+    # ),
+    # tar_target(
+    #     plt_custos_na,
+    #     plot_custos_na(
+    #         df_sinistros_na,
+    #         df_custos_na_rodovias,
+    #         df_custos_na_urbano
+    #     )
+    # ),
     tar_target(
         map_custos_total,
         plot_custos_map(sf_municipios, df_custos_municipio_2025, "custos_totais")
@@ -431,9 +431,9 @@ list(
         plot_custos_map(sf_municipios, df_custos_municipio_2025, "custos_na")
     ),
     tar_target(sf_municipios, geobr::read_municipality(code_muni = "SP")),
-    tar_target(
-        plt_custos_componentes,
-        plot_custos_componentes(df_custos_municipio)
-    ),
+    # tar_target(
+    #     plt_custos_componentes,
+    #     plot_custos_componentes(df_custos_municipio)
+    # ),
     tar_quarto(report, ".")
 )
