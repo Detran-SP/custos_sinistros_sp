@@ -431,9 +431,9 @@ list(
         plot_custos_map(sf_municipios, df_custos_municipio_2025, "custos_na")
     ),
     tar_target(sf_municipios, geobr::read_municipality(code_muni = "SP")),
-    # tar_target(
-    #     plt_custos_componentes,
-    #     plot_custos_componentes(df_custos_municipio)
-    # ),
+    tar_target(
+        plt_custos_componentes,
+        plot_custos_componentes(df_custos_municipio)
+    ),
     tar_quarto(report, ".")
 )
